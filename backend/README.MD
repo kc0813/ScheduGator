@@ -1,4 +1,8 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+![Python checks](https://github.com/C2H2-UF/ScheduGator/actions/workflows/greetings.yml/badge.svg)
+
+
 # Backend
 
 Welcome to the backend! we are using the django framework and the python language.
