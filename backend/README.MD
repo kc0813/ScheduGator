@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+=======
+>>>>>>> 50415fa8feb516d5654815e2f05169726cb1b58f
 # Backend
 
 Welcome to the backend! we are using the django framework and the python language.
@@ -6,7 +9,11 @@ Welcome to the backend! we are using the django framework and the python languag
 ## Running locally for the first time
 
 Make sure you have python 3 installed, for this specific installation, we are using
+<<<<<<< HEAD
 `python 3.8`
+=======
+`python 3.8.5`
+>>>>>>> 50415fa8feb516d5654815e2f05169726cb1b58f
 
 **Please note these instructions were written for a unix based system windows may differ.**
 
