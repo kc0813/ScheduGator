@@ -1,8 +1,5 @@
 # backend
-<<<<<<< HEAD
+
 backend/venv
-backend/.env
-backend/backend/__pycache__
-=======
-./backend/venv
->>>>>>> 50415fa8feb516d5654815e2f05169726cb1b58f
+backend/config/.env
+backend/config/__pycache__
