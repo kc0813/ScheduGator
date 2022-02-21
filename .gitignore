@@ -6,3 +6,6 @@ backend/config/__pycache__
 backend/config/__init__.py
 
 .configs
+
+# vscode
+.vscode/
