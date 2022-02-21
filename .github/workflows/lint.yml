@@ -32,4 +32,3 @@ jobs:
         with:
           black: true
           flake8: true
-          flake8_args: "--exclude *.pyc, *.pyo, *.swp, venv \--max-line-length 100"
