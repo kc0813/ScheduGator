@@ -2,9 +2,9 @@
 
 backend/venv
 backend/config/.env
-backend/config/__pycache__
-backend/config/__init__.py
-
+__pycache__/
+__init__.py
+.env
 .configs
 
 # vscode
