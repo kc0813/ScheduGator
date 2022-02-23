@@ -1,0 +1,11 @@
+# backend
+
+backend/venv
+backend/config/.env
+backend/config/__pycache__
+backend/config/__init__.py
+
+.configs
+
+# vscode
+.vscode/
