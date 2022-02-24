@@ -12,9 +12,9 @@ from django.db import models
 
 
 class classQuery(models.Model):
+
     # The user queries a class via text input
     className = models.CharField(max_length=200)
 
-    # The user tells us what time they don't want to have class
-    # TODO change type? needa discuss with team because this one won't work as a time field
+    # The user tells us when they dont want to have class as a timefield
     noClassTime = models.TimeField()

@@ -15,7 +15,7 @@ Make sure you have python 3 installed, for this specific installation, we are us
 **Please note these instructions were written for a unix based system windows may differ.**
 
 1. create a python environment with the command `python3 -m venv ./venv`
-> **You may need to replace python3 with the keyword you use to run python and may need to set the vers**
+> **You may need to replace python3 with the keyword you use to run python and may need to set the version to 3.8**
 
 2. activate the virtual environment with the command `source ./location/to/venv/bin/activate`
 
@@ -23,7 +23,8 @@ Make sure you have python 3 installed, for this specific installation, we are us
 
 4. start up the backend server with `python manage.py runserver`
 
-> YAY, you did it! Everything should be running at `localhost:8000`
+> YAY, you did it! Everything should be running at [localhost:8000](http://localhost:8000)
+**DO NOT COMMIT THE VENV TO THE GITHUB REPO**
 
 ## Before you push
 
@@ -32,7 +33,21 @@ Make sure you have python 3 installed, for this specific installation, we are us
 1. format everything using `python3 -m black ./dir/to/backend`
 2. check flake8 compliance with `python3 -m flake8`
 
-> Tip: make sure you are using a venv with requirements.txt installed!
+> Tip: make sure you are using a venv with requirements.txt installed in the previous topic.
+
+## Updating the backend dependencies
+
+1. Run `pip freeze > requirements.txt`
+
+2. run `pipenv install`
+
+3. Navigate to the Docker [readme file](docker/README.md) and make sure you didn't break anything.
+
+## Updating Django models
+
+1. Make your model and any changes you want to make to it, making sure to import it where needed.
+
+2. Run `python manage.py makemigrations`
 
 ## tutorials used 
 1. [setting up django](https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react)
