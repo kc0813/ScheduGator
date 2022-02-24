@@ -29,9 +29,10 @@ Make sure you have python 3 installed, for this specific installation, we are us
 
 > Please, please, please do not ignore this section before pushing. You will fail some checks on github actions if you ignore this section.
 
-1. format everything using `python3 black ./dir/to/backend`
+1. format everything using `python3 -m black ./dir/to/backend`
+2. check flake8 compliance with `python3 -m flake8`
 
-> Tip: make sure you are using a venv with black installed!
+> Tip: make sure you are using a venv with requirements.txt installed!
 
 ## tutorials used 
 1. [setting up django](https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react)
