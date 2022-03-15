@@ -30,7 +30,7 @@ Handles all gamestate logic
 */
 function Board() {
   //useState hooks to set and change values
-  const [squares, setSquares] = useState<string[]>(Array(9).fill(null));
+  const [squares, setSquares] = useState<string[]>(Array(9).fill(''));
   const [xIsNext, setXIsNext] = useState<boolean|null>(true);
 
   //function to update game onClick
