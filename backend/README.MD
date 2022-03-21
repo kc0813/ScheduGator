@@ -26,7 +26,7 @@ Welcome to the backend! we are using the Fastapi library and the Python language
 7. You can run `docker-compose down -v` to stop the backend.
 ## Contributing
 
-## Prerequisites
+### Prerequisites
 
 Python 3.8+ installed
 
@@ -67,6 +67,6 @@ Python 3.8+ installed
 
 > Make sure you test this to make sure nothing breaks and there arent any unused dependencies in here.
 
-## tutorials used 
+### tutorials used 
 <!-- 1 is no longer used for django -->
 1. [setting up django](https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react)
