@@ -65,9 +65,7 @@ Python 3.8+ installed
 
 1. Run `pip freeze > requirements.txt`
 
-2. run `pipenv install`
-
-3. Navigate to the Docker [readme file](docker/README.md) and make sure you didn't break anything.
+> Make sure you test this to make sure nothing breaks and there arent any unused dependencies in here.
 
 ## tutorials used 
 <!-- 1 is no longer used for django -->
