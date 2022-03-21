@@ -1,0 +1,9 @@
+# backend
+
+backend/venv
+__pycache__/
+__init__.py
+.configs
+
+# vscode
+.vscode/
