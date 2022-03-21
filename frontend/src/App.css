@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0b358a;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.seeSchedule {
+  width: 1500px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0);
+  border: 3px solid white;
+  position: absolute;
+  top: 0px;
+}
+
+.listCourses {
+  width: 200px;
+  height: 515px;
+  background: rgba(0, 0, 0, 0);
+  border: 3px solid white;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.searchOptions {
+  width: 200px;
+  height: 515px;
+  background: rgba(0, 0, 0, 0);
+  border: 3px solid white;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.courses {
+  width: 850px;
+  height: 515px;
+  background: rgba(0, 0, 0, 0);
+  border: 3px solid white;
+  position: absolute;
+  bottom: 0px;
+  left: 205px;
 }
