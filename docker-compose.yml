@@ -1,14 +1,19 @@
 version: "3.9"
 
 services:
-  django:
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./backend/:/code"
-    env_file:
-      - ./backend/.env
-    restart: always
+  fastapi:
     build:
-      dockerfile: django.Dockerfile
-    command: python api/manage.py runserver 0.0.0.0:8000
+      context: .
+      dockerfile: fastapi.Dockerfile
+    image: fastapi
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+    environment:
+      - FASTPI_DEBUG=true
+      - FASTPI_SECRET=supersecret
+      - FASTPI_TITLE=FastAPI
+      - FASTPI_VERSION=3.9
+      - USER=${CURRENT_UID}
+    restart: always
