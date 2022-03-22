@@ -6,17 +6,12 @@ import SearchBar from './Search';
 function App() {
   const [renderWin, setRenderWin] = useState("Courses");
 
-  useEffect(() =>{
-    console.log("TEST")
-  });
-  
   if(renderWin == "Courses"){
     return buildCoursesPage(setRenderWin);
   }
   else{
     return buildSchedulesPage(setRenderWin);
   }
-
 }
 
 function buildCoursesPage(setRenderWin : Function)
