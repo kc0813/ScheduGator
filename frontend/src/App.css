@@ -38,8 +38,8 @@
 }
 
 .listCourses {
-  width: 200px;
-  height: 552px;
+  width: 15vw;
+  height: 92vh;
   background: rgba(0, 0, 0, 0);
   border: 3px solid white;
   position: absolute;
@@ -48,8 +48,8 @@
 }
 
 .searchOptions {
-  width: 200px;
-  height: 552px;
+  width: 15vw;
+  height: 92vh;
   background: rgba(0, 0, 0, 0);
   border: 3px solid white;
   position: absolute;
@@ -58,11 +58,10 @@
 }
 
 .courses {
-  width: 850px;
-  height: 552px;
+  width: 69vw;
+  height: 92vh;
   background: rgba(0, 0, 0, 0);
   border: 3px solid white;
   position: absolute;
   bottom: 0px;
-  left: 205px;
 }
