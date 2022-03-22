@@ -28,7 +28,7 @@ Welcome to the backend! we are using the Fastapi library and the Python language
 
 ### Prerequisites
 
-Python 3.8+ installed
+Python 3.10+ installed
 
 1. See [virtual environments](https://docs.python.org/3/library/venv.html) for creating a virtual environment
 
