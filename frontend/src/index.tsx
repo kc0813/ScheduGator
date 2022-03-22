@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import SearchBar from './Search';
 import reportWebVitals from './reportWebVitals';
 
 let renderVar = {
@@ -15,7 +14,7 @@ function changeRenderState(start: boolean){
     renderVar.toRender = "CourseSearch";
   }
   
-  if(renderVar.toRender == "App")
+  if(renderVar.toRender === "App")
   {
     ReactDOM.render(
       <div>
@@ -27,7 +26,7 @@ function changeRenderState(start: boolean){
     renderVar.toRender = "CourseSearch";
     
   }
-  else if(renderVar.toRender == "CourseSearch")
+  else if(renderVar.toRender === "CourseSearch")
   {
     ReactDOM.render(
       <div>
