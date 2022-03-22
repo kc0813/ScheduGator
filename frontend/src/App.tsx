@@ -3,26 +3,7 @@ import './App.css';
 import SearchBar from './Search';
 
 
-function TickerBtn(props: { onClick: () => void, value: number}) {
-  return (
-    <button
-      className="ticker"
-      onClick={props.onClick}
-    >
-      {props.value}
-    </button>
-  );
-
-}
-
 function App() {
-
-  const [value, setValue] = useState<number>(0)
-
-  const btnClick = () => {
-    setValue(value+1)
-  }
-
   return (
     <div className="App">
       <header className="App-header">
