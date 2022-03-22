@@ -64,6 +64,7 @@
   position: absolute;
   bottom: 0px;
   left: 0px;
+  text-align:center;
 }
 
 .searchOptions {
@@ -74,6 +75,7 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
+  text-align: center;
 }
 
 .courses {
