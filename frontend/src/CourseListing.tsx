@@ -7,9 +7,9 @@ function CourseListing(setRenderWin : Function)
         <div className="CourseListing">
             <header className="App-header">
 
-                <div className="ToggleSchdl">
+                <div className="ToggleSchedule">
                     <button
-                        onClick = {() => setRenderWin("SampSchdl")}
+                        onClick = {() => setRenderWin("SampleSchedule")}
                     >
                         See Sample Schedules
                     </button> 
