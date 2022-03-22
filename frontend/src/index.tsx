@@ -10,12 +10,16 @@ let renderVar = {
   nextRender: "CourseSearch",
 }
 
-function changeRenderState(){
+function changeRenderState(start: boolean){
+  if(start) {
+    renderVar.toRender = "CourseSearch";
+  }
+  
   if(renderVar.toRender == "App")
   {
     ReactDOM.render(
       <div>
-        <button onClick = {() => changeRenderState()}> See Schedule </button>
+        <button onClick = {() => changeRenderState(false)}> See Schedule </button>
         <App/> 
       </div>,
     document.getElementById('root')
@@ -27,7 +31,7 @@ function changeRenderState(){
   {
     ReactDOM.render(
       <div>
-        <button onClick = {() => changeRenderState()}> Back to Course Search </button>
+        <button onClick = {() => changeRenderState(false)}> Back to Course Search </button>
       </div>,
     document.getElementById('root')
     );
@@ -38,8 +42,8 @@ function changeRenderState(){
 //Render multiple components by just adding them to the array.
 ReactDOM.render(
   <div>
+    <button onClick = {() => changeRenderState(true)}> See Schedule </button>
     <App/>
-    <button onClick = {() => changeRenderState()}> See Schedule </button>
   </div>,
   document.getElementById('root')
 );

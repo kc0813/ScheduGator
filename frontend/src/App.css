@@ -37,16 +37,6 @@
   }
 }
 
-.seeSchedule {
-  width: 1274px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0);
-  border: 3px solid white;
-  position: absolute;
-  top: 0px;
-  text-align: right;
-}
-
 .listCourses {
   width: 200px;
   height: 552px;
