@@ -2,14 +2,56 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import SearchBar from './Search';
 import reportWebVitals from './reportWebVitals';
 
+let renderVar = {
+  toRender: "App",
+  nextRender: "CourseSearch",
+}
+
+function changeRenderState(){
+  if(renderVar.toRender == "App")
+  {
+    ReactDOM.render(
+      <div>
+        <button onClick = {() => changeRenderState()}> See Schedule </button>
+        <App/> 
+      </div>,
+    document.getElementById('root')
+    );
+    renderVar.toRender = "CourseSearch";
+    
+  }
+  else if(renderVar.toRender == "CourseSearch")
+  {
+    ReactDOM.render(
+      <div>
+        <button onClick = {() => changeRenderState()}> Back to Course Search </button>
+      </div>,
+    document.getElementById('root')
+    );
+    renderVar.toRender = "App";
+  }
+}
+
+//Render multiple components by just adding them to the array.
+ReactDOM.render(
+  <div>
+    <App/>
+    <button onClick = {() => changeRenderState()}> See Schedule </button>
+  </div>,
+  document.getElementById('root')
+);
+
+/*
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
+*/
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

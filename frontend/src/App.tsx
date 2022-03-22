@@ -7,10 +7,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        
-        <div className="seeSchedule">
-          <button>See Schedule</button>
-        </div>
 
         <div className="listCourses">
           List of Courses
