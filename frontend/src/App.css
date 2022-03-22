@@ -37,6 +37,25 @@
   }
 }
 
+.ToggleSchdl {
+  width: 95px;
+  height: 40px;
+  display:grid;
+  position: absolute;
+  top: 5px;
+  right: 0px;
+}
+
+.ToggleCourses {
+  width: 95px;
+  height: 40px;
+  display:grid;
+  position: absolute;
+  top: 5px;
+  left: 0px;
+}
+
+
 .listCourses {
   width: 15vw;
   height: 92vh;
