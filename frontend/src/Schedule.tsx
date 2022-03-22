@@ -2,9 +2,24 @@ function Schedule(setRenderWin : Function)
 {
 	return(
     <div className="App">
-        <div className="ToggleCourses">
-            <button onClick = {() => setRenderWin("Courses")}>See Courses</button> 
-        </div>
+        <header className="App-header">
+
+            <div className="ToggleCourses">
+                <button onClick = {() => setRenderWin("Courses")}>See Courses</button> 
+            </div>
+
+            <div className="listCourses">
+                List of Courses
+            </div>
+
+            <div className="searchOptions">
+                Course Info
+            </div>
+
+            <div className="courses">
+            </div>
+
+        </header>
     </div>
 	);
 }
