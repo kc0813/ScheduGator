@@ -38,8 +38,8 @@
 }
 
 .ToggleSchdl {
-  width: 95px;
-  height: 40px;
+  width: 9vw;
+  height: 5vh;
   display:grid;
   position: absolute;
   top: 5px;
@@ -47,8 +47,8 @@
 }
 
 .ToggleCourses {
-  width: 95px;
-  height: 40px;
+  width: 9vw;
+  height: 5vh;
   display:grid;
   position: absolute;
   top: 5px;
