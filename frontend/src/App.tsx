@@ -1,28 +1,18 @@
 import { useState } from 'react';
 import './App.css';
-import SearchBar from './Search';
-
+import Schedule from './Schedule';
+import CourseListing from './CourseListing';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
+	const [renderWin, setRenderWin] = useState("Courses");
 
-        <div className="listCourses">
-          List of Courses
-          <SearchBar/>
-        </div>
+	if(renderWin == "Courses"){
+		return CourseListing(setRenderWin);
+	}
+	else{
+		return Schedule(setRenderWin);
+	}
 
-        <div className="searchOptions">
-          Search Options
-        </div>
-
-        <div className="courses">
-        </div>
-
-      </header>
-    </div>
-  );
 }
 
 export default App
