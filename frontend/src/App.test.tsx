@@ -28,4 +28,16 @@ describe(App, () => {
         })
         expect(container.firstChild.className).toBe('CourseListing')
     })
+
+    it('change page', () => {
+        act(() => {
+            render(<App/>, container)
+        })
+        const button: Element = container.querySelector('button');
+
+        act(() => {
+            button.dispatchEvent(new MouseEvent('click'))
+        });
+        expect(container.firstChild.className).toBe('Schedule')
+    })
 })
