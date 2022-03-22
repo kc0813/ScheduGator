@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import SearchBar from './Search';
 
 
 function TickerBtn(props: { onClick: () => void, value: number}) {
@@ -26,19 +26,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <TickerBtn onClick={() => btnClick()} value={value}/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <div className="listCourses">
+          List of Courses
+          <SearchBar/>
+        </div>
+
+        <div className="searchOptions">
+          Search Options
+        </div>
+
+        <div className="courses">
+        </div>
+
       </header>
     </div>
   );
