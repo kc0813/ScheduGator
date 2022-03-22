@@ -4,7 +4,7 @@ import SearchBar from "./Search";
 function CourseListing(setRenderWin : Function)
 {
     return (
-        <div className="App">
+        <div className="CourseListing">
             <header className="App-header">
 
                 <div className="ToggleSchdl">
