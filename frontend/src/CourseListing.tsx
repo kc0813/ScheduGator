@@ -5,7 +5,7 @@ function CourseListing(setRenderWin : Function)
 {
     return (
         <div className="CourseListing">
-            <header className="App-header">
+            <header className="Schedule-header">
 
                 <div className="ToggleSchedule">
                     <button

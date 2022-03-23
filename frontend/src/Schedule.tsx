@@ -2,7 +2,7 @@ function Schedule(setRenderWin : Function)
 {
 	return(
     <div className="Schedule">
-        <header className="App-header">
+        <header className="Schedule-header">
 
             <div className="ToggleCourses">
                 <button onClick = {() => setRenderWin("Courses")}>See Courses</button> 
