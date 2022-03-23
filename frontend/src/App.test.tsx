@@ -30,13 +30,14 @@ describe(App, () => {
     })
 
     it('change page', () => {
+        
         act(() => {
             render(<App/>, container)
         })
         const button: Element = container.querySelector('button');
 
         act(() => {
-            button.dispatchEvent(new MouseEvent('click'))
+            button.dispatchEvent(new MouseEvent('click', {bubbles:true}))
         });
         expect(container.firstChild.className).toBe('Schedule')
     })

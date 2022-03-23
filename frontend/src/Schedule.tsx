@@ -1,7 +1,7 @@
 function Schedule(setRenderWin : Function)
 {
 	return(
-    <div className="App">
+    <div className="Schedule">
         <header className="App-header">
 
             <div className="ToggleCourses">
