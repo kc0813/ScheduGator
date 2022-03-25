@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import Schedule from './Schedule';
-import CourseListing from './CourseListing';
+import Schedule from './Schedule/Schedule';
+import CourseListing from './CourseListing/CourseListing';
 
 function App() {
 	const [renderWin, setRenderWin] = useState("Courses");
