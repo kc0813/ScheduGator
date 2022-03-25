@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/app
+      - ./backend/:/app
     environment:
       - FASTPI_DEBUG=true
       - FASTPI_SECRET=supersecret
@@ -17,3 +17,14 @@ services:
       - FASTPI_VERSION=3.9
       - USER=${CURRENT_UID}
     restart: always
+
+  react:
+    build:
+      context: .
+      dockerfile: react.Dockerfile
+    image: react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/:/app
+    restart: "no"
