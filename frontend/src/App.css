@@ -72,3 +72,8 @@
   white-space: nowrap;
   width: 1px;
 }
+
+.hoverBtn {
+  position: relative;
+  font-size: calc(2px + 2vmin);
+}
