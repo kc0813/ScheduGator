@@ -1,3 +1,4 @@
+from pkg_resources import Requirement
 from fastapi import Body, FastAPI
 import requests
 from models import ClassQuery
@@ -37,10 +38,10 @@ async def queryClass(
                 "value": {
                     "category": "CWSP",
                     "term": 2221,
+                    "courseCode": "CAP3027",
                     "isQuest": False,
-                    "genEd": None,
                     "writing": 2000,
-                    "meeting": "R",
+                    "meeting": "r",
                 },
             },
         },
@@ -51,9 +52,42 @@ async def queryClass(
     """
     # setup parameters to query uf soc
     url = "https://one.uf.edu/apix/soc/schedule"
+
     params = {
         "category": query.category,
         "term": query.term,
+        "course-code": query.courseCode or "",
+        "qst-1": query.isQuest or False,
+        "days": {
+            "day-m": True
+            if query.meetingDays is not None and "m" in query.meetingDays.lower()
+            else False,
+            "day-t": True
+            if query.meetingDays is not None and "t" in query.meetingDays.lower()
+            else False,
+            "day-w": True
+            if query.meetingDays is not None and "w" in query.meetingDays.lower()
+            else False,
+            "day-r": True
+            if query.meetingDays is not None and "r" in query.meetingDays.lower()
+            else False,
+            "day-f": True
+            if query.meetingDays is not None and "f" in query.meetingDays.lower()
+            else False,
+            "day-s": True
+            if query.meetingDays is not None and "s" in query.meetingDays.lower()
+            else False,
+        },
     }
+
+    # writing requirement
+    if query.writing is not None:
+        wr = "wr-{}".format(query.writing)
+        params[wr] = True
+
+    if query.genEd is not None:
+        genEd = "gen-{}".format(query.genEd)
+        params[genEd] = True
+
     r = requests.get(url=url, params=params)
     return r.json()

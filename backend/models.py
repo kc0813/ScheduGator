@@ -10,12 +10,13 @@ class ClassQuery(BaseModel):
     category: str = "CWSP"
     term: int = 2221
     # priority 1
+    courseCode: str | None
     # quest will be quest 1
     isQuest: bool | None
     genEd: str | None
     writing: int | None
-    # TODO: specify R for thursday
-    meeting: str | None
+    # days the class meets
+    meetingDays: str | None
 
     # TODO see https://fastapi.tiangolo.com/tutorial/schema-extra-example/
     class Config:
@@ -23,9 +24,9 @@ class ClassQuery(BaseModel):
             "example": {
                 "category": "CWSP",
                 "term": 2221,
+                "courseCode": "CAP3027",
                 "isQuest": False,
-                "genEd": None,
                 "writing": 2000,
-                "meeting": "MWF",
+                "meeting": "mwf",
             }
         }
