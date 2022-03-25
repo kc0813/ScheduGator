@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
+function TickerBtn(props: { onClick: () => void, value: number}) {
+  return (
+    <button
+      className="ticker"
+      onClick={props.onClick}
+    >
+      {props.value}
+    </button>
+  );
+
+}
+
 function App() {
+
+  const [value, setValue] = useState<number>(0)
+
+  const btnClick = () => {
+    setValue(value+1)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -10,6 +30,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <TickerBtn onClick={() => btnClick()} value={value}/>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -23,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
