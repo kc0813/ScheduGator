@@ -96,9 +96,10 @@ class Section:
         return self.day == __o.day and self.period == __o.period
 
 
+# TODO Note that some courses have multiple classes with the different meeting days and periods
 def findStaticMeetTime(sections: list) -> list:
     """
     Finds the the common meeting time for a list of sections
     """
-    
+
     pass

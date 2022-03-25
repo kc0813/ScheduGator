@@ -1,4 +1,3 @@
-from pkg_resources import Requirement
 from fastapi import Body, FastAPI
 import requests
 from models import ClassQuery

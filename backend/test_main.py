@@ -1,7 +1,5 @@
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
 import main
-import models
 
 client = TestClient(main.app)
 
