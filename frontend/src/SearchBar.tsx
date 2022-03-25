@@ -1,8 +1,11 @@
+import {AddCourse} from './SelectedCourses'
+
 const getInputValue = (event: any)=>{
     // do cool stuff here
     if (event.key === 'Enter') {
         const userValue = event.target.value;
         console.log(userValue);
+        AddCourse("test")
         event.preventDefault();  // Stop page from refreshing after pressing enter
       }
 };

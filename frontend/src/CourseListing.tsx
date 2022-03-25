@@ -1,5 +1,5 @@
 import SearchBar from "./SearchBar";
-import SelectedCourses from "./SelectedCourses";
+import {SelectedCourses} from "./SelectedCourses";
 
 
 function CourseListing(setRenderWin : Function)

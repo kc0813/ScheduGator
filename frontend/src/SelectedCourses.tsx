@@ -2,9 +2,14 @@ import { useState } from 'react';
 
 let courseList :string[] = ["test", "1", "asdf"];
 
-export function addCourse(courseID : string){
+export function AddCourse(courseID : string){
   if(!courseList.includes(courseID)){
     courseList.push(courseID);
+    console.log("ADDED")
+    console.log(courseList.length)
+  }
+  else{
+    console.log("ALREADY IN")
   }
 }
 
@@ -42,10 +47,10 @@ function HoverBtn(props : any) {
 
 export function SelectedCourses()
 {
-  const [test, setTest] = useState(0);
+  const [numSelCourses, setNumSelected] = useState(3);
   const deleteCourseBtn = (courseID : string) => {
     removeCourse(courseID);
-    setTest(courseList.length);
+    setNumSelected(courseList.length);
   }
 
   let courseBtns : any = [] //any b/c I dunno what type to give it
@@ -68,4 +73,4 @@ export function SelectedCourses()
   
 }
 
-export default SelectedCourses;
+//export default SelectedCourses;
