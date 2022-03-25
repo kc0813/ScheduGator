@@ -16,6 +16,12 @@ class Course:
     def __init__(
         self, code: str, name: str, sections: list, meetingDays: str, period: str
     ):
+        """
+        parameters:
+        code: course code
+        name: course name
+        sections: list of section objects (see section class)
+        """
         self.code = code
         self.name = name
         self.sections = sections
@@ -52,7 +58,12 @@ class Course:
         period ex(if section 1 meets on m, p1 and section 2 meets on m, p1, section 2 will be
         removed)
         """
-        return set([section for section in self.sections])
+        newSections = []
+        for section in self.sections:
+            if section is not None:
+                if section not in newSections:
+                    newSections.append(section)
+        return newSections
 
     def setNull(self, indices: list):
         """
@@ -68,17 +79,22 @@ class Section:
 
     parameters:
         ID: section ID
-        name: section name
         day: meeting day
         period: meeting period
 
     functions:
+        isOnline: returns true if section has an online section
 
     """
 
-    def __init__(self, ID: str, name: str, day: str, period: str, online: bool):
+    def __init__(self, ID: str, day: str, period: str, online: bool):
+        """
+        parameters:
+        ID: section ID
+        day: meeting day
+        period: meeting period
+        """
         self.id = ID
-        self.name = name
         self.day = day
         self.period = period
         self.online = online
@@ -95,11 +111,21 @@ class Section:
         """
         return self.day == __o.day and self.period == __o.period
 
+    def __str__(self) -> str:
+        """
+        Returns string of section
+        """
+        return "id:{} day:{} period:{}".format(self.id, self.day, self.period)
 
+    __repr__ = __str__
+
+
+#  (this is a stretch goal)
 # TODO Note that some courses have multiple classes with the different meeting days and periods
-def findStaticMeetTime(sections: list) -> list:
+
+# TODO test this
+def findStaticMeetTime(sections: list):
     """
     Finds the the common meeting time for a list of sections
     """
-
     pass
