@@ -1,5 +1,6 @@
 import SearchBar from "./SearchBar";
 import {SelectedCourses} from "./SelectedCourses";
+import SearchOptions from "./SearchOptions";
 
 
 function CourseListing(setRenderWin : Function)
@@ -24,6 +25,7 @@ function CourseListing(setRenderWin : Function)
 
                 <div className="searchOptions">
                     Search Options
+                    <SearchOptions/>
                 </div>
 
                 <div className="courses">
