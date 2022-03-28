@@ -34,7 +34,7 @@ function SelectedCourses() {
     if(!courseList.includes(courseID)){
       //make copy of list
       let tempList = courseList.slice()
-      tempList.push(courseID);
+      tempList.push(courseID)
       setCourseList(tempList)
       console.log("ADDED: " + courseID)
       console.log(courseList.length + " courses in List")
@@ -45,12 +45,18 @@ function SelectedCourses() {
   }
 
   const removeCourse = (courseID : string) => {
-    const index = courseList.indexOf(courseID, 0);
-    if (index > -1) {
-      courseList.splice(index, 1);
+    const index = courseList.indexOf(courseID);
+    if (index != -1) {
+      //make copy of list
+      let templist = courseList.slice()
+      templist.splice(index, 1)
+      setCourseList(templist)
+      console.log("DELETED")
+      console.log(courseList.length + " courses in List")
     }
-    console.log("DELETED")
-    console.log(courseList.length)
+    else {
+      console.log("Course not found to delete")
+    }
   }
 
 
