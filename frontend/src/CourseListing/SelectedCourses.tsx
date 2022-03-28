@@ -22,9 +22,9 @@ function HoverBtn(props : {courseID: string, top: number, delete: () => void}) {
   );
 }
 
-function SelectedCourses() {
+export function SelectedCourses() {
 
-  const [courseList, setCourseList] = useState<string[]>([''])
+  const [courseList, setCourseList] = useState<string[]>([])
 
   const deleteCourseBtn = (courseID : string) => {
     removeCourse(courseID);
@@ -75,8 +75,6 @@ function SelectedCourses() {
       {courseBtns}
     </div>
   );
-
-  
 }
 
 export default SelectedCourses;

@@ -1,4 +1,3 @@
-import SearchBar from "./SearchBar";
 import SelectedCourses from "./SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
 
