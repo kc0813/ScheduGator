@@ -1,9 +1,13 @@
+import React from 'react';
 import {AddCourse} from './SelectedCourses'
 
-const getInputValue = (event: any)=>{
+const getInputValue = (event: React.KeyboardEvent<HTMLInputElement> | undefined)=>{
     // do cool stuff here
+    if (!event) {
+        return
+    }
     if (event.key === 'Enter') {
-        const userValue = event.target.value;
+        const userValue = event.currentTarget.value;
         alert(userValue);
         AddCourse(userValue)
         event.preventDefault();  // Stop page from refreshing after pressing enter
