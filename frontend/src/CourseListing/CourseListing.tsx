@@ -19,7 +19,6 @@ function CourseListing(setRenderWin : Function)
                 
                 <div className="listCourses">
                     List of Courses
-                    <SearchBar/>
                     <SelectedCourses/>
                 </div>
 

@@ -1,27 +1,5 @@
 import { useState } from 'react';
-
-let courseList :string[] = ["test", "1", "asdf"];
-
-export function AddCourse(courseID : string){
-  if(!courseList.includes(courseID)){
-    courseList.push(courseID);
-    console.log("ADDED: " + courseID)
-    console.log(courseList.length + " courses in List")
-  }
-  else{
-    console.log("ALREADY IN")
-  }
-}
-
-function removeCourse(courseID : string){
-
-  const index = courseList.indexOf(courseID, 0);
-  if (index > -1) {
-    courseList.splice(index, 1);
-  }
-  console.log("DELETED")
-  console.log(courseList.length)
-}
+import SearchBar from './SearchBar';
 
 function HoverBtn(props : any) {
   const [style, setStyle] = useState({display: 'none'});
@@ -39,19 +17,42 @@ function HoverBtn(props : any) {
           >
             <button className = 'inLine' style={style} onClick = {props.delete}>x</button> 
             {props.courseID}a
-
           </div>
       </div>
   );
 }
 
-function SelectedCourses()
-{
-  const [numSelCourses, setNumSelected] = useState(3);
+function SelectedCourses() {
+
+  const [courseList, setCourseList] = useState<string[]>([''])
+
   const deleteCourseBtn = (courseID : string) => {
     removeCourse(courseID);
-    setNumSelected(courseList.length);
   }
+
+  const AddCourse = (courseID : string) => {
+    if(!courseList.includes(courseID)){
+      //make copy of list
+      let tempList = courseList.slice()
+      tempList.push(courseID);
+      setCourseList(tempList)
+      console.log("ADDED: " + courseID)
+      console.log(courseList.length + " courses in List")
+    }
+    else{
+      console.log("ALREADY IN")
+    }
+  }
+
+  const removeCourse = (courseID : string) => {
+    const index = courseList.indexOf(courseID, 0);
+    if (index > -1) {
+      courseList.splice(index, 1);
+    }
+    console.log("DELETED")
+    console.log(courseList.length)
+  }
+
 
   let courseBtns : any = [] //any b/c I dunno what type to give it
   let top = 10;
@@ -64,9 +65,8 @@ function SelectedCourses()
 
   return(
     <div className='SelCourses'>
-    <>
-     {courseBtns} 
-    </>
+      <SearchBar AddCourse={AddCourse}/>
+      {courseBtns} 
     </div>
   );
 
