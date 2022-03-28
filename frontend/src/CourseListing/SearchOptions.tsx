@@ -1,5 +1,6 @@
 const SearchOptions = () => {
-    return <div id='SearchOptions'>
+    return <div id='SearchOptions' className="searchOptions">
+        Search Options
         <select>
             <option value=''>--Word Count--</option>
             <option value='2000'>2000 words</option>
@@ -7,6 +8,7 @@ const SearchOptions = () => {
             <option value='6000'>6000 words</option>
         </select>
     </div>
+
 }
 
 export default SearchOptions

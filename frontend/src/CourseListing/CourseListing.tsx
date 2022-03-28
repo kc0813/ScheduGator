@@ -23,10 +23,8 @@ function CourseListing(setRenderWin : Function)
                     <SelectedCourses/>
                 </div>
 
-                <div className="searchOptions">
-                    Search Options
-                    <SearchOptions/>
-                </div>
+                
+                <SearchOptions/>
 
                 <div className="courses">
                 </div>
