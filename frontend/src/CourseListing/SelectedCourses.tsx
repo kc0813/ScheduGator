@@ -5,8 +5,8 @@ let courseList :string[] = ["test", "1", "asdf"];
 export function AddCourse(courseID : string){
   if(!courseList.includes(courseID)){
     courseList.push(courseID);
-    console.log("ADDED")
-    console.log(courseList.length)
+    console.log("ADDED: " + courseID)
+    console.log(courseList.length + " courses in List")
   }
   else{
     console.log("ALREADY IN")
@@ -45,7 +45,7 @@ function HoverBtn(props : any) {
   );
 }
 
-export function SelectedCourses()
+function SelectedCourses()
 {
   const [numSelCourses, setNumSelected] = useState(3);
   const deleteCourseBtn = (courseID : string) => {
@@ -73,4 +73,4 @@ export function SelectedCourses()
   
 }
 
-//export default SelectedCourses;
+export default SelectedCourses;
