@@ -2,7 +2,7 @@ import WordCount from "./WordCount"
 
 const SearchOptions = () => {
     return <div id='SearchOptions' className="searchOptions">
-        <h1>Search Options</h1>
+        Search Options
         <WordCount/>
     </div>
 

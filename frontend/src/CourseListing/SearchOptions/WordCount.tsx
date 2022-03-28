@@ -7,7 +7,7 @@ const WordCount = () => {
     }
 
     return <form>
-        <label>Word Count</label><br/>
+        <label><small>Word Count</small></label><br/>
         <select id='WordCount' onChange={updateHandler}>
             <option value=''>--</option>
             <option value='2000'>2000 words</option>

@@ -17,13 +17,10 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
 
     return (
         <form action="/" method="get" className = "SearchBar">
-            <label htmlFor="header-search">
-                <span className="visually-hidden">Search blog posts</span>
-            </label>
             <input
                 type="text"
                 id="header-search"
-                placeholder="Search Courses"
+                placeholder="Enter Courses"
                 name="s"
                 onKeyPress={getInputValue}
                 />
