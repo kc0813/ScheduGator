@@ -10,7 +10,6 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
         }
         if (event.key === 'Enter') {
             const userValue = event.currentTarget.value;
-            alert(userValue);
             props.AddCourse(userValue)
             event.preventDefault();  // Stop page from refreshing after pressing enter
           }
