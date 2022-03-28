@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchBar from './SearchBar';
 
-function HoverBtn(props : any) {
+function HoverBtn(props : {courseID: string, top: number, delete: () => void}) {
   const [style, setStyle] = useState({display: 'none'});
 
   return (
@@ -16,7 +16,7 @@ function HoverBtn(props : any) {
                }}
           >
             <button className = 'inLine' style={style} onClick = {props.delete}>x</button> 
-            {props.courseID}a
+            {props.courseID}
           </div>
       </div>
   );
@@ -54,7 +54,7 @@ function SelectedCourses() {
   }
 
 
-  let courseBtns : any = [] //any b/c I dunno what type to give it
+  let courseBtns : JSX.Element[] = []
   let top = 10;
   courseList.forEach(function(courseID : string){
       courseBtns.push(
@@ -66,7 +66,7 @@ function SelectedCourses() {
   return(
     <div className='SelCourses'>
       <SearchBar AddCourse={AddCourse}/>
-      {courseBtns} 
+      {courseBtns}
     </div>
   );
 
