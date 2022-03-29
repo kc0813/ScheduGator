@@ -11,20 +11,22 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
         if (event.key === 'Enter') {
             const userValue = event.currentTarget.value.toLowerCase();
 
-            if(validateInput(userValue))
+            if(validateInput(userValue)){
                 props.AddCourse(userValue)
-            else
-            {
-                //alert(userValue);
-                //Notify bad entry?
+                event.currentTarget.value = "";  // Clear search bar
+            }
+            else{
+                //Notify on a bad entry
+                alert("Invalid input: " + userValue);
+
             }
             event.preventDefault();  // Stop page from refreshing after pressing enter
-            event.currentTarget.value = "";  // Clear search bar
+            
           }
     };  
 
     const validateInput = (input : string) : boolean =>  {
-        //Reference for valid inputs: h
+        //Reference for valid inputs:
         //https://archive.registrar.ufl.edu/catalog/catalogarchive/99-00-catalog/course-numbering.html
 
         //Check length of input
@@ -32,7 +34,7 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
             return false;
         }
         //Check for a Lab Code at the end
-        else if(input.length == 8 && (input.charAt(7) != 'c' &&  input.charAt(7) != 'l'))
+        else if(input.length === 8 && (input.charAt(7) !== 'c' &&  input.charAt(7) !== 'l'))
         {
             return false;
         }
@@ -46,7 +48,6 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
         //Check that the code has 4 digits after the prefix
         var digits = input.substring(3,7);
         if(!(/^[0-9]+$/.test(digits))){
-            alert(digits)
             return false;
         }
 
