@@ -40,7 +40,12 @@
   position: absolute;
   bottom: 0px;
   left: 0px;
-  text-align:center;
+  text-align: center;
+}
+
+.inputBar {
+  position: absolute;
+  bottom: 1vh;
 }
 
 .searchOptions {

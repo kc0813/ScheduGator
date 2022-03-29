@@ -1,3 +1,5 @@
+import SelectedCourses from "../CourseListing/SelectedCourses";
+
 function Schedule(setRenderWin : Function)
 {
 	return(
@@ -10,6 +12,7 @@ function Schedule(setRenderWin : Function)
 
             <div className="listCourses">
                 List of Courses
+                <SelectedCourses/>
             </div>
 
             <div className="searchOptions">
