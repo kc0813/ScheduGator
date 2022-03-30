@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function SearchBar(props: {AddCourse: (courseID: string) => void}) {
 
     const getInputValue = (event: React.KeyboardEvent<HTMLInputElement> | undefined)=>{
@@ -24,6 +23,24 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
             
           }
     };  
+
+    function generateRequest(input : string) {
+        let data ={
+            courseCode: input,
+            isQuest: false,
+            genEd: "",
+            writing: 0,
+            meetingDays: ""
+          }
+          let options = {
+            method: 'put',
+            body: data,
+            json: true,
+            url: 'http://localhost:8000/',  // change port if necessary
+            contentType: "application/json"
+          }
+        return options;
+      }
 
     const validateInput = (input : string) : boolean =>  {
         //Reference for valid inputs:
