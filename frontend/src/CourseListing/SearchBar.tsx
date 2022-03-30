@@ -40,7 +40,7 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
         return options;
       }
 
-    function validateInput(input : string) : boolean {
+    const validateInput = (input : string) : boolean =>  {
         //Reference for valid inputs: h
         //https://archive.registrar.ufl.edu/catalog/catalogarchive/99-00-catalog/course-numbering.html
 
