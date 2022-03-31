@@ -72,7 +72,7 @@ function SearchBar(props: {AddCourse: (courseID: string) => void}) {
     }
     
     return (
-        <form action="/" method="get" className = "SearchBar">
+        <form action="/" method="get" className = "inputBar">
             <input
                 type="text"
                 id="header-search"
