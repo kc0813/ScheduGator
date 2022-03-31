@@ -115,7 +115,7 @@ class Section:
         """
         Returns string of section
         """
-        return "id:{} day:{} period:{}".format(self.id, self.day, self.period)
+        return "id: {} day: {} period: {}".format(self.id, self.day, self.period)
 
     __repr__ = __str__
 
@@ -126,6 +126,7 @@ class Section:
 # TODO test this
 def findStaticMeetTime(sections: list):
     """
-    Finds the the common meeting time for a list of sections
+    Finds the the common meeting time for a list of meet times like CDA is weird
+    (remove any section times)
     """
     pass

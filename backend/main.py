@@ -11,7 +11,7 @@ async def root():
     Default endpoint
     Currently set to message back hello world
     """
-    return {"message": "Hello World"}
+    return {"message": "Hello world, I'm working!!!"}
 
 
 @app.put("/class/")

@@ -30,3 +30,9 @@ class ClassQuery(BaseModel):
                 "meeting": "mwf",
             }
         }
+
+
+class CourseData(BaseModel):
+    """
+    Schema for entering or deleting courses
+    """
