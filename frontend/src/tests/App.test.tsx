@@ -1,5 +1,4 @@
-import React from 'react';
-import { Container, render, unmountComponentAtNode } from "react-dom";
+import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
 import App from '../App';
