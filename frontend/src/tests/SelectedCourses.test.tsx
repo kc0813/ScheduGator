@@ -25,6 +25,11 @@ describe(SelectedCourses, () => {
         act(() => {
             render(<SelectedCourses/>, container)
         })
-        expect(document.getElementById)
+        const selCourses: HTMLCollectionOf<Element>
+        = document.getElementsByClassName('SelCourses')
+        expect(selCourses.length).toBe(1)
+
+        const selCourse: Element | null = selCourses.item(0)
+        expect(selCourse?.childElementCount).toBe(1)
     })
 })
