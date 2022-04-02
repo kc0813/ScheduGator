@@ -34,7 +34,7 @@ describe(SelectedCourses, () => {
         expect(selCourse?.firstElementChild?.className).toBe('inputBar')
     })
 
-    it('adds a button to list', () => {
+    it('input takes input and clears', () => {
       //mount component on DOM
       act(() => {
           render(<SelectedCourses/>, container)
@@ -63,7 +63,5 @@ describe(SelectedCourses, () => {
         fireEvent.submit(input)
       });
       expect(input.textContent).toBe('')
-      
-
   })
 })
