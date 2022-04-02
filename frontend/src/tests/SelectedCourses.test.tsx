@@ -35,19 +35,23 @@ describe(SelectedCourses, () => {
     })
 
     it('adds a button to list', () => {
+      //mount component on DOM
       act(() => {
           render(<SelectedCourses/>, container)
       })
+      //find input element
       const input: Element | null = document.getElementById('searchClasses')
       if (input == null) {
         throw new Error('input Element is null')
       }
 
+      //add test to input field
       act(() => {
         userEvent.type(input, 'cis')
       });
       expect(input).toHaveValue('cis')
       
+      //add more text
       act(() => {
         userEvent.type(input, '4301')
       });
