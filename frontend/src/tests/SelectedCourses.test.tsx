@@ -25,11 +25,9 @@ describe(SelectedCourses, () => {
         act(() => {
             render(<SelectedCourses/>, container)
         })
-        const selCourses: HTMLCollectionOf<Element>
-        = document.getElementsByClassName('SelCourses')
-        expect(selCourses.length).toBe(1)
-
-        const selCourse: Element | null = selCourses.item(0)
+        const selCourse: Element | null = document.getElementById('SelCourses')
+        //check that the only child is the search bar
         expect(selCourse?.childElementCount).toBe(1)
+        expect(selCourse?.firstElementChild?.className).toBe('inputBar')
     })
 })

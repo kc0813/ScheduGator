@@ -70,7 +70,7 @@ export function SelectedCourses() {
   });
 
   return(
-    <div className='SelCourses'>
+    <div id='SelCourses'>
       <div className='inputBar'>
         <SearchBar AddCourse={AddCourse}/>
       </div>
