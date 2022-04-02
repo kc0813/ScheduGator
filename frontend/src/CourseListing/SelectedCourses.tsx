@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SearchBar from './SearchBar';
-import HoverBtn from './SearchOptions/HoverButton';
+import HoverBtn from './HoverButton';
 
 
 
