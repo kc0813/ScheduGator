@@ -1,3 +1,6 @@
+import '@testing-library/jest-dom'
+import { fireEvent } from '@testing-library/react';
+import userEvent from "@testing-library/user-event";
 import { Container, render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
@@ -30,4 +33,33 @@ describe(SelectedCourses, () => {
         expect(selCourse?.childElementCount).toBe(1)
         expect(selCourse?.firstElementChild?.className).toBe('inputBar')
     })
+
+    it('adds a button to list', () => {
+      act(() => {
+          render(<SelectedCourses/>, container)
+      })
+      const input: Element | null = document.getElementById('searchClasses')
+      if (input == null) {
+        throw new Error('input Element is null')
+      }
+
+      act(() => {
+        userEvent.type(input, 'cis')
+      });
+      expect(input).toHaveValue('cis')
+      
+      act(() => {
+        userEvent.type(input, '4301')
+      });
+      expect(input).toHaveValue('cis4301')
+
+      //test enter keystroke to submit input
+      //and clear input field
+      act(() => {
+        fireEvent.submit(input)
+      });
+      expect(input.textContent).toBe('')
+      
+
+  })
 })
