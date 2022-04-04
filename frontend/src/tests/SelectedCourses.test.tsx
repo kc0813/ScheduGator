@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, getByRole } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import { Container, render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
@@ -98,5 +98,36 @@ describe(SelectedCourses, () => {
         const listElement: Element | null | undefined = courseButtons?.firstElementChild
         expect(listElement?.textContent).toContain('cis4301')
 
+    })
+
+    it('adds and removes button from list', () => {
+        act(() => {
+            render(<SelectedCourses />, container)
+        })
+        const selCourse: Element | null = document.getElementById('SelCourses')
+
+        //find input element
+        const input: Element | null = document.getElementById('searchClasses')
+        if (input == null) {
+            throw new Error('input Element is null')
+        }
+
+        //add 1 button
+        act(() => {
+            userEvent.type(input, 'cis4301')
+            expect(input).toHaveValue('cis4301')
+            userEvent.type(input, "{enter}")
+            expect(input).toHaveValue('')
+        })
+
+        const courseButtons: Element | null = document.getElementById('CourseListButtons')
+        const button: Element | null | undefined = courseButtons?.firstElementChild?.firstElementChild?.firstElementChild
+
+
+        act(() => {
+            button?.dispatchEvent(new MouseEvent('click', {bubbles:true}))
+        })
+
+        expect(courseButtons?.childElementCount).toBe(0)
     })
 })
