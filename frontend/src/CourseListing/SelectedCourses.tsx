@@ -56,7 +56,9 @@ export function SelectedCourses() {
       <div className='inputBar'>
         <SearchBar AddCourse={AddCourse}/>
       </div>
-      {courseBtns}
+      <div id='CourseListButtons'>
+        {courseBtns}
+      </div>
     </div>
   );
 }

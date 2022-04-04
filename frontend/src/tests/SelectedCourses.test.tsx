@@ -30,7 +30,7 @@ describe(SelectedCourses, () => {
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
         //check that the only child is the search bar
-        expect(selCourse?.childElementCount).toBe(1)
+        expect(selCourse?.childElementCount).toBe(2)
         expect(selCourse?.firstElementChild?.className).toBe('inputBar')
     })
 
@@ -64,4 +64,35 @@ describe(SelectedCourses, () => {
       });
       expect(input.textContent).toBe('')
   })
+
+  it('adds button to list', () => {
+    act(() => {
+        render(<SelectedCourses/>, container)
+    })
+    const selCourse: Element | null = document.getElementById('SelCourses')
+    //check that the only child is the search bar
+    expect(selCourse?.childElementCount).toBe(2)
+    expect(selCourse?.firstElementChild?.className).toBe('inputBar')
+
+    //button list is empty
+    const courseButtons: Element | null = document.getElementById('CourseListButtons')
+    expect(courseButtons?.childElementCount).toBe(0)
+
+    //find input element
+    const input: Element | null = document.getElementById('searchClasses')
+    if (input == null) {
+      throw new Error('input Element is null')
+    }
+
+    //add 1 button
+    act(() => {
+      userEvent.type(input, 'cis4301')
+      expect(input).toHaveValue('cis4301')
+      fireEvent.submit(input)
+    })
+
+    //button list increments by 1
+    expect(courseButtons?.childElementCount).toBe(1)
+
+})
 })
