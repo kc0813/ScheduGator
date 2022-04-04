@@ -1,7 +1,7 @@
 import WordCount from "./WordCount"
 
 function SearchOptions() {
-    return <div id='SearchOptions' className="searchOptions">
+    return <div id='searchOptions' className="searchOptions">
         Search Options
         <WordCount/>
     </div>
