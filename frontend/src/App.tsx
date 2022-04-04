@@ -10,7 +10,7 @@ function App() {
 		return <CourseListing setRenderWin={setRenderWin} />;
 	}
 	else{
-		return Schedule(setRenderWin);
+		return <Schedule setRenderWin={setRenderWin}/>;
 	}
 
 }

@@ -1,13 +1,15 @@
 import SelectedCourses from "../CourseListing/SelectedCourses";
 
-function Schedule(setRenderWin : Function)
+function Schedule(props: {setRenderWin: (state: string) => void})
 {
 	return(
     <div className="Schedule">
         <header className="Schedule-header">
 
             <div className="ToggleCourses">
-                <button onClick = {() => setRenderWin("Courses")}>See Courses</button> 
+                <button onClick = {() => props.setRenderWin("Courses")}>
+                    See Courses
+                </button> 
             </div>
 
             <div className="listCourses">
