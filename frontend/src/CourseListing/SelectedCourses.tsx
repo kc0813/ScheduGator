@@ -1,7 +1,5 @@
 import HoverBtn from './HoverButton';
 
-
-
 export function SelectedCourses(props: {courseList: string[], DeleteCourse: (courseID: string) => void}) {
 
     let courseBtns: JSX.Element[] = []
