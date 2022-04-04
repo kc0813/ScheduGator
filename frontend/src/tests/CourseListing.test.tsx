@@ -30,9 +30,9 @@ describe(CourseListing, () => {
             render(<CourseListing setRenderWin={mockfn} />, container)
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
-        //check that the only child is the search bar
-        expect(selCourse?.childElementCount).toBe(2)
-        expect(selCourse?.firstElementChild?.className).toBe('inputBar')
+        //check that the only child is the course list
+        expect(selCourse?.childElementCount).toBe(1)
+        expect(selCourse?.firstElementChild?.id).toBe('CourseListButtons')
 
         //button list is empty
         const courseButtons: Element | null = document.getElementById('CourseListButtons')
@@ -76,10 +76,6 @@ describe(CourseListing, () => {
         act(() => {
             render(<CourseListing setRenderWin={mockfn} />, container)
         })
-        const selCourse: Element | null = document.getElementById('SelCourses')
-        //check that the only child is the search bar
-        expect(selCourse?.childElementCount).toBe(2)
-        expect(selCourse?.firstElementChild?.className).toBe('inputBar')
 
         //find input element
         const input: Element | null = document.getElementById('searchClasses')
