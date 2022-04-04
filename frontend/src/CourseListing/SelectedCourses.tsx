@@ -46,7 +46,7 @@ export function SelectedCourses() {
   let top = 10;
   courseList.forEach(function(courseID : string){
       courseBtns.push(
-        <HoverBtn courseID = {courseID} top = {top} delete = {() => deleteCourseBtn(courseID)}></HoverBtn>
+        <HoverBtn courseID = {courseID} top = {top} delete = {() => deleteCourseBtn(courseID)}/>
       )
       top += 30;
   });

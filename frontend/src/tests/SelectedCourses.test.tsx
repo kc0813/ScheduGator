@@ -78,10 +78,6 @@ describe(SelectedCourses, () => {
         expect(selCourse?.childElementCount).toBe(2)
         expect(selCourse?.firstElementChild?.className).toBe('inputBar')
 
-        //button list is empty
-        const courseButtons: Element | null = document.getElementById('CourseListButtons')
-        expect(courseButtons?.childElementCount).toBe(0)
-
         //find input element
         const input: Element | null = document.getElementById('searchClasses')
         if (input == null) {
@@ -92,10 +88,12 @@ describe(SelectedCourses, () => {
         act(() => {
             userEvent.type(input, 'cis4301')
             expect(input).toHaveValue('cis4301')
-            fireEvent.submit(input)
+            userEvent.type(input, "{enter}")
+            expect(input).toHaveValue('')
         })
 
         //button list increments by 1
+        const courseButtons: Element | null = document.getElementById('CourseListButtons')
         expect(courseButtons?.childElementCount).toBe(1)
 
     })
