@@ -95,6 +95,8 @@ describe(SelectedCourses, () => {
         //button list increments by 1
         const courseButtons: Element | null = document.getElementById('CourseListButtons')
         expect(courseButtons?.childElementCount).toBe(1)
+        const listElement: Element | null | undefined = courseButtons?.firstElementChild
+        expect(listElement?.textContent).toContain('cis4301')
 
     })
 })
