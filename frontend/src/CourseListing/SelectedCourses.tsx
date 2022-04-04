@@ -1,16 +1,12 @@
-import { useState } from 'react';
-import SearchBar from './SearchBar';
 import HoverBtn from './HoverButton';
 
 
 
 export function SelectedCourses(props: {courseList: string[], DeleteCourse: (courseID: string) => void}) {
 
-
-
     let courseBtns: JSX.Element[] = []
     let top = 10;
-    props.courseList.forEach(function (courseID: string) {
+    props.courseList.forEach((courseID: string) => {
         courseBtns.push(
             <HoverBtn courseID={courseID} top={top} delete={() => props.DeleteCourse(courseID)} />
         )
