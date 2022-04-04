@@ -7,8 +7,19 @@ function CourseListing(setRenderWin: Function) {
 
     const [courseList, setCourseList] = useState<string[]>([])
 
-    const deleteCourseBtn = (courseID: string) => {
-        removeCourse(courseID);
+    const DeleteCourse = (courseID: string) => {
+        const index = courseList.indexOf(courseID);
+        if (index !== -1) {
+            //make copy of list
+            let templist = courseList.slice()
+            templist.splice(index, 1)
+            setCourseList(templist)
+            console.log("DELETED")
+            console.log(courseList.length + " courses in List")
+        }
+        else {
+            console.log("Course not found to delete")
+        }
     }
 
     const AddCourse = (courseID: string) => {
@@ -25,21 +36,6 @@ function CourseListing(setRenderWin: Function) {
         }
     }
 
-    const removeCourse = (courseID: string) => {
-        const index = courseList.indexOf(courseID);
-        if (index !== -1) {
-            //make copy of list
-            let templist = courseList.slice()
-            templist.splice(index, 1)
-            setCourseList(templist)
-            console.log("DELETED")
-            console.log(courseList.length + " courses in List")
-        }
-        else {
-            console.log("Course not found to delete")
-        }
-    }
-
     return (
         <div className="CourseListing">
             <header className="Schedule-header">
@@ -52,7 +48,7 @@ function CourseListing(setRenderWin: Function) {
 
                 <SelectedCourses
                     courseList={courseList}
-                    deleteCourseBtn={deleteCourseBtn}
+                    DeleteCourse={DeleteCourse}
                 />
 
                 <SearchOptions AddCourse={AddCourse}/>

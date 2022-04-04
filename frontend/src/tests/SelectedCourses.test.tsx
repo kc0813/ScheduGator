@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { fireEvent, getByRole } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import { Container, render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
