@@ -7,7 +7,7 @@ function App() {
 	const [renderWin, setRenderWin] = useState("Courses");
 
 	if(renderWin == "Courses"){
-		return CourseListing(setRenderWin);
+		return <CourseListing setRenderWin={setRenderWin} />;
 	}
 	else{
 		return Schedule(setRenderWin);

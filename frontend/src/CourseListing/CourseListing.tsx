@@ -3,7 +3,7 @@ import SelectedCourses from "./SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
 
 
-function CourseListing(setRenderWin: Function) {
+function CourseListing(props: {setRenderWin: (state: string) => void}) {
 
     const [courseList, setCourseList] = useState<string[]>([])
 
@@ -41,7 +41,7 @@ function CourseListing(setRenderWin: Function) {
             <header className="Schedule-header">
 
                 <div className="ToggleSchedule">
-                    <button onClick={() => setRenderWin("SampleSchedule")}>
+                    <button onClick={() => props.setRenderWin("SampleSchedule")}>
                         See Sample Schedules
                     </button>
                 </div>

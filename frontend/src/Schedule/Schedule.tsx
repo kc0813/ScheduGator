@@ -12,7 +12,7 @@ function Schedule(setRenderWin : Function)
 
             <div className="listCourses">
                 List of Courses
-                <SelectedCourses/>
+                {/* <SelectedCourses/> */}
             </div>
 
             <div className="searchOptions">

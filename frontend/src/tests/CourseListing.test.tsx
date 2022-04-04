@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { Container, render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import SelectedCourses from "../CourseListing/SelectedCourses";
+import CourseListing from '../CourseListing/CourseListing'
 
 let container: any = null
 
@@ -23,10 +23,11 @@ afterEach(() => {
 });
 
 
-describe(SelectedCourses, () => {
+describe(CourseListing, () => {
     it('loads defaults', () => {
+        const mockfn = jest.fn()
         act(() => {
-            render(<SelectedCourses />, container)
+            render(<CourseListing setRenderWin={mockfn} />, container)
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
         //check that the only child is the search bar
@@ -39,9 +40,10 @@ describe(SelectedCourses, () => {
     })
 
     it('input takes input and clears', () => {
+        const mockfn = jest.fn()
         //mount component on DOM
         act(() => {
-            render(<SelectedCourses />, container)
+            render(<CourseListing setRenderWin={mockfn} />, container)
         })
         //find input element
         const input: Element | null = document.getElementById('searchClasses')
@@ -70,8 +72,9 @@ describe(SelectedCourses, () => {
     })
 
     it('adds button to list', () => {
+        const mockfn = jest.fn()
         act(() => {
-            render(<SelectedCourses />, container)
+            render(<CourseListing setRenderWin={mockfn} />, container)
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
         //check that the only child is the search bar
@@ -101,8 +104,9 @@ describe(SelectedCourses, () => {
     })
 
     it('adds and removes button from list', () => {
+        const mockfn = jest.fn()
         act(() => {
-            render(<SelectedCourses />, container)
+            render(<CourseListing setRenderWin={mockfn} />, container)
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
 
