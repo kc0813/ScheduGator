@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SelectedCourses from "./SelectedCourses";
+import SelectedCourses from "./SelectedCourses/SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
 
 
