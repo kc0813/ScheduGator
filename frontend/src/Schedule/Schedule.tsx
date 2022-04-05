@@ -1,4 +1,4 @@
-import SelectedCourses from "../CourseListing/SelectedCourses";
+import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 
 function Schedule(props: {setRenderWin: (state: string) => void})
 {
