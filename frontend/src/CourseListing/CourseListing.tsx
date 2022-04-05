@@ -53,6 +53,9 @@ function CourseListing(props: {setRenderWin: (state: string) => void}) {
 
                 <SearchOptions AddCourse={AddCourse}/>
 
+                <div className="courses">
+                </div>
+
             </header>
         </div>
     );
