@@ -1,47 +1,18 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-
-
-function TickerBtn(props: { onClick: () => void, value: number}) {
-  return (
-    <button
-      className="ticker"
-      onClick={props.onClick}
-    >
-      {props.value}
-    </button>
-  );
-
-}
+import Schedule from './Schedule/Schedule';
+import CourseListing from './CourseListing/CourseListing';
 
 function App() {
+	const [renderWin, setRenderWin] = useState("Courses");
 
-  const [value, setValue] = useState<number>(0)
+	if(renderWin == "Courses"){
+		return <CourseListing setRenderWin={setRenderWin} />;
+	}
+	else{
+		return <Schedule setRenderWin={setRenderWin}/>;
+	}
 
-  const btnClick = () => {
-    setValue(value+1)
-  }
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <TickerBtn onClick={() => btnClick()} value={value}/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
 }
 
 export default App
