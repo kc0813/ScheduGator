@@ -15,9 +15,9 @@ Welcome to the backend! we are using the Fastapi library and the Python language
 
 3. Run `docker-compose up` to start the backend.
 
-4. navigate to [http://localhost:80](http://localhost:80) in your browser.
+4. navigate to [http://localhost:8000](http://localhost:8000) in your browser.
 
-> Docs are available at [http://localhost:80/docs](http://localhost:80/docs)
+> Docs are available at [http://localhost:8000/docs](http://localhost:8000/docs)
 
 5. You should see the backend running.
 
@@ -28,7 +28,7 @@ Welcome to the backend! we are using the Fastapi library and the Python language
 
 ### Prerequisites
 
-Python 3.8+ installed
+Python 3.10+ installed
 
 1. See [virtual environments](https://docs.python.org/3/library/venv.html) for creating a virtual environment
 

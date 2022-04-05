@@ -6,6 +6,7 @@ __init__.py
 .env
 .configs
 *.pyc
+.pytest_cache
 
 # frontend
 # dependencies
