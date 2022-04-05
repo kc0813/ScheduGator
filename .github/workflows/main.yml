@@ -24,6 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
+          
+      - name: ls
+        working-directory: ${{env.working-directory}}
+        run: ls -a
         
       - name: Run tests with pytest
         working-directory: ${{env.working-directory}}
