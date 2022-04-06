@@ -39,13 +39,8 @@
   border: 3px solid white;
   position: absolute;
   bottom: 0px;
-  left: 0px;
+  right: 0px;
   text-align: center;
-}
-
-.inputBar {
-  position: absolute;
-  bottom: 1vh;
 }
 
 .searchOptions {
@@ -55,7 +50,7 @@
   border: 3px solid white;
   position: absolute;
   bottom: 0px;
-  right: 0px;
+  left: 0px;
   text-align: center;
 }
 
