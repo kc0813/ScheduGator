@@ -14,6 +14,8 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
         if (!validateInput(userValue)) {
             //Notify on a bad entry
             alert("'" + userValue + "' is not a valid course!");
+            event.currentTarget.value = "";  // Clear search bar
+            event.preventDefault();  // Stop page from refreshing after pressing enter
             return
         }
 
@@ -62,7 +64,7 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
             return false;
         }
         //Check for a Lab Code at the end
-        else if (input.length === 8 && (input.charAt(7) !== 'c' && input.charAt(7) !== 'l')) {
+        else if (input.length === 8 && (input.charAt(7) !== 'C' && input.charAt(7) !== 'L')) {
             return false;
         }
 
