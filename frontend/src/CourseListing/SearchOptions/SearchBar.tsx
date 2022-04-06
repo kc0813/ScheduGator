@@ -22,9 +22,8 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
         console.log(classes);
 
 
-        props.AddCourse(userValue)
+        
         event.currentTarget.value = "";  // Clear search bar
-
         event.preventDefault();  // Stop page from refreshing after pressing enter
 
     };
@@ -44,6 +43,8 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                 if (courseDataArray.length != 0) {
                     console.log("Course Data: ")
                     console.log(courseDataArray[0])
+
+                    props.AddCourse(courseCode)
                 }
                 else {
                     console.log("Course not in database")
