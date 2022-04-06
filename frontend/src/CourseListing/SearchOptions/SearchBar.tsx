@@ -4,27 +4,26 @@ import axios, { AxiosRequestConfig } from 'axios';
 function SearchBar(props: { AddCourse: (courseID: string) => void }) {
 
     const getInputValue = (event: React.KeyboardEvent<HTMLInputElement> | undefined) => {
-        // do cool stuff here
-        if (!event) {
-            return
+
+        //guard clauses
+        if (!event) { return }
+        if (event.key !== 'Enter') { return }
+
+        const userValue = event.currentTarget.value.toLowerCase();
+
+        if (validateInput(userValue)) {
+            props.AddCourse(userValue)
+            let classes = getClasses(userValue);
+            console.log(classes);
+            event.currentTarget.value = "";  // Clear search bar
         }
-        if (event.key === 'Enter') {
-            const userValue = event.currentTarget.value.toLowerCase();
-
-            if (validateInput(userValue)) {
-                props.AddCourse(userValue)
-                let classes = getClasses(userValue);
-                console.log(classes);
-                event.currentTarget.value = "";  // Clear search bar
-            }
-            else {
-                //Notify on a bad entry
-                alert("Invalid input: " + userValue);
-
-            }
-            event.preventDefault();  // Stop page from refreshing after pressing enter
+        else {
+            //Notify on a bad entry
+            alert("Invalid input: " + userValue);
 
         }
+        event.preventDefault();  // Stop page from refreshing after pressing enter
+
     };
 
     async function getClasses(courseCode: string) {
