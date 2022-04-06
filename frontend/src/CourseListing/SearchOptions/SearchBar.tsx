@@ -11,17 +11,20 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
 
         const userValue = event.currentTarget.value.toLowerCase();
 
-        if (validateInput(userValue)) {
-            props.AddCourse(userValue)
-            let classes = getClasses(userValue);
-            console.log(classes);
-            event.currentTarget.value = "";  // Clear search bar
-        }
-        else {
+        if (!validateInput(userValue)) {
             //Notify on a bad entry
-            alert("Invalid input: " + userValue);
-
+            alert("'" + userValue + "' is not a valid course!");
+            return
         }
+
+
+        const classes: any = getClasses(userValue);
+        console.log(classes);
+
+
+        props.AddCourse(userValue)
+        event.currentTarget.value = "";  // Clear search bar
+
         event.preventDefault();  // Stop page from refreshing after pressing enter
 
     };
@@ -35,13 +38,23 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                 'Access-Control-Allow-Origin': '*',
             } as AxiosRequestConfig['headers'],
         }
-        const { data, status } = await axios.put(options.url, options.body, options.headers);
-        if (status === 200) {
-            return data[0].COURSES;
-        } else {
-            throw new Error("Error: " + status);
-        }
+        await axios.put(options.url, options.body, options.headers)
+            .then((response) => {
+                const courseDataArray: any = response.data[0].COURSES
+                if (courseDataArray.length != 0) {
+                    console.log("Course Data: ")
+                    console.log(courseDataArray[0])
+                }
+                else {
+                    console.log("Course not in database")
+                }
+
+            })  
+            .catch((response) => {
+                throw new Error("Error: " + response.status);
+            })
     }
+
 
     const validateInput = (input: string): boolean => {
         //Reference for valid inputs:
