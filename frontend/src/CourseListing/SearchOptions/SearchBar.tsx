@@ -14,7 +14,6 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
         if (!validateInput(userValue)) {
             //Notify on a bad entry
             alert("'" + userValue + "' is not a valid course!");
-            event.currentTarget.value = "";  // Clear search bar
             event.preventDefault();  // Stop page from refreshing after pressing enter
             return
         }
@@ -45,7 +44,7 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                     return courseDataArray[0]
                 }
                 else {
-                    alert("Course not in database")
+                    alert("Course not available in (semester)")
                 }
 
             })  
