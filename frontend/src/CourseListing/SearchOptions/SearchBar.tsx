@@ -9,7 +9,7 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
         if (!event) { return }
         if (event.key !== 'Enter') { return }
 
-        const userValue = event.currentTarget.value.toLowerCase();
+        const userValue = event.currentTarget.value.toUpperCase();
 
         if (!validateInput(userValue)) {
             //Notify on a bad entry
@@ -71,7 +71,7 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
 
         //Check that prefix has only letters
         var prefix = input.substring(0, 3);
-        if (!(/^[a-z]+$/.test(prefix))) {
+        if (!(/^[A-Z]+$/.test(prefix))) {
             return false;
         }
         //Check that the code has 4 digits after the prefix
