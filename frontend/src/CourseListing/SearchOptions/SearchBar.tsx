@@ -17,18 +17,13 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
             return
         }
 
-
-        const classes: any = getClasses(userValue);
-        console.log(classes);
-
-
+        const course: Promise<any> = getClasses(userValue);
         
         event.currentTarget.value = "";  // Clear search bar
         event.preventDefault();  // Stop page from refreshing after pressing enter
-
     };
 
-    async function getClasses(courseCode: string) {
+    async function getClasses(courseCode: string): Promise<any> {
         let options = {
             body: { "courseCode": courseCode },
             url: 'http://localhost:8000/class/',  // change port if necessary
@@ -45,9 +40,10 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                     console.log(courseDataArray[0])
 
                     props.AddCourse(courseCode)
+                    return courseDataArray[0]
                 }
                 else {
-                    console.log("Course not in database")
+                    alert("Course not in database")
                 }
 
             })  
