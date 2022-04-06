@@ -59,6 +59,8 @@ Python 3.10+ installed
 
 4. check flake8 compliance with `python3 -m flake8`
 
+5. Run unit tests with `pytest`
+
 > Tip: make sure you are using a venv with requirements.txt installed in the previous topic.
 
 ### Updating the backend dependencies
