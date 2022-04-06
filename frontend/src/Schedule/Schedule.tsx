@@ -1,4 +1,5 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
+import Calendar from "./Calendar";
 
 function Schedule(props: {setRenderWin: (state: string) => void})
 {
@@ -22,6 +23,7 @@ function Schedule(props: {setRenderWin: (state: string) => void})
             </div>
 
             <div className="courses">
+                <Calendar/>
             </div>
 
         </header>
