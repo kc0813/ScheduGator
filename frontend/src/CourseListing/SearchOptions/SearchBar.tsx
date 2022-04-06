@@ -72,19 +72,6 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
     }
 
     return (
-<<<<<<< HEAD
-        <div className='inputBar'>
-            <form action="/" method="get" className="inputBar">
-                <input
-                    type="text"
-                    id="searchClasses"
-                    placeholder="Enter Courses"
-                    name="s"
-                    onKeyPress={getInputValue}
-                />
-            </form>
-        </div>
-=======
         <form action="/" method="get">
             <input
                 type="text"
@@ -94,7 +81,6 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                 onKeyPress={getInputValue}
             />
         </form>
->>>>>>> 4077d779c36683fb173ff0b51ad4be2417874980
     )
 }
 
