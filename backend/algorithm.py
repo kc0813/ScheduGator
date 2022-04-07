@@ -1,14 +1,17 @@
-from scheduAlgoClasses import Schedule, Section, Course
+from scheduAlgoClasses import Schedule, Section
 
 """
     courses: list of all courses to be put into the schedule
-    reservedTimes: list of all time slots ["day", "period"], that should be put in the static schedule       
+    reservedTimes:  list of all time slots ["day", "period"],
+                    that should be put in the static schedule
 """
+
+
 def buildSchedule(courses: list, reservedTimes: list):
 
     # 2D array for schedule, doesn't account for online classes
     rows = 14
-    columns = 6
+    # columns = 6
     schedule = {
         "M": ["" for i in range(rows)],
         "T": ["" for i in range(rows)],
@@ -16,7 +19,7 @@ def buildSchedule(courses: list, reservedTimes: list):
         "R": ["" for i in range(rows)],
         "F": ["" for i in range(rows)],
         "S": ["" for i in range(rows)],
-        "Online": []
+        "Online": [],
     }
     template = Schedule(schedule)
     reserved = Section("reserved", reservedTimes)
@@ -24,7 +27,7 @@ def buildSchedule(courses: list, reservedTimes: list):
     # add reserved timeslots - assume list of pairs w/ correct indices?
     try:
         template.addSection(reserved)
-    except RuntimeError as err: #conflict with static times means impossible schedule
+    except RuntimeError as err:  # conflict with static times means impossible schedule
         print(err)
         return None
 
@@ -33,14 +36,12 @@ def buildSchedule(courses: list, reservedTimes: list):
         if course.staticMeetTime != []:
             try:
                 template.addSection(course.staticMeetTime)
-            except RuntimeError as err: #conflict with static times means impossible schedule
+            except RuntimeError as err:  # conflict with static times means impossible schedule
                 print(err)
                 return None
-     
-    #find sections that conflict with the static schedule and remove them
-    
+
+    # find sections that conflict with the static schedule and remove them
+
     # build dynamic schedule
 
-
     return schedule
-

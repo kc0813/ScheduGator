@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Day(Enum):
     M = 0
     T = 1
@@ -7,6 +8,7 @@ class Day(Enum):
     R = 3
     F = 4
     S = 5
+
 
 class Period(Enum):
     ONE = 0
