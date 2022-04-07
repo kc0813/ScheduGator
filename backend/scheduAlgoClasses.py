@@ -19,15 +19,13 @@ class Section:
         """
         self.id = ID
         self.meetings = meetings
-        self.online : bool
         if len.meetings == 0:
             self.online = True
         else:
             self.online = False
 
     def deleteTimeSlot(self, timeSlot: tuple):
-
-        pass
+        self.meetings.remove(timeSlot)
 
     def isOnline(self) -> bool:
         """
@@ -76,9 +74,9 @@ class Course:
         self.code = code
         self.name = name
         self.sectList = sections
-        self.staticMeetTime : Section
         self.meetTimes = self.genMeetTimes()
-        self.hasOnlineSection
+        self.staticMeetTime = self.findStaticMeetTime()
+        self.hasOnlineSection = False
 
     def numSections(self) -> int:
         """
@@ -141,10 +139,38 @@ class Course:
                     sections[index].deleteTimeSlot(key)
 
                     if len(sections[index].meetings) == 0:#check if the section is empty now
-                        sections.pop(index)
+                        if self.hasOnlineSection:
+                            sections.clear()
+                            return staticMeetTimes
+                        else:
+                            sections.pop(index)
         #if we assume that one section being completely empty means all sections being empty
         #then instead use this in the if statement:
                         #sections.clear()
                         #return staticMeetTimes
 
         return staticMeetTimes
+
+class Schedule:
+    
+    def __init__(
+        self, template = {}, onlineCourses = []
+    ):
+        self.template = template
+        self.onlineCourses = onlineCourses
+
+    def addSection(self, section: Section, courseID):
+        #Check for conflicts
+        for [day, period] in section.meetings:
+            if self.template[day][period] == "":
+                #Add to template
+                self.template[day][period] = courseID
+            else:
+                #raise an exception
+                raise Exception("Time conflict at: " + day + ", " + period)
+
+        return self.template
+
+    
+
+
