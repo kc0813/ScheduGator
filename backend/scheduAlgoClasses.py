@@ -154,10 +154,9 @@ class Course:
 class Schedule:
     
     def __init__(
-        self, template = {}, onlineCourses = []
+        self, template = {}
     ):
         self.template = template
-        self.onlineCourses = onlineCourses
 
     def addSection(self, section: Section, courseID):
         #Check for conflicts
@@ -167,7 +166,7 @@ class Schedule:
                 self.template[day][period] = courseID
             else:
                 #raise an exception
-                raise Exception("Time conflict at: " + day + ", " + period)
+                raise RuntimeError("Time conflict at: " + day + ", " + period)
 
         return self.template
 

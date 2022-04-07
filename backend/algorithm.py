@@ -16,6 +16,7 @@ def buildSchedule(courses: list, reservedTimes: list):
         "R": ["" for i in range(rows)],
         "F": ["" for i in range(rows)],
         "S": ["" for i in range(rows)],
+        "Online": []
     }
     template = Schedule(schedule)
     reserved = Section("reserved", reservedTimes)
@@ -36,6 +37,8 @@ def buildSchedule(courses: list, reservedTimes: list):
                 print(err)
                 return None
      
+    #find sections that conflict with the static schedule and remove them
+    
     # build dynamic schedule
 
 
