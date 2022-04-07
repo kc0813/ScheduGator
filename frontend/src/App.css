@@ -67,3 +67,8 @@
   position: relative;
   font-size: calc(2px + 2vmin);
 }
+
+.filterCalendar {
+  position: absolute;
+  bottom: 1vh;
+}

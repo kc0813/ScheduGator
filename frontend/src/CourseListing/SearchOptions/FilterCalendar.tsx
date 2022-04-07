@@ -2,6 +2,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
@@ -27,24 +28,46 @@ const rows = [
     createData("14", "9:20 - 10:10"),
 ];
 
+const handleCellClick = (event: any) => {
+    // TODO: change cell color to gray
+    // TODO: store the filtered time slot in an appropriate data structure
+    alert("you filtered something");
+}
+
 function FilterCalendar() {
+    const days = ["M", "T", "W", "R", "F", "S"];
+
     return(
-        <TableContainer component={Paper}>
-        <Table size="small">
-            <TableBody>
-            {rows.map((row) => (
-                <TableRow key={row.period} style={{height:"20px"}}>
-                    <TableCell style={{padding:0}}></TableCell>
-                    <TableCell style={{padding:0}}></TableCell>
-                    <TableCell style={{padding:0}}></TableCell>
-                    <TableCell style={{padding:0}}></TableCell>
-                    <TableCell style={{padding:0}}></TableCell>
-                    <TableCell style={{padding:0}}></TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-        </TableContainer>
+        <div id="filterCalender">
+            <small>Filter Time Slots</small>
+            <TableContainer component={Paper}>
+            <Table size="small">
+                <TableHead>
+                    <TableRow style={{height:"20px"}}>
+                        <TableCell align="center"  style={{padding:0, borderBottom: "none"}}></TableCell>
+                        {days.map((day, key) =>
+                            <TableCell key={key} style={{padding:0, color: "black", background: "LightCyan"}} align="center" >{day}</TableCell>
+                        )}
+                    </TableRow>
+                </TableHead>
+                <TableBody onClick={handleCellClick}>
+                {rows.map((row) => (
+                    <TableRow 
+                        key={row.period} 
+                        style={{height:"20px"}}>
+                        <TableCell style={{padding:0}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            </TableContainer>
+        </div>
     );
 }
 

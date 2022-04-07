@@ -7,7 +7,6 @@ function SearchOptions(props: {AddCourse: (courseID: string) => void}) {
         Search Options
         <SearchBar AddCourse={props.AddCourse} />
         <WordCount/>
-        <small>Filter Time Slots</small>
         <FilterCalendar/>
     </div>
 

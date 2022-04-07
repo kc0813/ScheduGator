@@ -30,18 +30,16 @@ const rows = [
 ];
 
 function Calendar() {
+    const days = ["M", "T", "W", "R", "F", "S"];
     return(
         <TableContainer component={Paper}>
         <Table size="small">
             <TableHead>
-                <TableRow>
-                    <TableCell/>
-                    <TableCell align="center">M</TableCell>
-                    <TableCell align="center">T</TableCell>
-                    <TableCell align="center">W</TableCell>
-                    <TableCell align="center">R</TableCell>
-                    <TableCell align="center">F</TableCell>
-                    <TableCell align="center">S</TableCell>
+                <TableRow style={{height:"20px"}}>
+                        <TableCell align="center"  style={{padding:0, borderBottom: "none"}}></TableCell>
+                        {days.map((day, key) =>
+                            <TableCell key={key} style={{padding:0, color: "black"}} align="center" >{day}</TableCell>
+                         )}
                 </TableRow>
             </TableHead>
             <TableBody>
