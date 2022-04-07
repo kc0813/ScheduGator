@@ -35,6 +35,9 @@ const handleCellClick = (event: any) => {
 }
 
 function FilterCalendar() {
+    // Reference for filtered time slots calendar:
+    // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/CalendarFilter.js
+    
     const days = ["M", "T", "W", "R", "F", "S"];
 
     return(
