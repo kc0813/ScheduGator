@@ -36,7 +36,7 @@ function Calendar() {
         <Table size="small">
             <TableHead>
                 <TableRow style={{height:"20px"}}>
-                        <TableCell align="center"  style={{padding:0, borderBottom: "none"}}></TableCell>
+                        <TableCell style={{padding:0}}></TableCell>
                         {days.map((day, key) =>
                             <TableCell key={key} style={{padding:0, color: "black"}} align="center" >{day}</TableCell>
                          )}
