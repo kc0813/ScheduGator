@@ -1,3 +1,54 @@
+class Section:
+    """
+    Section object for courses
+
+    parameters:
+        ID: section ID
+        meetings: all time slots in this section [["day", "period"], ...]
+
+    functions:
+        isOnline: returns true if section has an online section
+
+    """
+
+    def __init__(self, ID: str, meetings: list):
+        """
+        parameters:
+        ID: section ID
+        meetings: all time slots in this section [["day", "period"], ...]
+        """
+        self.id = ID
+        self.meetings = meetings
+        self.online : bool
+        if len.meetings == 0:
+            self.online = True
+        else:
+            self.online = False
+
+    def deleteTimeSlot(self, timeSlot: tuple):
+
+        pass
+
+    def isOnline(self) -> bool:
+        """
+        Returns true if section has an online section
+        """
+        return self.online
+    
+#    def __eq__(self, __o: object) -> bool:
+#        """
+#        Returns true if section has the same meeting day and period
+#        """
+#        return self.meetings == __o.meetings
+
+    def __str__(self) -> str:
+        """
+        Returns string of section
+        """
+        return "id: {} meetings: {}".format(self.id, self.meetings)
+
+    __repr__ = __str__
+
 class Course:
     """
     Course object for a schedule
@@ -14,7 +65,7 @@ class Course:
     """
 
     def __init__(
-        self, code: str, name: str, sections: list, meetingDays: str, period: str
+        self, code: str, name: str, sections: list
     ):
         """
         parameters:
@@ -24,9 +75,10 @@ class Course:
         """
         self.code = code
         self.name = name
-        self.sections = sections
-        self.meetingDays = meetingDays
-        self.period = period
+        self.sectList = sections
+        self.staticMeetTime : Section
+        self.meetTimes = self.genMeetTimes()
+        self.hasOnlineSection
 
     def numSections(self) -> int:
         """
@@ -34,20 +86,23 @@ class Course:
         """
         return len(self.sections)
 
-    def hasOnlineSection(self) -> bool:
+    def genMeetTimes(self) -> dict:
         """
-        Returns true if course has an online section
-        """
-        for section in self.sections:
-            if section.isOnline():
-                return True
-        return False
+        Returns a dictionary of lists. 
+        Dictionary<["day", "period"],[(section indices)]> meetDict;
 
-    def meetDict(self) -> list:
+        The keys respresent a single time slot that at least one sections meets in. 
+        Each list stores the indices of all Sections in sectList that meet during that time slot.
         """
-        Returns a list of dictionaries with the meeting days and times for a course
-        """
-        return [[section.day, section.period] for section in self.sections]
+        meetTimes = {}
+        # meetDict[["M", 8]] = [1,2,3,4,5]
+        for section in self.sections:
+            meetKeys = section.meetings
+            meetVal = section.id
+            for key in meetKeys:
+                meetTimes[key].append(meetVal)
+        return meetTimes     
+
 
     # TODO test this because idk how __eq__ works
     def trimSections(self) -> list:
@@ -65,68 +120,31 @@ class Course:
                     newSections.append(section)
         return newSections
 
-    def setNull(self, indices: list):
+    # TODO Note that some courses have multiple classes with the different meeting days and periods
+    # TODO test this
+    def findStaticMeetTime(self, sections: list) -> list:
         """
-        sets section indices to null
+        Runs through every time slot that has a section meeting at that time.
+        
+        If all classes meet at that time slot, put it in the staticMeetTimes list.
+        Remove that time slot from all sections that met there 
+        (since they all share it, might as well only consider it once using staticMeetTimes)
+
+        If a section is now empty, remove it from the course.
         """
-        for i in indices:
-            self.sections[i] = None
+        staticMeetTimes = []
+        for key in self.meetTimes: #for all time slots
+            if len(self.meetTimes[key]) == len(sections): #if num sections at key == num total sections
+                staticMeetTimes.append(key)               #add it to the staticMeetTimes
 
+                for index in self.codemeetTimes[key]:     #Remove time slot from all sections
+                    sections[index].deleteTimeSlot(key)
 
-class Section:
-    """
-    Section object for courses
+                    if len(sections[index].meetings) == 0:#check if the section is empty now
+                        sections.pop(index)
+        #if we assume that one section being completely empty means all sections being empty
+        #then instead use this in the if statement:
+                        #sections.clear()
+                        #return staticMeetTimes
 
-    parameters:
-        ID: section ID
-        day: meeting day
-        period: meeting period
-
-    functions:
-        isOnline: returns true if section has an online section
-
-    """
-
-    def __init__(self, ID: str, day: str, period: str, online: bool):
-        """
-        parameters:
-        ID: section ID
-        day: meeting day
-        period: meeting period
-        """
-        self.id = ID
-        self.day = day
-        self.period = period
-        self.online = online
-
-    def isOnline(self) -> bool:
-        """
-        Returns true if section has an online section
-        """
-        return self.online
-
-    def __eq__(self, __o: object) -> bool:
-        """
-        Returns true if section has the same meeting day and period
-        """
-        return self.day == __o.day and self.period == __o.period
-
-    def __str__(self) -> str:
-        """
-        Returns string of section
-        """
-        return "id: {} day: {} period: {}".format(self.id, self.day, self.period)
-
-    __repr__ = __str__
-
-
-#  (this is a stretch goal)
-# TODO Note that some courses have multiple classes with the different meeting days and periods
-
-# TODO test this
-def findStaticMeetTime(sections: list):
-    """
-    Finds the the common meeting time for a list of meet times like CDA is weird
-    (remove any section times)
-    """
-    pass
+        return staticMeetTimes
