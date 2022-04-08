@@ -1,5 +1,5 @@
 import React from 'react';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 function SearchBar(props: { AddCourse: (courseID: string) => void }) {
 
@@ -18,7 +18,7 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
             return
         }
 
-        const course: Promise<any> = getClasses(userValue);
+        getClasses(userValue)
         
         event.currentTarget.value = "";  // Clear search bar
         event.preventDefault();  // Stop page from refreshing after pressing enter
@@ -33,24 +33,12 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                 'Access-Control-Allow-Origin': '*',
             } as AxiosRequestConfig['headers'],
         }
-        await axios.put(options.url, options.body, options.headers)
-            .then((response) => {
-                const courseDataArray: any = response.data[0].COURSES
-                if (courseDataArray.length != 0) {
-                    console.log("Course Data: ")
-                    console.log(courseDataArray[0])
+        const response = await axios.put<any, AxiosResponse<object[]>>(options.url, options.body, options.headers)
 
-                    props.AddCourse(courseCode)
-                    return courseDataArray[0]
-                }
-                else {
-                    alert("Course not available in (semester)")
-                }
 
-            })  
-            .catch((response) => {
-                throw new Error("Error: " + response.status);
-            })
+        const data = response.data[0]
+        console.log(data)
+
     }
 
 
