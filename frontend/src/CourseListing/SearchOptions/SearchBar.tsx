@@ -1,5 +1,14 @@
 import React from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Course } from '../../Course';
+
+interface CourseResponse {
+    COURSES: Course[]
+    LASTCONTROLNUMBER: number
+    RETRIEVEDROWS: number
+    TOTALROWS: number
+}
+
 
 function SearchBar(props: { AddCourse: (courseID: string) => void }) {
 
@@ -33,11 +42,12 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
                 'Access-Control-Allow-Origin': '*',
             } as AxiosRequestConfig['headers'],
         }
-        const response = await axios.put<any, AxiosResponse<object[]>>(options.url, options.body, options.headers)
+        const response = await axios.put<any, AxiosResponse<CourseResponse[]>>(options.url, options.body, options.headers)
 
 
         const data = response.data[0]
         console.log(data)
+        console.log(data.COURSES[0])
 
     }
 
