@@ -1,0 +1,52 @@
+export interface Course {
+    code: string
+    courseId: string
+    description: string
+    name: string
+    openSeats: any
+    prerequisites: string
+    sections: Section[]
+}
+
+export interface Section {
+    EEP: string
+    LMS: string
+    acadCareer: string
+    addEligible: string
+    classNumber: number
+    courseFee: number
+    credits: number
+    credits_max: number
+    credits_min: number
+    dNote: string
+    deptCode: number
+    deptName: string
+    display: string
+    dropaddDeadline: string
+    endDate: string
+    finalExam: string
+    genEd: any
+    grWriting: string
+    gradBasis: string
+    instructors: { name: string }[]
+    lateFlag: string
+    meetTimes: MeetTime[]
+    note: string
+    number: string
+    pastDeadline: boolean
+    rotateTitle: string
+    sectWeb: string
+    startDate: string
+}
+
+export interface MeetTime {
+    meetBldgCode: string
+    meetBuilding: string
+    meetDays: string[]
+    meetNo: number
+    meetPeriodBegin: string
+    meetPeriodEnd: string
+    meetRoom: string
+    meetTimeBegin: string
+    meetTimeEnd: string
+}
