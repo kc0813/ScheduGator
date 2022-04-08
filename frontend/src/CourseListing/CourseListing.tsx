@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SelectedCourses from "./SelectedCourses/SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
+import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
 
 
@@ -25,11 +26,11 @@ function CourseListing(
 
         if (index !== -1) {
             //make copy of list
-            let templist = props.courseList.slice()
-            templist.splice(index, 1)
-            props.setCourseList(templist)
+            let tempList = props.courseList.slice()
+            tempList.splice(index, 1)
+            props.setCourseList(tempList)
             console.log("DELETED")
-            console.log(props.courseList.length + " courses in List")
+            console.log(tempList.length + " courses in List")
         }
         else {
             console.log("Course not found to delete")
@@ -38,16 +39,28 @@ function CourseListing(
 
     const AddCourse = (course: Course) => {
         const courseID: string = course.code
-        if (!props.courseList.includes(course)) {
+
+        const hasRepeats = (rhs: Course)=>{
+            let repeated = false
+            props.courseList.forEach((lhs:Course) => {
+                if(isCourseEqual(lhs, rhs)){
+                    repeated = true;
+                }
+            })
+            return repeated;
+        };
+
+        if (!hasRepeats(course)) {
             //make copy of list
             let tempList = props.courseList.slice()
             tempList.push(course)
             props.setCourseList(tempList)
             console.log("ADDED: " + courseID)
-            console.log(props.courseList.length + " courses in List")
+            console.log(tempList.length + " courses in List")
         }
         else {
             console.log("ALREADY IN")
+            alert("'" + courseID + "' has already been added!");
         }
     }
 

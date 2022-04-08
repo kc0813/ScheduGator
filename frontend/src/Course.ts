@@ -9,7 +9,7 @@ export interface Course {
 }
 
 export function isCourseEqual(c1: Course, c2: Course): boolean {
-    return c1.courseId == c2.courseId
+    return c1.courseId === c2.courseId
 }
 
 export interface Section {
