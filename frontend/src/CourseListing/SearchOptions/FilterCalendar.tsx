@@ -6,26 +6,55 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
-function createData(period: string, time: string) {
-    return { period, time };
-}
+const days = ["M", "T", "W", "R", "F", "S"];
 
-// Create table rows (periods)
-const rows = [
-    createData("1", "7:25 - 8:15"),
-    createData("2", "8:30 - 9:20"),
-    createData("3", "9:35 - 10:25"),
-    createData("4", "10:40 - 11:30"),
-    createData("5", "11:45 - 12:35"),
-    createData("6", "12:50 - 1:40"),
-    createData("7", "1:55 - 2:45"),
-    createData("8", "3:00 - 3:50"),
-    createData("9", "4:05 - 4:55"),
-    createData("10", "5:10 - 6:00"),
-    createData("11", "6:15 - 7:05"),
-    createData("12", "7:20 - 8:10"),
-    createData("13", "8:20 - 9:10"),
-    createData("14", "9:20 - 10:10"),
+const periods = [
+    {
+        period: "1",
+        time: "7:25 - 8:15"
+    },{
+        period: "2",
+        time: "8:30 - 9:20"
+    },{
+        period: "3",
+        time: "9:35 - 10:25"
+    },{
+        period: "4",
+        time: "10:40 - 11:30"
+    },{
+        period: "5",
+        time: "11:45 - 12:35"
+    },{
+        period: "6",
+        time: "12:50 - 1:40"
+    },{
+        period: "7",
+        time: "1:55 - 2:45"
+    },{
+        period: "8",
+        time: "3:00 - 3:50"
+    },{
+        period: "9",
+        time: "4:05 - 4:55"
+    },{
+        period: "10",
+        time: "5:10 - 6:00"
+    },{
+        period: "11",
+        time: "6:15 - 7:05"
+    },{
+        period: "E1",
+        time: "7:20 - 8:10"
+    },{
+        period: "E2",
+        time: "8:20 - 9:10"
+    },{
+        period: "E3",
+        time: "9:20 - 10:10"
+    },{
+        period: "Online",
+        time: ""
+    }
 ];
 
 const handleCellClick = (event: any) => {
@@ -37,14 +66,13 @@ const handleCellClick = (event: any) => {
 function FilterCalendar() {
     // Reference for filtered time slots calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/CalendarFilter.js
-    
-    const days = ["M", "T", "W", "R", "F", "S"];
 
     return(
         <div id="filterCalender">
             <small>Filter Time Slots</small>
             <TableContainer component={Paper}>
             <Table size="small">
+
                 <TableHead>
                     <TableRow style={{height:"20px"}}>
                         <TableCell align="center"  style={{padding:0, borderBottom: "none"}}></TableCell>
@@ -53,21 +81,23 @@ function FilterCalendar() {
                         )}
                     </TableRow>
                 </TableHead>
+
                 <TableBody onClick={handleCellClick}>
-                {rows.map((row) => (
-                    <TableRow 
-                        key={row.period} 
-                        style={{height:"20px"}}>
-                        <TableCell style={{padding:0}}></TableCell>
-                        <TableCell style={{padding:0}}></TableCell>
-                        <TableCell style={{padding:0}}></TableCell>
-                        <TableCell style={{padding:0}}></TableCell>
-                        <TableCell style={{padding:0}}></TableCell>
-                        <TableCell style={{padding:0}}></TableCell>
-                        <TableCell style={{padding:0}}></TableCell>
-                    </TableRow>
+                    {periods.map((row) => (
+                        <TableRow 
+                            key={row.period} 
+                            style={{height:"20px"}}>
+                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell style={{padding:0}}></TableCell>
+                        </TableRow>
                     ))}
                 </TableBody>
+
             </Table>
             </TableContainer>
         </div>
