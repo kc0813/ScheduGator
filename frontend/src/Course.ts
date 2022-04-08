@@ -8,6 +8,10 @@ export interface Course {
     sections: Section[]
 }
 
+export function isCourseEqual(c1: Course, c2: Course): boolean {
+    return c1.courseId == c2.courseId
+}
+
 export interface Section {
     EEP: string
     LMS: string
