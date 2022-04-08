@@ -1,7 +1,8 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
+import { Course } from "../Course";
 
-function Schedule(props: {setRenderWin: (state: string) => void})
+function Schedule(props: {setRenderWin: (state: string) => void, courseList:Course[]})
 {
 	return(
     <div className="Schedule">
@@ -14,8 +15,10 @@ function Schedule(props: {setRenderWin: (state: string) => void})
             </div>
 
             <div className="listCourses">
-                List of Courses
-                {/* <SelectedCourses/> */}
+                <SelectedCourses
+                    courseList={props.courseList}
+                    DeleteCourse={()=>{}}
+                />
             </div>
 
             <div className="searchOptions">

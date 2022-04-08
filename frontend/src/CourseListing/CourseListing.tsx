@@ -4,27 +4,32 @@ import SearchOptions from "./SearchOptions/SearchOptions";
 import { Course } from "../Course";
 
 
-function CourseListing(props: {setRenderWin: (state: string) => void}) {
+function CourseListing(
+    props: {
+            setRenderWin: (state: string) => void, 
+            setCourseList:(courseList: Course[]) => void, 
+            courseList: Course[]}
+            ){
 
-    const [courseList, setCourseList] = useState<Course[]>([])
+    //const [courseList, setCourseList] = useState<Course[]>([])
 
     const DeleteCourse = (courseID: string) => {
         let index = -1
         
         //find course in list
-        for (let i = 0; i < courseList.length; i++) {
-            if (courseList[i].code == courseID) {
+        for (let i = 0; i < props.courseList.length; i++) {
+            if (props.courseList[i].code == courseID) {
                 index = i
             }
         }
 
         if (index !== -1) {
             //make copy of list
-            let templist = courseList.slice()
+            let templist = props.courseList.slice()
             templist.splice(index, 1)
-            setCourseList(templist)
+            props.setCourseList(templist)
             console.log("DELETED")
-            console.log(courseList.length + " courses in List")
+            console.log(props.courseList.length + " courses in List")
         }
         else {
             console.log("Course not found to delete")
@@ -33,13 +38,13 @@ function CourseListing(props: {setRenderWin: (state: string) => void}) {
 
     const AddCourse = (course: Course) => {
         const courseID: string = course.code
-        if (!courseList.includes(course)) {
+        if (!props.courseList.includes(course)) {
             //make copy of list
-            let tempList = courseList.slice()
+            let tempList = props.courseList.slice()
             tempList.push(course)
-            setCourseList(tempList)
+            props.setCourseList(tempList)
             console.log("ADDED: " + courseID)
-            console.log(courseList.length + " courses in List")
+            console.log(props.courseList.length + " courses in List")
         }
         else {
             console.log("ALREADY IN")
@@ -57,7 +62,7 @@ function CourseListing(props: {setRenderWin: (state: string) => void}) {
                 </div>
 
                 <SelectedCourses
-                    courseList={courseList}
+                    courseList={props.courseList}
                     DeleteCourse={DeleteCourse}
                 />
 
