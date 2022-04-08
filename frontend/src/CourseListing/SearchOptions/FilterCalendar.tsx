@@ -60,7 +60,7 @@ const periods = [
 const handleCellClick = (event: any) => {
     // TODO: change cell color to gray
     // TODO: store the filtered time slot in an appropriate data structure
-    alert("you filtered something");
+    alert("you filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
 }
 
 function FilterCalendar() {
