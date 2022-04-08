@@ -73,7 +73,6 @@ describe(CourseListing, () => {
     })
 
     it('adds button to list', () => {
-        const mockfn = jest.fn()
         act(() => {
             render(courseListing, container)
         })
@@ -101,7 +100,6 @@ describe(CourseListing, () => {
     })
 
     it('adds and removes button from list', () => {
-        const mockfn = jest.fn()
         act(() => {
             render(courseListing, container)
         })
