@@ -63,6 +63,7 @@ function CourseListing(
 
                 <SelectedCourses
                     courseList={props.courseList}
+                    deletable={true}
                     DeleteCourse={DeleteCourse}
                 />
 

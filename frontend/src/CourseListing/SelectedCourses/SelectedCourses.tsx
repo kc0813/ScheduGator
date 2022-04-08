@@ -1,13 +1,14 @@
 import { Course } from "../../Course";
 import HoverBtn from "./HoverButton";
 
-export function SelectedCourses(props: {courseList: Course[], DeleteCourse: (courseID: string) => void}) {
+export function SelectedCourses(props: {courseList: Course[], deletable: boolean, DeleteCourse: (courseID: string) => void}) {
 
     let courseBtns: JSX.Element[] = []
     let top = 10;
+   
     props.courseList.forEach((course: Course) => {
-        courseBtns.push(
-            <HoverBtn courseID={course.code} top={top} delete={() => props.DeleteCourse(course.code)} />
+            courseBtns.push(
+            <HoverBtn courseID={course.code} top={top} deletable={props.deletable} delete={() => props.DeleteCourse(course.code)} />
         )
         top += 30;
     });

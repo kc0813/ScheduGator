@@ -17,6 +17,7 @@ function Schedule(props: {setRenderWin: (state: string) => void, courseList:Cour
             <div className="listCourses">
                 <SelectedCourses
                     courseList={props.courseList}
+                    deletable={false}
                     DeleteCourse={()=>{}}
                 />
             </div>
