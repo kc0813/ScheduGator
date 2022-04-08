@@ -10,7 +10,7 @@ interface CourseResponse {
 }
 
 
-function SearchBar(props: { AddCourse: (courseID: string) => void }) {
+function SearchBar(props: { AddCourse: (course: Course) => void }) {
 
     const getInputValue = (event: React.KeyboardEvent<HTMLInputElement> | undefined) => {
 
@@ -44,10 +44,14 @@ function SearchBar(props: { AddCourse: (courseID: string) => void }) {
         }
         const response = await axios.put<any, AxiosResponse<CourseResponse[]>>(options.url, options.body, options.headers)
 
-
-        const data = response.data[0]
-        console.log(data)
-        console.log(data.COURSES[0])
+        const data: CourseResponse = response.data[0]
+        if(data.RETRIEVEDROWS == 0) {
+            alert(courseCode + ' is not in our database for this semester!')
+        }
+        else {
+            const course: Course = data.COURSES[0]
+            props.AddCourse(course)
+        }
 
     }
 

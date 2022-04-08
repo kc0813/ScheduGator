@@ -1,14 +1,23 @@
 import { useState } from "react";
 import SelectedCourses from "./SelectedCourses/SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
+import { Course } from "../Course";
 
 
 function CourseListing(props: {setRenderWin: (state: string) => void}) {
 
-    const [courseList, setCourseList] = useState<string[]>([])
+    const [courseList, setCourseList] = useState<Course[]>([])
 
     const DeleteCourse = (courseID: string) => {
-        const index = courseList.indexOf(courseID);
+        let index = -1
+        
+        //find course in list
+        for (let i = 0; i < courseList.length; i++) {
+            if (courseList[i].courseId == courseID) {
+                index = i
+            }
+        }
+
         if (index !== -1) {
             //make copy of list
             let templist = courseList.slice()
@@ -22,11 +31,12 @@ function CourseListing(props: {setRenderWin: (state: string) => void}) {
         }
     }
 
-    const AddCourse = (courseID: string) => {
-        if (!courseList.includes(courseID)) {
+    const AddCourse = (course: Course) => {
+        const courseID: string = course.courseId
+        if (!courseList.includes(course)) {
             //make copy of list
             let tempList = courseList.slice()
-            tempList.push(courseID)
+            tempList.push(course)
             setCourseList(tempList)
             console.log("ADDED: " + courseID)
             console.log(courseList.length + " courses in List")
