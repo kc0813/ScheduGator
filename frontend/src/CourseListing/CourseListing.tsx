@@ -13,7 +13,7 @@ function CourseListing(props: {setRenderWin: (state: string) => void}) {
         
         //find course in list
         for (let i = 0; i < courseList.length; i++) {
-            if (courseList[i].courseId == courseID) {
+            if (courseList[i].code == courseID) {
                 index = i
             }
         }
@@ -32,7 +32,7 @@ function CourseListing(props: {setRenderWin: (state: string) => void}) {
     }
 
     const AddCourse = (course: Course) => {
-        const courseID: string = course.courseId
+        const courseID: string = course.code
         if (!courseList.includes(course)) {
             //make copy of list
             let tempList = courseList.slice()

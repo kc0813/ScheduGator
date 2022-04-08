@@ -7,7 +7,7 @@ export function SelectedCourses(props: {courseList: Course[], DeleteCourse: (cou
     let top = 10;
     props.courseList.forEach((course: Course) => {
         courseBtns.push(
-            <HoverBtn courseID={course.courseId} top={top} delete={() => props.DeleteCourse(course.courseId)} />
+            <HoverBtn courseID={course.code} top={top} delete={() => props.DeleteCourse(course.code)} />
         )
         top += 30;
     });
