@@ -14,12 +14,10 @@ function Schedule(props: {setRenderWin: (state: string) => void, courseList:Cour
                 </button> 
             </div>
 
-            <div className="listCourses">
-                <SelectedCourses
-                    courseList={props.courseList}
-                    DeleteCourse={()=>{}}
-                />
-            </div>
+            <SelectedCourses
+                courseList={props.courseList}
+                DeleteCourse={()=>{}}
+            />
 
             <div className="searchOptions">
                 Course Info
