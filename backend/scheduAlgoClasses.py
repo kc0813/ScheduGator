@@ -73,7 +73,7 @@ class Course:
         """
         self.code = code
         self.name = name
-        self.sectList = sections
+        self.sections = sections
         self.meetTimes = self.genMeetTimes()
         self.staticMeetTime = self.findStaticMeetTime()
         self.hasOnlineSection = False
@@ -82,7 +82,7 @@ class Course:
         """
         Returns the number of sections for a course
         """
-        return len(self.sectList)
+        return len(self.sections)
 
     def genMeetTimes(self) -> dict:
         """
@@ -90,11 +90,11 @@ class Course:
         Dictionary<["day", "period"],[(section indices)]> meetDict;
 
         The keys respresent a single time slot that at least one sections meets in.
-        Each list stores the indices of all Sections in sectList that meet during that time slot.
+        Each list stores the indices of all Sections in *sections* that meet during that time slot.
         """
         meetTimes = {}
         # meetDict[["M", 8]] = [1,2,3,4,5]
-        for section in self.sectList:
+        for section in self.sections:
             meetKeys = section.meetings
             meetVal = section.id
             for key in meetKeys:
@@ -114,7 +114,7 @@ class Course:
         removed)
         """
         newSections = []
-        for section in self.sectList:
+        for section in self.sections:
             if section is not None:
                 if section not in newSections:
                     newSections.append(section)
@@ -135,7 +135,7 @@ class Course:
         staticMeetTimes = []
         for key in self.meetTimes:  # for all time slots
             if len(self.meetTimes[key]) == len(
-                self.sectList
+                self.sections
             ):  # if num sections at key == num total sections
                 staticMeetTimes.append(key)  # add it to the staticMeetTimes
 
@@ -143,19 +143,19 @@ class Course:
                     len(self.meetTimes[key])
                 ):  # Remove time slot from all sections
                     try:
-                        self.sectList[index].deleteTimeSlot(key)
+                        self.sections[index].deleteTimeSlot(key)
                     except Exception:
                         # this is here to avoid trying to delete something that's not there
                         pass
 
                     if (
-                        len(self.sectList[index].meetings) == 0
+                        len(self.sections[index].meetings) == 0
                     ):  # check if the section is empty now
                         if self.hasOnlineSection:
-                            self.sectList.clear()
+                            self.sections.clear()
                             return staticMeetTimes
                         else:
-                            self.sectList.pop(index)
+                            self.sections.pop(index)
 
         # if we assume that one section being completely empty means all sections being empty
         # then instead use this in the if statement:

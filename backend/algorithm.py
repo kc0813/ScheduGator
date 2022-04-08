@@ -1,4 +1,4 @@
-from scheduAlgoClasses import Schedule, Section
+from scheduAlgoClasses import Schedule, Section, Course
 
 """
     courses: list of all courses to be put into the schedule
@@ -7,7 +7,7 @@ from scheduAlgoClasses import Schedule, Section
 """
 
 
-def buildSchedule(courses: list, reservedTimes: list):
+def buildSchedules(courses: list[Course], reservedTimes: list):
 
     # 2D array for schedule, doesn't account for online classes
     rows = 14
@@ -43,5 +43,36 @@ def buildSchedule(courses: list, reservedTimes: list):
     # find sections that conflict with the static schedule and remove them
 
     # build dynamic schedule
+    samples = dynamicScheduleBuilder(template, courses, 0)
 
-    return schedule
+    return samples
+
+
+"""
+    schedule: current schedule that's being worked on.
+              Starts as static template at the very top level
+    courses: list of all courses to be included in the schedule
+    index: the level/course currently being added
+    Returns: list of all possiblesample schedules
+"""
+# TODO account for online classes
+# TODO actually test that this works
+
+
+def dynamicScheduleBuilder(
+    schedule: Schedule, courses: list[Course], index: int
+) -> list[Schedule]:
+
+    samples = []
+    for section in courses[index].sections:
+        try:
+            schedule.addSection(section)
+        except RuntimeError:  # what to do if there's a temporary conflict? Nothing?
+            pass
+
+        if index < len(courses) - 1:
+            samples = dynamicScheduleBuilder(schedule, courses, index + 1)
+        else:
+            samples.append(schedule)
+
+    return samples
