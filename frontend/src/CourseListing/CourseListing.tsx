@@ -9,10 +9,9 @@ function CourseListing(
     props: {
             setRenderWin: (state: string) => void, 
             setCourseList:(courseList: Course[]) => void, 
-            courseList: Course[]}
-            ){
-
-    //const [courseList, setCourseList] = useState<Course[]>([])
+            courseList: Course[]
+        }
+    ){
 
     const DeleteCourse = (courseID: string) => {
         let index = -1

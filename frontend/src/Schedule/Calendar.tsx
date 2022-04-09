@@ -5,6 +5,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Course } from "../Course";
 
 const days = ["M", "T", "W", "R", "F", "S"];
 
@@ -57,7 +58,15 @@ const periods = [
     }
 ];
 
-function Calendar() {
+function Calendar(
+    props: {
+        courseList: Course[]
+    }) {
+
+    const generateTableCell = () => {
+        
+    };
+
     return(
         <TableContainer component={Paper}>
         <Table size="small">
