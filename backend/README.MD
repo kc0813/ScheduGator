@@ -9,21 +9,7 @@ Welcome to the backend! we are using the Fastapi library and the Python language
 
 ## Running locally for the first time
 
-1. See the [README.md](docker/README.MD) file for instructions on how to download Docker and Docker Compose.
-
-2. Make sure you have Docker AND Docker compose installed and running.
-
-3. Run `docker-compose up` to start the backend.
-
-4. navigate to [http://localhost:8000](http://localhost:8000) in your browser.
-
-> Docs are available at [http://localhost:8000/docs](http://localhost:8000/docs)
-
-5. You should see the backend running.
-
-6. hit Crtl + C to stop the backend.
-
-7. You can run `docker-compose down -v` to stop the backend.
+1. See the [README.md](docker/README.MD) file.
 ## Contributing
 
 ### Prerequisites
@@ -58,6 +44,8 @@ Python 3.10+ installed
 3. format everything using `python3 -m black ./dir/to/backend`
 
 4. check flake8 compliance with `python3 -m flake8`
+
+5. Run unit tests with `pytest`
 
 > Tip: make sure you are using a venv with requirements.txt installed in the previous topic.
 

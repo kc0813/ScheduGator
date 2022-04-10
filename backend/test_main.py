@@ -13,9 +13,9 @@ def test_read_main():
     assert response.json() == {"message": "Hello world, I'm working!!!"}
 
 
-def test_class_category_valid():
+def test_class_category_invalid():
     """
-    Tests the class endpoint with a valid query
+    Tests the class endpoint with a 404 query
     """
     response = client.put(
         "/class/",
@@ -25,35 +25,19 @@ def test_class_category_valid():
             "courseCode": "CAP3027",
         },
     )
-    assert response.status_code == 200
-    assert response.json() == [
-        {
-            "COURSES": [],
-            "LASTCONTROLNUMBER": 0,
-            "RETRIEVEDROWS": 0,
-            "TOTALROWS": 0,
-        }
-    ]
+    assert response.status_code == 404
 
 
-def test_class_category_invalid():
+def test_class_category_valid():
     """
-    Tests the class endpoint with an invalid query
+    Tests the class endpoint with a valid query
     """
     response = client.put(
         "/class/",
         json={
             "category": True,
             "term": 2221,
-            "courseCode": "CAP3027",
+            "courseCode": "CDA3101",
         },
     )
     assert response.status_code == 200
-    assert response.json() == [
-        {
-            "COURSES": [],
-            "LASTCONTROLNUMBER": 0,
-            "RETRIEVEDROWS": 0,
-            "TOTALROWS": 0,
-        }
-    ]

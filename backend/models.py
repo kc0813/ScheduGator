@@ -34,5 +34,12 @@ class ClassQuery(BaseModel):
 
 class CourseData(BaseModel):
     """
-    Schema for entering or deleting courses
+    Schema for returning courses
     """
+
+    code: str
+    sections: list
+
+
+class Message(BaseModel):
+    message: str
