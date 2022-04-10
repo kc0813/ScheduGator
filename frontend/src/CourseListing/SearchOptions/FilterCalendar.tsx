@@ -51,10 +51,7 @@ const periods = [
     },{
         period: "E3",
         time: "9:20 - 10:10"
-    },{
-        period: "Online",
-        time: ""
-    }
+    },
 ];
 
 const handleCellClick = (event: any) => {
@@ -75,25 +72,30 @@ function FilterCalendar() {
 
                 <TableHead>
                     <TableRow style={{height:"20px"}}>
-                        <TableCell align="center"  style={{padding:0, borderBottom: "none"}}></TableCell>
+                        <TableCell align="center"  style={{padding:0, background: "lightcyan", width: 12}}></TableCell>
                         {days.map((day, key) =>
-                            <TableCell key={key} style={{padding:0, color: "black", background: "LightCyan"}} align="center" >{day}</TableCell>
+                            <TableCell key={key} style={{padding:0, color: "black", background: "lightcyan"}} align="center" >{day}</TableCell>
                         )}
                     </TableRow>
                 </TableHead>
 
-                <TableBody onClick={handleCellClick}>
+                <TableBody>
                     {periods.map((row) => (
                         <TableRow 
                             key={row.period} 
                             style={{height:"20px"}}>
-                            <TableCell style={{padding:0}}></TableCell>
-                            <TableCell style={{padding:0}}></TableCell>
-                            <TableCell style={{padding:0}}></TableCell>
-                            <TableCell style={{padding:0}}></TableCell>
-                            <TableCell style={{padding:0}}></TableCell>
-                            <TableCell style={{padding:0}}></TableCell>
-                            <TableCell style={{padding:0}}></TableCell>
+                            <TableCell 
+                                align="center"
+                                style={{padding:0, background: "lightcyan"}}>
+                                {row.period}
+                            </TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
+                            <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
