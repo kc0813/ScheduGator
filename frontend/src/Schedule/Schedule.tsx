@@ -26,6 +26,8 @@ function Schedule(props: {setRenderWin: (state: string) => void, courseList:Cour
 
             <div className="courses">
                 <Calendar courseList={props.courseList}/>
+                <button>Prev Schedule</button>
+                <button>Next Schedule</button>
             </div>
 
         </header>
