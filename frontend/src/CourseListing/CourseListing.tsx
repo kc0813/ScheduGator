@@ -3,6 +3,7 @@ import SelectedCourses from "./SelectedCourses/SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
 import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
+import logo from './Images/ScheduGator.png';
 
 
 function CourseListing(
@@ -82,6 +83,7 @@ function CourseListing(
                 <SearchOptions AddCourse={AddCourse}/>
 
                 <div className="courses">
+                    <img src={logo} width={400} height={400}/>
                 </div>
 
             </header>

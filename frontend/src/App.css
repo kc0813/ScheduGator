@@ -61,6 +61,10 @@
   border: 3px solid white;
   position: absolute;
   bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .hoverBtn {
