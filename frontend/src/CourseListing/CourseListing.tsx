@@ -82,7 +82,7 @@ function CourseListing(
 
                 <SearchOptions AddCourse={AddCourse}/>
 
-                <div className="courses">
+                <div className="logo">
                     <img src={logo} width={400} height={400}/>
                 </div>
 
