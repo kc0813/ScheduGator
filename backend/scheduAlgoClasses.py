@@ -171,13 +171,17 @@ class Schedule:
         self.template = template
 
     def addSection(self, section: Section, courseID: str):
+        noConflict = True
         # Check for conflicts
         for (day, period) in section.meetings:
-            if self.template[day][int(period)] == "":
+            if self.template[day][period] == "":
                 # Add to template
-                self.template[day][int(period)] = courseID
+                pass
             else:
                 # raise an exception
                 raise RuntimeError("Time conflict at: " + day + ", " + str(period))
+        for (day, period) in section.meetings:
+            self.template[day][period] = courseID
 
         return self.template
+        
