@@ -5,6 +5,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { MouseEventHandler } from "react";
 
 const days = ["M", "T", "W", "R", "F", "S"];
 
@@ -51,12 +52,15 @@ const periods = [
     },{
         period: "E3",
         time: "9:20 - 10:10"
-    },
+    }, {
+        period: "Online",
+        time: ""
+    }
 ];
 
 const handleCellClick = (event: any) => {
-    // TODO: change cell color to gray
     // TODO: store the filtered time slot in an appropriate data structure
+    event.target.style.background = "gray";
     alert("you filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
 }
 
@@ -74,7 +78,7 @@ function FilterCalendar() {
                     <TableRow style={{height:"20px"}}>
                         <TableCell align="center"  style={{padding:0, background: "lightcyan", width: 12}}></TableCell>
                         {days.map((day, key) =>
-                            <TableCell key={key} style={{padding:0, color: "black", background: "lightcyan"}} align="center" >{day}</TableCell>
+                            <TableCell key={key} style={{padding:0, color: "black", background: "lightcyan", fontSize: 11}} align="center" >{day}</TableCell>
                         )}
                     </TableRow>
                 </TableHead>
@@ -86,7 +90,7 @@ function FilterCalendar() {
                             style={{height:"20px"}}>
                             <TableCell 
                                 align="center"
-                                style={{padding:0, background: "lightcyan"}}>
+                                style={{padding: 0, background: "lightcyan", fontSize: 11}}>
                                 {row.period}
                             </TableCell>
                             <TableCell onClick={handleCellClick} style={{padding:0}}></TableCell>
