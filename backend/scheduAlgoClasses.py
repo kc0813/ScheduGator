@@ -11,7 +11,7 @@ class Section:
 
     """
 
-    def __init__(self, ID: str, meetings: list):
+    def __init__(self, ID: str, meetings: list[tuple]):
         """
         parameters:
         ID: section ID
@@ -64,7 +64,7 @@ class Course:
         meetDict: returns a list of dictionaries with the meeting days and times for a course
     """
 
-    def __init__(self, code: str, name: str, sections: list):
+    def __init__(self, code: str, name: str, sections: list[Section]):
         """
         parameters:
         code: course code
@@ -93,15 +93,16 @@ class Course:
         Each list stores the indices of all Sections in *sections* that meet during that time slot.
         """
         meetTimes = {}
+        index = 0
         # meetDict[["M", 8]] = [1,2,3,4,5]
         for section in self.sections:
             meetKeys = section.meetings
-            meetVal = section.id
             for key in meetKeys:
                 try:
-                    meetTimes[tuple(key)].append(meetVal)
+                    meetTimes[tuple(key)].append(index)
                 except KeyError:
-                    meetTimes[tuple(key)] = [meetVal]
+                    meetTimes[tuple(key)] = [index]
+            index += 1
         return meetTimes
 
     # TODO test this because idk how __eq__ works
@@ -169,14 +170,14 @@ class Schedule:
     def __init__(self, template={}):
         self.template = template
 
-    def addSection(self, section: Section, courseID):
+    def addSection(self, section: Section, courseID: str):
         # Check for conflicts
-        for [day, period] in section.meetings:
-            if self.template[day][period] == "":
+        for (day, period) in section.meetings:
+            if self.template[day][int(period)] == "":
                 # Add to template
-                self.template[day][period] = courseID
+                self.template[day][int(period)] = courseID
             else:
                 # raise an exception
-                raise RuntimeError("Time conflict at: " + day + ", " + period)
+                raise RuntimeError("Time conflict at: " + day + ", " + str(period))
 
         return self.template

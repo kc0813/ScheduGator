@@ -60,19 +60,22 @@ def buildSchedules(courses: list[Course], reservedTimes: list):
 
 
 def dynamicScheduleBuilder(
-    schedule: Schedule, courses: list[Course], index: int
+    schedule: Schedule, courses: list[Course], index = 0
 ) -> list[Schedule]:
 
     samples = []
     for section in courses[index].sections:
         try:
-            schedule.addSection(section)
+            schedule.addSection(section, courses[index].code)
         except RuntimeError:  # what to do if there's a temporary conflict? Nothing?
             pass
 
         if index < len(courses) - 1:
-            samples = dynamicScheduleBuilder(schedule, courses, index + 1)
+            samples += dynamicScheduleBuilder(schedule, courses, index + 1)
         else:
             samples.append(schedule)
-
+   
+ 
     return samples
+
+
