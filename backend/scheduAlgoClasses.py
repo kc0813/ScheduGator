@@ -170,18 +170,17 @@ class Schedule:
     def __init__(self, template={}):
         self.template = template
 
+    # TODO find a way to do this w/o 2 for loops?
     def addSection(self, section: Section, courseID: str):
-        noConflict = True
         # Check for conflicts
         for (day, period) in section.meetings:
             if self.template[day][period] == "":
-                # Add to template
                 pass
             else:
                 # raise an exception
                 raise RuntimeError("Time conflict at: " + day + ", " + str(period))
+        # Add to template
         for (day, period) in section.meetings:
             self.template[day][period] = courseID
 
         return self.template
-        

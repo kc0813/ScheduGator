@@ -44,7 +44,7 @@ def buildSchedules(courses: list[Course], reservedTimes: list):
     # find sections that conflict with the static schedule and remove them
 
     # build dynamic schedule
-    #samples = dynamicScheduleBuilder(template, courses, 0)
+    # samples = dynamicScheduleBuilder(template, courses, 0)
     samples = []
     return samples
 
@@ -56,51 +56,32 @@ def buildSchedules(courses: list[Course], reservedTimes: list):
     index: the level/course currently being added
     Return: list of all possible sample schedules
 """
+# TODO account for online classes
+# TODO actually test that this works
+
+
 def dynamicScheduleBuilder(
-    schedule: Schedule, courses: list[Course], index = 0
+    schedule: Schedule, courses: list[Course], index=0
 ) -> list[Schedule]:
 
     samples = []
     nextSchedule = Schedule()
-    
-    #Run through each section in a course at courses[index]
-    #Makes a copy of the template and then tries to add to the copy
-    #If there are more courses to consider, call this function again, but with the new copy+section
+
+    # Run through each section in a course at courses[index]
+    # Makes a copy of the template and then tries to add to the copy
+    # If there are more courses to consider, call this function again, but with the new copy+section
     for section in courses[index].sections:
-        nextSchedule = c.deepcopy(schedule) 
+        nextSchedule = c.deepcopy(schedule)
         try:
             nextSchedule.addSection(section, courses[index].code)
         except RuntimeError:  # what to do if there's a temporary conflict? Nothing?
             continue
         if index < len(courses) - 1:
-            samples += dynamicScheduleBuilder(c.deepcopy(nextSchedule), courses, index + 1)
+            samples += dynamicScheduleBuilder(
+                c.deepcopy(nextSchedule), courses, index + 1
+            )
         else:
             print(nextSchedule.template)
             samples.append(c.deepcopy(nextSchedule))
- 
+
     return samples
-
-
-# TODO account for online classes
-# TODO actually test that this works
-
-""" def dynamicScheduleBuilder(
-    schedule: Schedule, courses: list[Course], index = 0
-) -> list[Schedule]:
-
-    samples = []
-
-    for section in courses[index].sections:
-        try:
-            schedule.addSection(section, courses[index].code)
-        except RuntimeError:  # what to do if there's a temporary conflict? Nothing?
-            pass
-
-        if index < len(courses) - 1:
-            samples += dynamicScheduleBuilder(schedule, courses, index + 1)
-        else:
-            samples.append(schedule)
- 
-    return samples """
-
-

@@ -1,6 +1,7 @@
 from scheduAlgoClasses import Course, Section, Schedule
 import algorithm as algo
 
+
 def test_basicDynamicBuild():
     rows = 14
     schedule = {
