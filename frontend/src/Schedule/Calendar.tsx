@@ -59,6 +59,9 @@ const periods = [
 ];
 
 function Calendar(
+    // Reference for schedule calendar:
+    // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/Calendar.js
+
     props: {
         courseList: Course[]
     }) {
