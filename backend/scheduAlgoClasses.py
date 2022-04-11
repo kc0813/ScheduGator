@@ -101,13 +101,16 @@ class Course:
         index = 0
         # meetDict[["M", 8]] = [1,2,3,4,5]
         for section in self.sections:
-            meetKeys = section.meetings
-            for key in meetKeys:
-                try:
-                    meetTimes[tuple(key)].append(index)
-                except KeyError:
-                    meetTimes[tuple(key)] = [index]
-            index += 1
+            if section.isOnline():
+                self.hasOnlineSection = True
+            else:
+                meetKeys = section.meetings
+                for key in meetKeys:
+                    try:
+                        meetTimes[tuple(key)].append(index)
+                    except KeyError:
+                        meetTimes[tuple(key)] = [index]
+                index += 1
         return meetTimes
 
     # TODO test this because idk how __eq__ works
@@ -175,6 +178,7 @@ class Schedule:
         self.template = template
 
     # TODO find a way to do this w/o 2 for loops?
+    # TODO account for adding online classes
     def addSection(self, section: Section, courseID: str):
         # Check for conflicts
 
@@ -189,7 +193,11 @@ class Schedule:
             self.template[day][period] = courseID
 
         return self.template
-
+    def removeSection(self, section: Section):
+        for (day, period) in section.meetings:
+            self.template[day][period] = ""
+            
+        return self.template
     def conflict(self, section: Section) -> bool:
         # Check for conflicts
         for (day, period) in section.meetings:

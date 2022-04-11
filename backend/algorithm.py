@@ -107,9 +107,17 @@ def dynamicScheduleBuilder(
     """
     samples = []
     nextSchedule = Schedule()
-
+    todoOnline = courses[index].hasOnlineSection
+    # TODO if there's an online class, remove it's static section if it has one,
+    # then add the online and continue
     for section in courses[index].sections:
         nextSchedule = c.deepcopy(schedule)
+        #DOES THIS WORK THE WAY I WANT IT TO FOR ONLINE CLASSES?
+        if todoOnline:
+            section = Section("online", [])
+            todoOnline = False
+            nextSchedule.removeSection(section)
+            
         try:
             nextSchedule.addSection(section, courses[index].code)
         except RuntimeError:
@@ -124,5 +132,7 @@ def dynamicScheduleBuilder(
             )  # Call the function to add the sections of the next course ("the next level down")
         else:
             samples.append(c.deepcopy(nextSchedule))
+
+    print(courses[index].hasOnlineSection)
 
     return samples
