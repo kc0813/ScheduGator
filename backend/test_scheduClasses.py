@@ -24,4 +24,4 @@ def test_findStaticMeetTime():
     sections = [section1, section2, section3, section4]
     course = Course("dum0000", "dummy", sections)
 
-    assert course.findStaticMeetTime() == [("M", 2), ("M", 3), ("W", 2)]
+    assert course.findStaticMeetTime().meetings == [("M", 2), ("M", 3), ("W", 2)]

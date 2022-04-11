@@ -1,3 +1,9 @@
+from typing import List, Dict
+
+# TODO clean up the code and make sure types are consistent.
+#      Make this as easy to read as possible
+
+
 class Section:
     """
     Section object for courses
@@ -11,7 +17,7 @@ class Section:
 
     """
 
-    def __init__(self, ID: str, meetings: list[tuple]):
+    def __init__(self, ID: str, meetings: List[tuple]):
         """
         parameters:
         ID: section ID
@@ -25,7 +31,6 @@ class Section:
             self.online = False
 
     def deleteTimeSlot(self, timeSlot: tuple):
-        timeSlot = list(timeSlot)
         self.meetings.remove(timeSlot)
 
     def isOnline(self) -> bool:
@@ -64,7 +69,7 @@ class Course:
         meetDict: returns a list of dictionaries with the meeting days and times for a course
     """
 
-    def __init__(self, code: str, name: str, sections: list[Section]):
+    def __init__(self, code: str, name: str, sections: List[Section]):
         """
         parameters:
         code: course code
@@ -75,7 +80,7 @@ class Course:
         self.name = name
         self.sections = sections
         self.meetTimes = self.genMeetTimes()
-        self.staticMeetTime = self.findStaticMeetTime()
+        self.staticMeetSection = self.findStaticMeetTime()
         self.hasOnlineSection = False
 
     def numSections(self) -> int:
@@ -84,7 +89,7 @@ class Course:
         """
         return len(self.sections)
 
-    def genMeetTimes(self) -> dict:
+    def genMeetTimes(self) -> Dict[tuple, List[int]]:
         """
         Returns a dictionary of lists.
         Dictionary<["day", "period"],[(section indices)]> meetDict;
@@ -92,7 +97,7 @@ class Course:
         The keys respresent a single time slot that at least one sections meets in.
         Each list stores the indices of all Sections in *sections* that meet during that time slot.
         """
-        meetTimes = {}
+        meetTimes: Dict[tuple, List[int]] = {}
         index = 0
         # meetDict[["M", 8]] = [1,2,3,4,5]
         for section in self.sections:
@@ -123,7 +128,7 @@ class Course:
 
     # TODO Note that some courses have multiple classes with the different meeting days and periods
     # TODO test this
-    def findStaticMeetTime(self) -> list:
+    def findStaticMeetTime(self) -> Section:
         """
         Runs through every time slot that has a section meeting at that time.
 
@@ -133,16 +138,14 @@ class Course:
 
         If a section is now empty, remove it from the course.
         """
-        staticMeetTimes = []
+        staticTimes = []
         for key in self.meetTimes:  # for all time slots
             if len(self.meetTimes[key]) == len(
                 self.sections
             ):  # if num sections at key == num total sections
-                staticMeetTimes.append(key)  # add it to the staticMeetTimes
+                staticTimes.append(key)  # add it to the staticTimes
 
-                for index in range(
-                    len(self.meetTimes[key])
-                ):  # Remove time slot from all sections
+                for index in self.meetTimes[key]:  # Remove time slot from all sections
                     try:
                         self.sections[index].deleteTimeSlot(key)
                     except Exception:
@@ -154,16 +157,17 @@ class Course:
                     ):  # check if the section is empty now
                         if self.hasOnlineSection:
                             self.sections.clear()
-                            return staticMeetTimes
+                            return staticTimes
                         else:
                             self.sections.pop(index)
 
         # if we assume that one section being completely empty means all sections being empty
         # then instead use this in the if statement:
         # sections.clear()
-        # return staticMeetTimes
+        # return staticTimes
+        staticMeetSection = Section("static", staticTimes)
 
-        return staticMeetTimes
+        return staticMeetSection
 
 
 class Schedule:
@@ -173,14 +177,26 @@ class Schedule:
     # TODO find a way to do this w/o 2 for loops?
     def addSection(self, section: Section, courseID: str):
         # Check for conflicts
+
         for (day, period) in section.meetings:
             if self.template[day][period] == "":
                 pass
             else:
-                # raise an exception
+                # conflict detected
                 raise RuntimeError("Time conflict at: " + day + ", " + str(period))
-        # Add to template
         for (day, period) in section.meetings:
+            # Add to template
             self.template[day][period] = courseID
 
         return self.template
+
+    def conflict(self, section: Section) -> bool:
+        # Check for conflicts
+        for (day, period) in section.meetings:
+            if self.template[day][period] == "":
+                pass
+            else:
+                # conflict detected
+                print("Time conflict at: " + day + ", " + str(period))
+                return True
+        return False

@@ -1,5 +1,7 @@
+from typing import List
 from scheduAlgoClasses import Schedule, Section, Course
 import copy as c
+
 
 """
     courses: list of all courses to be put into the schedule
@@ -8,7 +10,7 @@ import copy as c
 """
 
 
-def buildSchedules(courses: list[Course], reservedTimes: list):
+def buildSchedules(courses: List[Course], reservedTimes: list):
 
     # 2D array for schedule, doesn't account for online classes
     rows = 14
@@ -23,9 +25,11 @@ def buildSchedules(courses: list[Course], reservedTimes: list):
         "Online": [],
     }
     template = Schedule(schedule)
-    reserved = Section("reserved", reservedTimes)
-    # build static schedule
+
+    # 1) build static schedule
+
     # add reserved timeslots - assume list of pairs w/ correct indices?
+    reserved = Section("reserved", reservedTimes)
     try:
         template.addSection(reserved)
     except RuntimeError as err:  # conflict with static times means impossible schedule
@@ -33,22 +37,51 @@ def buildSchedules(courses: list[Course], reservedTimes: list):
         return None
 
     # find static meeting periods and add to schedule?
-    for course in courses:
-        if course.staticMeetTime != []:
-            try:
-                template.addSection(course.staticMeetTime)
-            except RuntimeError as err:  # conflict with static times means impossible schedule
-                print(err)
-                return None
+    try:
+        buildStaticSchedule(template, courses)
+    except RuntimeError as err:
+        print(err)
+        return None
 
     # find sections that conflict with the static schedule and remove them
+    delStaticConflict(template, courses)
 
-    # build dynamic schedule
+    # 2) build dynamic schedule
     samples = dynamicScheduleBuilder(template, courses, 0)
     if samples == []:
         samples = None
 
     return samples
+
+
+def buildStaticSchedule(template: Schedule, courses: List[Course]):
+    for course in courses:
+        if course.staticMeetSection != []:
+            try:
+                template.addSection(course.staticMeetSection, course.code)
+            except RuntimeError as err:  # conflict with static times means impossible schedule
+                print(err)
+                return None
+
+    return template
+
+
+def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
+    """
+    Checks if a section conflicts with the static schedule
+    Removes all sections that conflict with the static scheduls
+    """
+    for day in staticSchedule.template:
+        print(day)
+        print(staticSchedule.template[day])
+
+    for course in courses:
+        for section in course.sections:
+            if staticSchedule.conflict(section):
+                print(section)
+                course.sections.remove(section)
+
+    return courses
 
 
 """
@@ -63,8 +96,8 @@ def buildSchedules(courses: list[Course], reservedTimes: list):
 
 
 def dynamicScheduleBuilder(
-    schedule: Schedule, courses: list[Course], index=0
-) -> list[Schedule]:
+    schedule: Schedule, courses: List[Course], index=0
+) -> List[Schedule]:
 
     """
     Recursively runs through each section in a course at courses[index]
