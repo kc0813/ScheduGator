@@ -75,7 +75,7 @@ function Calendar(
         <Table size="small">
 
             <TableHead>
-                <TableRow style={{height:"20px"}}>
+                <TableRow style={{height:"5.5vh"}}>
                 <TableCell style={{padding:0}}></TableCell>
                     {days.map((day, key) =>
                         <TableCell key={key} style={{padding:0}} align="center" >{day}</TableCell>
@@ -92,12 +92,12 @@ function Calendar(
                             {row.period}
                             {row.time}
                         </TableCell>
-                        <TableCell style={{ width: "12%" }}></TableCell>
-                        <TableCell style={{ width: "12%" }}></TableCell>
-                        <TableCell style={{ width: "12%" }}></TableCell>
-                        <TableCell style={{ width: "12%" }}></TableCell>
-                        <TableCell style={{ width: "12%" }}></TableCell>
-                        <TableCell style={{ width: "12%" }}></TableCell>
+                        <TableCell style={{width: "12%", height: "2.5vh"}}></TableCell>
+                        <TableCell style={{width: "12%", height: "2.5vh"}}></TableCell>
+                        <TableCell style={{width: "12%", height: "2.5vh"}}></TableCell>
+                        <TableCell style={{width: "12%", height: "2.5vh"}}></TableCell>
+                        <TableCell style={{width: "12%", height: "2.5vh"}}></TableCell>
+                        <TableCell style={{width: "12%", height: "2.5vh"}}></TableCell>
                     </TableRow>
                 ))}
             </TableBody>

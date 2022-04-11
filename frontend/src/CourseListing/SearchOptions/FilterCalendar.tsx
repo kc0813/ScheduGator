@@ -87,8 +87,8 @@ function FilterCalendar() {
                 <Table size="small">
 
                     <TableHead>
-                        <TableRow style={{ height: "20px" }}>
-                            <TableCell align="center" style={{ padding: 0, background: "lightcyan", width: 12 }}></TableCell>
+                        <TableRow style={{ height: "3vh" }}>
+                            <TableCell align="center" style={{ padding: 0, background: "lightcyan", width: "12%" }}></TableCell>
                             {days.map((day, key) =>
                                 <TableCell key={key} style={{ padding: 0, color: "black", background: "lightcyan", fontSize: 11 }} align="center" >{day}</TableCell>
                             )}
@@ -99,18 +99,18 @@ function FilterCalendar() {
                         {periods.map((row) => (
                             <TableRow
                                 key={row.period}
-                                style={{ height: "20px" }}>
+                                style={{ height: "3.5vh" }}>
                                 <TableCell
                                     align="center"
                                     style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
                                     {row.period}
                                 </TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
                                
                             </TableRow>
                         ))}
