@@ -174,29 +174,33 @@ class Course:
 
 
 class Schedule:
-    def __init__(self, template={}):
-        self.template = template
+    def __init__(self, template: Dict[str, list[str]] ={}):
+        self.template= template
 
     # TODO find a way to do this w/o 2 for loops?
     # TODO account for adding online classes
     def addSection(self, section: Section, courseID: str):
         # Check for conflicts
 
-        for (day, period) in section.meetings:
-            if self.template[day][period] == "":
-                pass
-            else:
-                # conflict detected
-                raise RuntimeError("Time conflict at: " + day + ", " + str(period))
-        for (day, period) in section.meetings:
-            # Add to template
-            self.template[day][period] = courseID
+        if section.isOnline():
+            self.template["ONLINE"].append(courseID)
+        else:
+            for (day, period) in section.meetings:
+                if self.template[day][period] == "":
+                    pass
+                else:
+                    # conflict detected
+                    raise RuntimeError("Time conflict at: " + day + ", " + str(period))
+            for (day, period) in section.meetings:
+                # Add to template
+                self.template[day][period] = courseID
 
         return self.template
+
     def removeSection(self, section: Section):
         for (day, period) in section.meetings:
             self.template[day][period] = ""
-            
+
         return self.template
     def conflict(self, section: Section) -> bool:
         # Check for conflicts

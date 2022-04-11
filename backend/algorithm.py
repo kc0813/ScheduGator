@@ -22,7 +22,7 @@ def buildSchedules(courses: List[Course], reservedTimes: list):
         "R": ["" for i in range(rows)],
         "F": ["" for i in range(rows)],
         "S": ["" for i in range(rows)],
-        "Online": [],
+        "ONLINE": [],
     }
     template = Schedule(schedule)
 
@@ -116,8 +116,9 @@ def dynamicScheduleBuilder(
         if todoOnline:
             section = Section("online", [])
             todoOnline = False
-            nextSchedule.removeSection(section)
-            
+            if not courses[index].staticMeetSection == []:
+                nextSchedule.removeSection(courses[index].staticMeetSection)
+
         try:
             nextSchedule.addSection(section, courses[index].code)
         except RuntimeError:
