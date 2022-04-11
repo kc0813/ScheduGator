@@ -105,13 +105,13 @@ function FilterCalendar() {
                                     style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
                                     {row.period}
                                 </TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "20px", padding: 0 }}></TableCell>
+                               
                             </TableRow>
                         ))}
                     </TableBody>
