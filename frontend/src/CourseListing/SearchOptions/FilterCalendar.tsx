@@ -69,12 +69,15 @@ function FilterCalendar() {
     const handleCellClick = (event: any) => {
         // TODO: store the filtered time slot in an appropriate data structure
 
-        if (!isFiltered)
-            event.target.style.background = "gray";
-        else
+        //console.log(event.target.style.background)
+        if (event.target.style.background.charAt(0) == "g")
             event.target.style.background = "white";
+        else
+            event.target.style.background = "gray";
+
         setIsFiltered(!isFiltered)
-        alert("you filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
+
+        console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
     }
 
     return (
