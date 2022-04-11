@@ -1,6 +1,4 @@
-from doctest import Example
 from enum import IntEnum
-from http.client import responses
 from fastapi import Body, FastAPI
 from fastapi.responses import JSONResponse
 import requests
