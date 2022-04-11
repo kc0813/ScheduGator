@@ -18,17 +18,17 @@
   height: 5vh;
   display:grid;
   position: absolute;
-  top: 5px;
-  right: 0px;
+  top: .5vh;
+  right: 0vw;
 }
 
 .ToggleCourses {
   width: 9vw;
-  height: 5vh;
+  height: 6vh;
   display:grid;
   position: absolute;
-  top: 5px;
-  left: 0px;
+  top: .5vh;
+  left: 0vw;
 }
 
 
@@ -36,10 +36,10 @@
   width: 15vw;
   height: 92vh;
   background: rgba(0, 0, 0, 0);
-  border: 3px solid white;
+  border: .5vmin solid white;
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0vh;
+  right: 0vw;
   text-align: center;
 }
 
@@ -47,10 +47,10 @@
   width: 15vw;
   height: 92vh;
   background: rgba(0, 0, 0, 0);
-  border: 3px solid white;
+  border: .5vmin solid white;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0vh;
+  left: 0vw;
   text-align: center;
 }
 
@@ -58,16 +58,16 @@
   width: 69vw;
   height: 92vh;
   background: rgba(0, 0, 0, 0);
-  border: 3px solid white;
+  border: .5vmin solid white;
   position: absolute;
-  bottom: 0px;
+  bottom: 0vh;
 }
 
-.logo {
+.center {
   width: 69vw;
   height: 92vh;
   background: rgba(0, 0, 0, 0);
-  border: 3px solid white;
+  border: .5vmin solid white;
   position: absolute;
   bottom: 0px;
   display: flex;
@@ -83,4 +83,27 @@
 .filterCalendar {
   position: absolute;
   bottom: 1vh;
+}
+
+#searchBar {
+  height: 2.8vh;
+  width: 12vw;
+}
+
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35vw;
+  width: 35vw;
+}
+
+.hoverBounds {
+  border: '1px solid orange';
+  width: 110;
+  height: 20;
+  padding: 2;
+  margin: 1;
+  position:'absolute';
+  left: 30;
 }

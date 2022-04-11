@@ -87,7 +87,7 @@ function SearchBar(props: { AddCourse: (course: Course) => void }) {
         <form action="/" method="get">
             <input
                 type="text"
-                id="searchClasses"
+                id="searchBar"
                 placeholder="Enter Courses"
                 name="s"
                 onKeyPress={getInputValue}

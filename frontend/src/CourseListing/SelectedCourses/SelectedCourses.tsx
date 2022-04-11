@@ -14,9 +14,9 @@ export function SelectedCourses(props: {courseList: Course[], deletable: boolean
     });
 
     return (
-        <div id='SelCourses' className='listCourses'>
+        <div className='listCourses'>
             List of Courses
-            <div id='CourseListButtons'>
+            <div id='courseListButtons'>
                 {courseBtns}
             </div>
         </div>
