@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from scheduAlgoClasses import Schedule, Course
+from typing import List
 
 
 class ClassQuery(BaseModel):
@@ -43,3 +45,11 @@ class CourseData(BaseModel):
 
 class Message(BaseModel):
     message: str
+
+
+class ScheduleList(BaseModel):
+    schedules: List[Schedule]
+
+
+class CourseList(BaseModel):
+    courses: List[Course]

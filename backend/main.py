@@ -1,9 +1,12 @@
+from doctest import Example
 from enum import IntEnum
+from http.client import responses
 from fastapi import Body, FastAPI
 from fastapi.responses import JSONResponse
 import requests
-from models import ClassQuery, CourseData, Message
+from models import ClassQuery, CourseData, Message, ScheduleList, CourseList
 from fastapi.middleware.cors import CORSMiddleware
+from algorithm import dynamicScheduleBuilder as dsbuilder
 
 app = FastAPI()
 
@@ -38,6 +41,30 @@ async def root():
     Currently set to message back hello world
     """
     return {"message": "Hello world, I'm working!!!"}
+
+
+@app.post(
+    "/buildSchedule/", response_model=ScheduleList, responses={400: {"model": Message}}
+)
+async def buildSchedule(
+    query: CourseList = Body(
+        ..., examples={"1": {"schedules": ["list of schedules here"]}}
+    )
+):
+    """
+    Endpoint for building a schedule
+    """
+    rows = 14
+    template = {
+        "M": ["" for i in range(rows)],
+        "T": ["" for i in range(rows)],
+        "W": ["" for i in range(rows)],
+        "R": ["" for i in range(rows)],
+        "F": ["" for i in range(rows)],
+        "S": ["" for i in range(rows)],
+        "Online": [],
+    }
+    return {"schedules": dsbuilder(template, query.courses)}
 
 
 @app.put("/class/", response_model=CourseData, responses={404: {"model": Message}})
