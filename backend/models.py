@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from scheduAlgoClasses import Schedule, Course
 
 
 class ClassQuery(BaseModel):
