@@ -1,4 +1,4 @@
-from scheduAlgoClasses import Course, Section
+from scheduAlgoClasses import Course, Section, Schedule
 
 
 def test_trimSections():
@@ -16,12 +16,24 @@ def test_trimSections():
 
 
 def test_findStaticMeetTime():
-    section1 = Section("one", [["M", 2], ["M", 3], ["W", 2], ["T", 5]])
-    section2 = Section("two", [["M", 2], ["M", 3], ["W", 2], ["T", 6]])
-    section3 = Section("three", [["M", 2], ["M", 3], ["W", 2], ["T", 7]])
-    section4 = Section("four", [["M", 2], ["M", 3], ["W", 2], ["T", 8]])
-
+    section1 = Section("one", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
+    section2 = Section("two", [("M", 2), ("M", 3), ("W", 2), ("T", 6)])
+    section3 = Section("three", [("M", 2), ("M", 3), ("W", 2), ("T", 7)])
+    section4 = Section("four", [("M", 2), ("M", 3), ("W", 2), ("T", 8)])
     sections = [section1, section2, section3, section4]
+
     course = Course("dum0000", "dummy", sections)
 
     assert course.findStaticMeetTime().meetings == [("M", 2), ("M", 3), ("W", 2)]
+
+def test_staticMeetOnline():
+    section1 = Section("one", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
+    section2 = Section("two", [("M", 2), ("M", 3), ("W", 2), ("T", 6)])
+    section3 = Section("three", [("M", 2), ("M", 3), ("W", 2), ("T", 7)])
+    section4 = Section("four", [("M", 2), ("M", 3), ("W", 2), ("T", 8)])
+    section5 = Section("five", [])
+    sections = [section1, section2, section3, section4, section5]
+
+    course = Course("dum0000", "dummy", sections)
+
+    assert course.findStaticMeetTime().meetings == []

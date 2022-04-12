@@ -54,14 +54,19 @@ def buildSchedules(courses: List[Course], reservedTimes: list):
     return samples
 
 
-def buildStaticSchedule(template: Schedule, courses: List[Course]):
+def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
     for course in courses:
-        if course.staticMeetSection != []:
+        hasStaticSection = course.staticMeetSection != []
+        hasOnlyOnline = course.hasOnlineSection and len(course.sections) == 1
+
+        if hasStaticSection or hasOnlyOnline:
+            toAdd = course.sections[0] if hasOnlyOnline else course.staticMeetSection
+
             try:
-                template.addSection(course.staticMeetSection, course.code)
+                template.addSection(toAdd, course.code)
             except RuntimeError as err:  # conflict with static times means impossible schedule
                 print(err)
-                return None
+                return Schedule()
 
     return template
 
@@ -69,16 +74,11 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]):
 def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
     """
     Checks if a section conflicts with the static schedule
-    Removes all sections that conflict with the static scheduls
+    Removes all sections that conflict with the static schedules
     """
-    for day in staticSchedule.template:
-        print(day)
-        print(staticSchedule.template[day])
-
     for course in courses:
         for section in course.sections:
             if staticSchedule.conflict(section):
-                print(section)
                 course.sections.remove(section)
 
     return courses
@@ -100,25 +100,18 @@ def dynamicScheduleBuilder(
 ) -> List[Schedule]:
 
     """
-    Recursively runs through each section in a course at courses[index]
+    Recursively build a schedule by "jumping into" the courses and adding a section from each course
     Makes a copy of the template and then tries to add a section to the copy
     If there are more courses to consider, call this function again, but with the new copy+section
     After making a schedule, jump back a up level and then consider another section from that course
     """
     samples = []
     nextSchedule = Schedule()
-    todoOnline = courses[index].hasOnlineSection
     # TODO if there's an online class, remove it's static section if it has one,
     # then add the online and continue
     for section in courses[index].sections:
         nextSchedule = c.deepcopy(schedule)
         #DOES THIS WORK THE WAY I WANT IT TO FOR ONLINE CLASSES?
-        if todoOnline:
-            section = Section("online", [])
-            todoOnline = False
-            if not courses[index].staticMeetSection == []:
-                nextSchedule.removeSection(courses[index].staticMeetSection)
-
         try:
             nextSchedule.addSection(section, courses[index].code)
         except RuntimeError:
@@ -127,13 +120,10 @@ def dynamicScheduleBuilder(
         # If it's not the last course to be added, go down a level
         # Else, it's a complete schedule, add it to samples[]
         if index < len(courses) - 1:
-
             samples += dynamicScheduleBuilder(
                 c.deepcopy(nextSchedule), courses, index + 1
             )  # Call the function to add the sections of the next course ("the next level down")
         else:
             samples.append(c.deepcopy(nextSchedule))
-
-    print(courses[index].hasOnlineSection)
 
     return samples

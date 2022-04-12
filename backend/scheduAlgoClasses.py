@@ -25,17 +25,18 @@ class Section:
         """
         self.id = ID
         self.meetings = meetings
+        self.online = False
+
         if len(meetings) == 0:
             self.online = True
-        else:
-            self.online = False
+
 
     def deleteTimeSlot(self, timeSlot: tuple):
         self.meetings.remove(timeSlot)
 
     def isOnline(self) -> bool:
         """
-        Returns true if section has an online section
+        Returns true if section is an online section
         """
         return self.online
 
@@ -78,21 +79,29 @@ class Course:
         """
         self.code = code
         self.name = name
-        self.sections = sections
-        self.meetTimes = self.genMeetTimes()
-        self.staticMeetSection = self.findStaticMeetTime()
         self.hasOnlineSection = False
+        self.sections = self.trimOnlineSections(sections) 
+        self.meetTimes: Dict[List[int]] = {} 
+        self.staticMeetSection = Section("static", []) 
 
-    def numSections(self) -> int:
-        """
-        Returns the number of sections for a course
-        """
-        return len(self.sections)
+        if not self.hasOnlineSection:
+            self.meetTimes = self.genMeetTimes() 
+            self.staticMeetSection = self.findStaticMeetTime()
+
+    def trimOnlineSections(self, sections:List[Section]):
+        numOnline = sections.count(Section(self.code, []))
+        if numOnline > 0:
+            self.hasOnlineSection = True
+            for i in range(numOnline):
+                sections.remove(Section(self.code, []))
+            sections.insert(0, Section(self.code, []))
+
+        return sections
 
     def genMeetTimes(self) -> Dict[tuple, List[int]]:
         """
         Returns a dictionary of lists.
-        Dictionary<["day", "period"],[(section indices)]> meetDict;
+        Dictionary[("day", period),[(section indices)]> meetDict;
 
         The keys respresent a single time slot that at least one sections meets in.
         Each list stores the indices of all Sections in *sections* that meet during that time slot.
@@ -101,33 +110,14 @@ class Course:
         index = 0
         # meetDict[["M", 8]] = [1,2,3,4,5]
         for section in self.sections:
-            if section.isOnline():
-                self.hasOnlineSection = True
-            else:
-                meetKeys = section.meetings
-                for key in meetKeys:
-                    try:
-                        meetTimes[tuple(key)].append(index)
-                    except KeyError:
-                        meetTimes[tuple(key)] = [index]
-                index += 1
+            meetKeys = section.meetings
+            for key in meetKeys:
+                try:
+                    meetTimes[tuple(key)].append(index)
+                except KeyError:
+                    meetTimes[tuple(key)] = [index]
+            index += 1
         return meetTimes
-
-    # TODO test this because idk how __eq__ works
-    def trimSections(self) -> list:
-        """
-        Returns a list of sections for a course that do not have the same meeting day and periods
-
-        *Note: this will remove the later sections that have that have the same meeting day and
-        period ex(if section 1 meets on m, p1 and section 2 meets on m, p1, section 2 will be
-        removed)
-        """
-        newSections = []
-        for section in self.sections:
-            if section is not None:
-                if section not in newSections:
-                    newSections.append(section)
-        return newSections
 
     # TODO Note that some courses have multiple classes with the different meeting days and periods
     # TODO test this
@@ -164,10 +154,6 @@ class Course:
                         else:
                             self.sections.pop(index)
 
-        # if we assume that one section being completely empty means all sections being empty
-        # then instead use this in the if statement:
-        # sections.clear()
-        # return staticTimes
         staticMeetSection = Section("static", staticTimes)
 
         return staticMeetSection
@@ -190,7 +176,7 @@ class Schedule:
                     pass
                 else:
                     # conflict detected
-                    raise RuntimeError("Time conflict at: " + day + ", " + str(period))
+                    raise RuntimeError("Static time conflict adding ", courseID, "at (", day, ", ", str(period), "), | Already scheduled: ", self.template[day][period])
             for (day, period) in section.meetings:
                 # Add to template
                 self.template[day][period] = courseID

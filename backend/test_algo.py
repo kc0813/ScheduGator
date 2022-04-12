@@ -78,7 +78,7 @@ def test_delStaticConflict():
     assert len(courses[1].sections) == 1
     assert len(courses[2].sections) == 2
 
-
+#Use only for debugging
 def printSchedule(schedules: List[Schedule]):
 
     for s in schedules:
