@@ -4,20 +4,17 @@ function HoverBtn(props : {courseID: string, top: number, deletable: boolean, de
     const [style, setStyle] = useState({display: 'none'});
     
     return (
-        <div className="hoverBtn">
-            <div style={{border: '1px solid orange', width: 110, height: 20, padding: 2, margin: 1,
-                        position:'absolute', left: 30, top: props.top}}
-                onMouseEnter={e => {
-                    if(props.deletable)
-                        setStyle({display: 'inline'});
-                }}
-                onMouseLeave={e => {
-                    setStyle({display: 'none'})
-                }}
-            >
-            <button className = 'inLine' style={style} onClick = {props.delete}>x</button>
-            {props.courseID}
-            </div>
+        <div className = "hoverBtn" style={{position: "absolute", top: props.top}}
+            onMouseEnter={e => {
+                if(props.deletable)
+                    setStyle({display: 'inline'});
+            }}
+            onMouseLeave={e => {
+                setStyle({display: 'none'})
+            }}
+        >
+        <button className = 'inLine' style={style} onClick = {props.delete}>x</button>
+        {props.courseID}
         </div>
     );
 }

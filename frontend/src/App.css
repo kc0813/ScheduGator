@@ -78,6 +78,17 @@
 .hoverBtn {
   position: relative;
   font-size: calc(2px + 2vmin);
+  border: 1.5px solid rgb(255, 136, 0);
+  height: 5vh;
+  width: 9vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#courseListButtons {
+  display: flex;
+  justify-content: center;
 }
 
 .filterCalendar {
@@ -96,14 +107,4 @@
   align-items: center;
   height: 35vw;
   width: 35vw;
-}
-
-.hoverBounds {
-  border: '1px solid orange';
-  width: 110;
-  height: 20;
-  padding: 2;
-  margin: 1;
-  position:'absolute';
-  left: 30;
 }
