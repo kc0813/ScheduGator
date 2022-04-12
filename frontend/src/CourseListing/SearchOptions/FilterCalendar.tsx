@@ -53,9 +53,6 @@ const periods = [
     }, {
         period: "E3",
         time: "9:20 - 10:10"
-    }, {
-        period: "Online",
-        time: ""
     }
 ];
 
@@ -105,15 +102,23 @@ function FilterCalendar() {
                                     style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
                                     {row.period}
                                 </TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}></TableCell>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
+                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
                                
                             </TableRow>
                         ))}
+                        <TableRow style={{ height: "3.5vh" }}>
+                            <TableCell
+                                align="center"
+                                style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
+                                Online
+                            </TableCell>
+                            <TableCell onClick={handleCellClick} colSpan={6}/>
+                        </TableRow>
                     </TableBody>
 
                 </Table>
