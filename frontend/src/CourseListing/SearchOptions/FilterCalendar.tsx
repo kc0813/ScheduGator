@@ -5,7 +5,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { MouseEventHandler } from "react";
 import { useState } from "react";
 
 const days = ["M", "T", "W", "R", "F", "S"];
@@ -77,6 +76,17 @@ function FilterCalendar() {
         console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
     }
 
+    const GenerateDays = () => {
+        return (
+            <TableRow style={{ height: "3vh" }}>
+                <TableCell align="center" style={{ padding: 0, background: "lightcyan", width: "12%" }}></TableCell>
+                {days.map((day, key) =>
+                    <TableCell key={key} style={{ padding: 0, color: "black", background: "lightcyan", fontSize: 11 }} align="center" >{day}</TableCell>
+                )}
+            </TableRow>
+        )
+    };
+
     return (
         <div id="filterCalender">
             <small>Filter Time Slots</small>
@@ -84,12 +94,7 @@ function FilterCalendar() {
                 <Table size="small">
 
                     <TableHead>
-                        <TableRow style={{ height: "3vh" }}>
-                            <TableCell align="center" style={{ padding: 0, background: "lightcyan", width: "12%" }}></TableCell>
-                            {days.map((day, key) =>
-                                <TableCell key={key} style={{ padding: 0, color: "black", background: "lightcyan", fontSize: 11 }} align="center" >{day}</TableCell>
-                            )}
-                        </TableRow>
+                        <GenerateDays/>
                     </TableHead>
 
                     <TableBody>

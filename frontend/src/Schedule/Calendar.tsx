@@ -6,6 +6,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Course } from "../Course";
+import Typography from "@material-ui/core/Typography";
 
 const days = ["M", "T", "W", "R", "F", "S"];
 
@@ -66,8 +67,32 @@ function Calendar(
         courseList: Course[]
     }) {
 
-    const generateTableCell = () => {
-        
+    const GenerateTableCell = () => {
+        return (
+            <TableCell
+              align="center"
+              padding="none"
+              style={{width: "12%"}}>
+              <Typography style={{ color: "white" }}>
+                  Course ID
+              </Typography>
+            </TableCell>
+          )
+    };
+
+    const GeneratePeriods = () => {
+
+    };
+
+    const GenerateDays = () => {
+        return (
+            <TableRow style={{height:"5.3vh"}}>
+                <TableCell style={{padding:0}}></TableCell>
+                    {days.map((day, key) =>
+                        <TableCell key={key} style={{padding:0}} align="center" >{day}</TableCell>
+                    )}
+            </TableRow>
+        )
     };
 
     return(
@@ -75,12 +100,7 @@ function Calendar(
         <Table size="small">
 
             <TableHead>
-                <TableRow style={{height:"5.3vh"}}>
-                <TableCell style={{padding:0}}></TableCell>
-                    {days.map((day, key) =>
-                        <TableCell key={key} style={{padding:0}} align="center" >{day}</TableCell>
-                    )}
-                </TableRow>
+                <GenerateDays/>
             </TableHead>
 
             <TableBody>
@@ -94,12 +114,12 @@ function Calendar(
                             {row.period}
                             {row.time}
                         </TableCell>
-                        <TableCell style={{width: "12%"}}></TableCell>
-                        <TableCell style={{width: "12%"}}></TableCell>
-                        <TableCell style={{width: "12%"}}></TableCell>
-                        <TableCell style={{width: "12%"}}></TableCell>
-                        <TableCell style={{width: "12%"}}></TableCell>
-                        <TableCell style={{width: "12%"}}></TableCell>
+                        <GenerateTableCell/>
+                        <GenerateTableCell/>
+                        <GenerateTableCell/>
+                        <GenerateTableCell/>
+                        <GenerateTableCell/>
+                        <GenerateTableCell/>
                     </TableRow>
                 ))}
             </TableBody>
