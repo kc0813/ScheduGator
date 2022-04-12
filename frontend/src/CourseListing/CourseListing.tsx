@@ -3,7 +3,7 @@ import SelectedCourses from "./SelectedCourses/SelectedCourses";
 import SearchOptions from "./SearchOptions/SearchOptions";
 import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
-import logo from './Images/ScheduGator.png';
+import logo from '../Images/ScheduGator.png';
 
 
 function CourseListing(
