@@ -15,6 +15,11 @@ class Section:
 
     functions:
         isOnline: returns true if section has an online section
+        deleteTimeSlot: Removes a timeslot from self.meetings
+
+    Overloads:
+        __eq__: checks that id and meetings are equal
+        __str__: to string
 
     """
 
@@ -32,7 +37,13 @@ class Section:
         """
         removes a given time slot from the section (given as a tuple)
         """
-        self.meetings.remove(timeSlot)
+        try:
+            self.meetings.remove(timeSlot)
+        except Exception:
+            #Exception handling functionality
+            pass
+        
+        return self.meetings
 
     def isOnline(self) -> bool:
         """
@@ -217,7 +228,7 @@ class Schedule:
         For other sections, create a copy of the schedule and try to add to that
         If successful, update template to include the section
         """
-        if section.isOnline():
+        if section.isOnline() and self.template["ONLINE"].count(courseID) == 0:
             self.template["ONLINE"].append(courseID)
         else:
             temporary = c.deepcopy(self.template)
@@ -260,3 +271,9 @@ class Schedule:
                 print("Time conflict at: " + day + ", " + str(period))
                 return True
         return False
+    
+    def __eq__(self, __o: object) -> bool:
+        """
+        Returns true if section has the same meeting day and period
+        """
+        return self.template == __o.template

@@ -3,22 +3,12 @@ from typing import List
 import copy as c
 import algorithm as algo
 
-rows = 14
-schedule = {
-    "M": ["" for i in range(rows)],
-    "T": ["" for i in range(rows)],
-    "W": ["" for i in range(rows)],
-    "R": ["" for i in range(rows)],
-    "F": ["" for i in range(rows)],
-    "S": ["" for i in range(rows)],
-    "Online": [],
-}
-template = Schedule(schedule)
+
 
 
 def test_basicDynamicBuild():
 
-    BDBTemp = c.deepcopy(template)
+    BDBTemp = Schedule()
 
     section1 = Section("one", [("M", 1), ("M", 2), ("W", 3)])
     section2 = Section("two", [("M", 1), ("M", 2), ("W", 4)])
@@ -43,8 +33,8 @@ def test_basicDynamicBuild():
 
 def test_delStaticConflict():
 
-    baseTemplate = c.deepcopy(template)
-    testTemp = c.deepcopy(template)
+    baseTemplate = Schedule()
+    testTemp = Schedule()
     section1 = Section("one", [("M", 3), ("W", 3), ("F", 3), ("T", 4)])
     section2 = Section("two", [("M", 3), ("W", 3), ("F", 3), ("T", 6)])
     section3 = Section("three", [("M", 3), ("W", 3), ("F", 3), ("T", 5)])
@@ -78,12 +68,45 @@ def test_delStaticConflict():
     assert len(courses[1].sections) == 1
     assert len(courses[2].sections) == 2
 
+def test_HenryFallSchedule():
+    cap3027 = Course("CAP3027", "Intro to Dig. Arts and Sciences", [Section("11413", [])])
+    eel3872 = Course("EEL3872", "Artificial Intelligence Fundamentals", [Section("23981", [])])
+    cis4301 = Course("CIS4301", "Information and Databases Systems 1", [Section(11173, [("M", 4), ("W", 4), ("F", 4)])])
+    template = Schedule()
+
+    template.addSection(cis4301.staticMeetSection, cis4301.code)
+    template.addSection(cap3027.sections[0], cap3027.code)
+    template.addSection(eel3872.sections[0], eel3872.code)
+
+
+    s1 = Section("27362", [("T", 8), ("T", 9), ("R", 9), ("W", 11)])
+    s2 = Section("12345", [("T", 8), ("T", 9), ("R", 9), ("W", 10)])
+    s3 = Section("43121", [("T", 8), ("T", 9), ("R", 9), ("W", 3)])
+    s4 = Section("54321", [("T", 8), ("T", 9), ("R", 9), ("W", 7)])
+    s5 = Section("09876", [("T", 8), ("T", 9), ("R", 9), ("W", 8)])
+    s6 = Section("78906", [("T", 8), ("T", 9), ("R", 9), ("W", 9)])
+    s7 = Section("10101", [("T", 8), ("T", 9), ("R", 9), ("W", 10)])
+    s8 = Section("23459", [("T", 8), ("T", 9), ("R", 9), ("W", 4)])
+    sections = [s1, s2, s3, s4, s5, s6, s7, s8]
+
+    schedulesList: List[Schedule] = []
+    for s in sections:
+        temp = c.deepcopy(template)
+        try:
+            temp.addSection(s, "COP4600")
+            schedulesList.append(temp)
+        except Exception as e:
+            print(e)
+        
+    cop4600 = Course("COP4600", "Operating Systems", sections)
+    sampleList = algo.buildSchedules([cap3027, eel3872, cis4301, cop4600], [])
+
+    assert sampleList[0] == schedulesList[0]
 
 # Use only for debugging
-def printSchedule(schedules: List[Schedule]):
+def printSchedules(schedules: List[Schedule]):
 
     for s in schedules:
         print("-------------------------------")
         for day in s.template:
-            print(day)
-            print(s.template[day])
+            print(day[0], ": ", s.template[day])

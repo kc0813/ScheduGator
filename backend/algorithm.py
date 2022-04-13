@@ -10,7 +10,7 @@ import copy as c
 """
 
 
-def buildSchedules(courses: List[Course], reservedTimes: list):
+def buildSchedules(courses: List[Course], reservedTimes: list) -> list[Schedule]:
     """
     Builds a static schedule of times the user has reserved and
     class times that cannot be changed between sample schedules.
@@ -25,14 +25,14 @@ def buildSchedules(courses: List[Course], reservedTimes: list):
     # 1) build static schedule
 
     # Add reserved timeslots
-    reserved = Section("reserved", reservedTimes)
-    try:
-        template.addSection(reserved)
-    except RuntimeError as err:
-        # conflict with static times means impossible schedule
-        # May need a more proper response to handle this error
-        print(err)
-        return None
+    if len(reservedTimes) > 0:
+        try:
+            template.addSection(Section("reserved", reservedTimes), "reserved")
+        except RuntimeError as err:
+            # conflict with static times means impossible schedule
+            # May need a more proper response to handle this error
+            print(err)
+            return None
 
     # Add static meeting times of courses
     try:
@@ -48,7 +48,6 @@ def buildSchedules(courses: List[Course], reservedTimes: list):
 
     # 2) build dynamic schedule
     samples = dynamicScheduleBuilder(template, courses, 0)
-
     return samples
 
 
@@ -68,15 +67,21 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
     If it does, then add it to the static schedule
     If there's ever a conflict, it's impossible to make a schedule, so return an empty default
     """
+    #tentative
+    courseIndex = []
+    index = 0
     for course in courses:
-        hasStaticSection = course.staticMeetSection != []
+        hasStaticSection = course.staticMeetSection.meetings != []
         hasOnlyOne = len(course.sections) == 1
+
+        if hasOnlyOne:
+            courseIndex.append(index)
 
         # overlap in coverage with hasStaticSection,
         # but hasOnlyOne covers a course that has only an online section
         if hasStaticSection or hasOnlyOne:
             toAdd = course.sections[0] if hasOnlyOne else course.staticMeetSection
-
+            
             try:
                 template.addSection(toAdd, course.code)
             except RuntimeError as err:
@@ -84,6 +89,10 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
                 print(err)
                 return Schedule()
 
+        index += 1
+
+    for index in courseIndex:
+        courses.remove(courses[index])
     return template
 
 
@@ -101,7 +110,11 @@ def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
     for course in courses:
         for section in course.sections:
             if staticSchedule.conflict(section):
-                course.sections.remove(section)
+                try:
+                    course.sections.remove(section)
+                except Exception:
+                    #Exception handling functionality
+                    pass
 
     return courses
 
@@ -133,14 +146,15 @@ def dynamicScheduleBuilder(
 
     # for all sections in this course
     for section in courses[index].sections:
-        nextSchedule = c.deepcopy(schedule)
 
+        nextSchedule = c.deepcopy(schedule)
         # try to add a section
         try:
             nextSchedule.addSection(section, courses[index].code)
-        except RuntimeError:
+        except RuntimeError as re:
             # if we run into a conflict, skip this section and move on
             # (conflict could be temporary, ie. with a section that's not static)
+            print(re)
             continue
 
         # If it's not the last course to be added, go down a level
