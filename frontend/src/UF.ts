@@ -1,7 +1,7 @@
 const days = ["M", "T", "W", "R", "F", "S"];
 export {days};
 
-const periods = [
+const periods: {period: string; time:string;}[] = [
     {
         period: "1",
         time: " 7:25 - 8:15"

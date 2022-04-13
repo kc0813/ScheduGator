@@ -1,12 +1,7 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import {Table, TableBody, TableRow, TableCell} from "@material-ui/core";
+import {TableContainer, TableHead} from "@material-ui/core";
+import {Typography, Paper} from "@material-ui/core";
 import { Schedule } from "../Course";
-import Typography from "@material-ui/core/Typography";
 import {days, periods} from "../UF";
 
 // Make sample schedule for testing rn - delete later
@@ -26,12 +21,14 @@ function Calendar(
         //schedule: Schedule
     }) {
 
-    const GenerateTableCell = () => {
+    //Generate an individual cell in a row
+    const GenerateTableCell = (day:any, period:any) => {
         return (
             <TableCell
               align="center"
               padding="none"
-              style={{width: "12%", background: "black"}}>
+              scope="row" 
+              style={{width: "12%", fontSize: 12, background: "black"}}>
               <Typography style={{ color: "white" }}>
                   Course ID
               </Typography>
@@ -39,34 +36,31 @@ function Calendar(
           )
     };
 
-    const GeneratePeriods = () => {
+    //Generate each row of the schedule
+    const GenerateRow = (row: any) => {
         let calendar = sample;
-        var rows: JSX.Element[] = periods.map((row) => {
-            return (
-                <TableRow 
-                    key={row.period}
-                    style={{height: "5vh"}}>
-                    <TableCell 
-                        scope="row" 
-                        style={{width: "12%", fontSize: 12}}>
-                        {row.period}
-                        {row.time}
-                    </TableCell>
-                </TableRow>
-            )
-        });
+        let cellArr: JSX.Element[] = []
+
+        //First column displays period number and time range.
+        cellArr.push(        
+            <TableCell 
+                scope="row" 
+                style={{width: "12%", fontSize: 12}}>
+                {row.period}
+                {row.time}
+            </TableCell>
+        )
 
         calendar.forEach((value: string[], key: string) => {
             if (key != "ONLINE") {
-                let classes = value.map((data, key) =>
-                    <GenerateTableCell/>
-                )
+                cellArr.push(<GenerateTableCell day={key} period={row.period}/>)
             }
         });
         
-        return <>{rows}</>;
+        return <TableRow>{cellArr}</TableRow>;
     };
 
+    //Generate the top row displaying the days
     const GenerateDays = () => {
         return (
             <TableRow style={{height:"5vh"}}>
@@ -78,6 +72,7 @@ function Calendar(
         )
     };
 
+    //Return a single sample schedule
     return(
         <TableContainer component={Paper}>
         <Table size="small">
@@ -88,23 +83,9 @@ function Calendar(
 
             <TableBody>
                 {periods.map((row) => (
-                    <TableRow 
-                        key={row.period}
-                        style={{height: "5vh"}}>
-                        <TableCell 
-                            scope="row" 
-                            style={{width: "12%", fontSize: 12}}>
-                            {row.period}
-                            {row.time}
-                        </TableCell>
-                        <GenerateTableCell/>
-                        <GenerateTableCell/>
-                        <GenerateTableCell/>
-                        <GenerateTableCell/>
-                        <GenerateTableCell/>
-                        <GenerateTableCell/>
-                    </TableRow>
+                    <GenerateRow row={row}></GenerateRow>
                 ))}
+
                 <TableRow style={{height: "5vh"}}>
                     <TableCell
                         style={{width: "12%", fontSize: 12}}>
@@ -112,6 +93,7 @@ function Calendar(
                     </TableCell>
                     <TableCell colSpan={6}/>
                 </TableRow>
+
             </TableBody>
 
         </Table>
