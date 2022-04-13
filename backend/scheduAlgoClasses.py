@@ -40,11 +40,11 @@ class Section:
         """
         return self.online
 
-    #    def __eq__(self, __o: object) -> bool:
-    #        """
-    #        Returns true if section has the same meeting day and period
-    #        """
-    #        return self.meetings == __o.meetings
+    def __eq__(self, __o: object) -> bool:
+        """
+        Returns true if section has the same meeting day and period
+        """
+        return self.meetings == __o.meetings and self.sectionID == __o.sectionID
 
     def __str__(self) -> str:
         """
