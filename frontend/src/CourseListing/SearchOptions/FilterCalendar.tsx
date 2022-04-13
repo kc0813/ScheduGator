@@ -14,11 +14,9 @@ function FilterCalendar() {
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/CalendarFilter.js
 
     const [isFiltered, setIsFiltered] = useState(false)
+    var filtered: [string, number][] = [];
 
     const handleCellClick = (event: any) => {
-        // TODO: store the filtered time slot in an appropriate data structure
-
-        //console.log(event.target.style.background)
         if (event.target.style.background.charAt(0) == "g")
             event.target.style.background = "white";
         else
@@ -27,6 +25,25 @@ function FilterCalendar() {
         setIsFiltered(!isFiltered)
 
         console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
+
+        // Format day correctly to send to backend
+        var day: string;
+        switch(event.target.cellIndex) {
+            case 1: {day = "M"; break;}
+            case 2: {day = "T"; break;}
+            case 3: {day = "W"; break;}
+            case 4: {day = "T"; break;}
+            case 5: {day = "F"; break;}
+            default: {day = "S"; break;}
+        }
+        if (event.target.parentElement.rowIndex == 15) {
+            day = "ONLINE";
+        }
+
+        // Format period correctly to send to backend
+        var period: number = event.target.parentElement.rowIndex - 1;
+
+        filtered.push([day, period]);
     }
 
     const GenerateDays = () => {
