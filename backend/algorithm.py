@@ -2,73 +2,95 @@ from typing import List
 from scheduAlgoClasses import Schedule, Section, Course
 import copy as c
 
-
+# TODO add try catches for all possible places an error could be thrown
 """
     courses: list of all courses to be put into the schedule
-    reservedTimes:  list of all time slots ["day", "period"],
-                    that should be put in the static schedule
+    reservedTimes:  list of all time slots that should be put in the static schedule
+                    list[("day", period), ...]
 """
 
 
 def buildSchedules(courses: List[Course], reservedTimes: list):
+    """
+    Builds a static schedule of times the user has reserved and
+    class times that cannot be changed between sample schedules.
+    This is used as a template for all sample schedules
 
-    # 2D array for schedule, doesn't account for online classes
-    rows = 14
-    # columns = 6
-    schedule = {
-        "M": ["" for i in range(rows)],
-        "T": ["" for i in range(rows)],
-        "W": ["" for i in range(rows)],
-        "R": ["" for i in range(rows)],
-        "F": ["" for i in range(rows)],
-        "S": ["" for i in range(rows)],
-        "ONLINE": [],
-    }
-    template = Schedule(schedule)
+    Combs through and removes all sections that conflict with the static schedule.
+
+    Recursively brute force to find all valid combinations of sections for a sample schedule.
+    """
+    template = Schedule()
 
     # 1) build static schedule
 
-    # add reserved timeslots - assume list of pairs w/ correct indices?
+    # Add reserved timeslots
     reserved = Section("reserved", reservedTimes)
     try:
         template.addSection(reserved)
-    except RuntimeError as err:  # conflict with static times means impossible schedule
+    except RuntimeError as err:
+        # conflict with static times means impossible schedule
+        # May need a more proper response to handle this error
         print(err)
         return None
 
-    # find static meeting periods and add to schedule?
+    # Add static meeting times of courses
     try:
         buildStaticSchedule(template, courses)
     except RuntimeError as err:
+        # conflict with static times means impossible schedule
+        # May need a more proper response to handle this error
         print(err)
         return None
 
-    # find sections that conflict with the static schedule and remove them
+    # Find sections that conflict with the static schedule and remove them
     delStaticConflict(template, courses)
 
     # 2) build dynamic schedule
     samples = dynamicScheduleBuilder(template, courses, 0)
-    if samples == []:
-        samples = None
 
     return samples
 
 
+"""
+    template: The empty starting template of a schedule
+    courses: List of all courses to be added to the schedule
+"""
+
+
 def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
+    """
+    Builds the static schedules that's used as a template for all sample schedules
+
+    Runs through all courses
+    Checks if a course has a static meet time or has only an online section
+
+    If it does, then add it to the static schedule
+    If there's ever a conflict, it's impossible to make a schedule, so return an empty default
+    """
     for course in courses:
         hasStaticSection = course.staticMeetSection != []
-        hasOnlyOnline = course.hasOnlineSection and len(course.sections) == 1
+        hasOnlyOne = len(course.sections) == 1
 
-        if hasStaticSection or hasOnlyOnline:
-            toAdd = course.sections[0] if hasOnlyOnline else course.staticMeetSection
+        # overlap in coverage with hasStaticSection,
+        # but hasOnlyOne covers a course that has only an online section
+        if hasStaticSection or hasOnlyOne:
+            toAdd = course.sections[0] if hasOnlyOne else course.staticMeetSection
 
             try:
                 template.addSection(toAdd, course.code)
-            except RuntimeError as err:  # conflict with static times means impossible schedule
+            except RuntimeError as err:
+                # conflict with static times means impossible schedule
                 print(err)
                 return Schedule()
 
     return template
+
+
+"""
+    staticSchedule: The static template for all sample schedules
+    courses: list of all courses to be added to the schedule
+"""
 
 
 def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
@@ -86,13 +108,10 @@ def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
 
 """
     schedule: current schedule that's being worked on.
-              Starts as static template at the very top level
+              Starts as a static template at the very top level
     courses: list of all courses to be included in the schedule
-    index: the level/course currently being added
-    Return: list of all possible sample schedules
+    index: the level/course currently being added, starts with index = 0 at the top level
 """
-# TODO account for online classes
-# TODO actually test that this works
 
 
 def dynamicScheduleBuilder(
@@ -100,29 +119,37 @@ def dynamicScheduleBuilder(
 ) -> List[Schedule]:
 
     """
+    Returns a list of all possible sample schedules
+
     Recursively build a schedule by "jumping into" the courses and adding a section from each course
     Makes a copy of the template and then tries to add a section to the copy
-    If there are more courses to consider, call this function again, but with the new copy+section
+
+    If there are more courses to consider, call this function again, 
+    but with the new section added to the schedule
     After making a schedule, jump back a up level and then consider another section from that course
     """
     samples = []
     nextSchedule = Schedule()
-    # TODO if there's an online class, remove it's static section if it has one,
-    # then add the online and continue
+
+    # for all sections in this course
     for section in courses[index].sections:
         nextSchedule = c.deepcopy(schedule)
-        #DOES THIS WORK THE WAY I WANT IT TO FOR ONLINE CLASSES?
+
+        # try to add a section
         try:
             nextSchedule.addSection(section, courses[index].code)
         except RuntimeError:
-            continue  # if we run into a temp. conflict, skip this section and move on
+            # if we run into a conflict, skip this section and move on
+            # (conflict could be temporary, ie. with a section that's not static)
+            continue
 
         # If it's not the last course to be added, go down a level
+        # (last level is at index = len(courses) - 1)
         # Else, it's a complete schedule, add it to samples[]
         if index < len(courses) - 1:
             samples += dynamicScheduleBuilder(
                 c.deepcopy(nextSchedule), courses, index + 1
-            )  # Call the function to add the sections of the next course ("the next level down")
+            )
         else:
             samples.append(c.deepcopy(nextSchedule))
 

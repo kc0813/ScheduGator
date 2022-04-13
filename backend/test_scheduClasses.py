@@ -16,23 +16,24 @@ def test_trimSections():
 
 
 def test_findStaticMeetTime():
-    section1 = Section("one", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
-    section2 = Section("two", [("M", 2), ("M", 3), ("W", 2), ("T", 6)])
-    section3 = Section("three", [("M", 2), ("M", 3), ("W", 2), ("T", 7)])
-    section4 = Section("four", [("M", 2), ("M", 3), ("W", 2), ("T", 8)])
+    section1 = Section("1234", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
+    section2 = Section("12345", [("M", 2), ("M", 3), ("W", 2), ("T", 6)])
+    section3 = Section("123456", [("M", 2), ("M", 3), ("W", 2), ("T", 7)])
+    section4 = Section("4321", [("M", 2), ("M", 3), ("W", 2), ("T", 8)])
     sections = [section1, section2, section3, section4]
 
     course = Course("dum0000", "dummy", sections)
 
     assert course.findStaticMeetTime().meetings == [("M", 2), ("M", 3), ("W", 2)]
 
+
 def test_staticMeetOnline():
-    section1 = Section("one", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
-    section2 = Section("two", [("M", 2), ("M", 3), ("W", 2), ("T", 6)])
-    section3 = Section("three", [("M", 2), ("M", 3), ("W", 2), ("T", 7)])
-    section4 = Section("four", [("M", 2), ("M", 3), ("W", 2), ("T", 8)])
-    section5 = Section("five", [])
-    sections = [section1, section2, section3, section4, section5]
+    section1 = Section("1111", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
+    section2 = Section("2222", [("M", 2), ("M", 3), ("W", 2), ("T", 6)])
+    section3 = Section("3333", [("M", 2), ("M", 3), ("W", 2), ("T", 7)])
+    section4 = Section("4444", [("M", 2), ("M", 3), ("W", 2), ("T", 8)])
+    section5 = Section("5555", [])
+    sections = [section1, section5, section2, section3, section4]
 
     course = Course("dum0000", "dummy", sections)
 
