@@ -54,3 +54,7 @@ export interface MeetTime {
     meetTimeBegin: string
     meetTimeEnd: string
 }
+
+export interface Schedule {
+    template: Map<string, string[]>
+}
