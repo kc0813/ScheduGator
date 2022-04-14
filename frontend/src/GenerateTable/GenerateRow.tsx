@@ -65,7 +65,6 @@ export function FilterRow(
             {props.period}
         </TableCell>
     )
-    console.log(props.filteredTimes)
     days.map((value: string, key: number) => { 
         
         let backgroundColor = "white"
@@ -82,7 +81,7 @@ export function FilterRow(
         })
 
         cellArr.push(
-        <TableCell onClick={props.handleCellClick} style={{ width: "12%", padding: 0, background: backgroundColor}}/>
+        <TableCell onClick={props.handleCellClick} style={{ width: "12%", height: "3vh", padding: 0, background: backgroundColor}}/>
        )
     });
 

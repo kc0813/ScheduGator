@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { Container, render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import Schedule from '../Schedule/Schedule'
+import ScheduleListing from '../Schedule/ScheduleListing'
 
 let container: any = null
 

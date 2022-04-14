@@ -77,7 +77,7 @@ function FilterCalendar(
                             );
                         })}
 
-                        <TableRow style={{ height: "3.5vh" }}>
+                        <TableRow style={{ height: "3vh" }}>
                             <TableCell
                                 align="center"
                                 style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
