@@ -9,7 +9,16 @@ import CourseListing from '../CourseListing/CourseListing'
 let container: any = null
 
 const mockfn = jest.fn()
-const courseListing = <CourseListing setRenderWin={mockfn} setCourseList={mockfn} courseList={[]} colorMap={new Map<string, string>()} setColorMap={mockfn}/>
+const courseListing = 
+    <CourseListing 
+        setRenderWin={mockfn} 
+        setCourseList={mockfn} 
+        courseList={[]} 
+        colorMap={new Map<string, string>()} 
+        setColorMap={mockfn} 
+        filteredTimes={[]}
+        setFilteredTimes={mockfn}
+    />
 
 beforeEach(() => {
     // setup a DOM element as a render target

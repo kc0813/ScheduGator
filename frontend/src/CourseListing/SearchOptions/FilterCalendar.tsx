@@ -6,23 +6,27 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { useState } from "react";
-import {days, periods} from "../../UF";
+import {days, periodList, PeriodSlot, TimeSlot} from "../../UF";
+import {GenerateHeader} from "../../GenerateTable/GenerateHeader";
+import {FilterRow} from "../../GenerateTable/GenerateRow";
 
-function FilterCalendar() {
+function FilterCalendar(
+    props: {
+        filteredTimes: TimeSlot[],
+        setFilteredTimes: (filteredTimes: TimeSlot[]) => void,
+    }
+) {
 
     // Reference for filtered time slots calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/CalendarFilter.js
 
-    const [isFiltered, setIsFiltered] = useState(false)
-    var filtered: [string, number][] = [];
-
+    //TODO DELETE FILTER ON UNTOGGLE
     const handleCellClick = (event: any) => {
         if (event.target.style.background.charAt(0) == "g")
             event.target.style.background = "white";
+
         else
             event.target.style.background = "gray";
-
-        setIsFiltered(!isFiltered)
 
         console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
 
@@ -32,7 +36,7 @@ function FilterCalendar() {
             case 1: {day = "M"; break;}
             case 2: {day = "T"; break;}
             case 3: {day = "W"; break;}
-            case 4: {day = "T"; break;}
+            case 4: {day = "R"; break;}
             case 5: {day = "F"; break;}
             default: {day = "S"; break;}
         }
@@ -42,32 +46,21 @@ function FilterCalendar() {
 
         // Format period correctly to send to backend
         var period: number = event.target.parentElement.rowIndex - 1;
+        let timeSlot = {
+            day: day,
+            period: period,
+        }
+        props.filteredTimes.push(timeSlot);
+        props.setFilteredTimes(props.filteredTimes)
 
-        filtered.push([day, period]);
     }
 
-    const GenerateDays = () => {
-        return (
-            <TableRow style={{ height: "3vh" }}>
-                <TableCell 
-                    align="center" 
-                    style={{ padding: 0, background: "lightcyan", width: "12%" }}>
-                </TableCell>
-
-                {days.map((day, key) =>
-                    <TableCell 
-                        key={key} 
-                        style={{ padding: 0, color: "black", background: "lightcyan", fontSize: 11 }} 
-                        align="center"
-                    >
-                        {day}
-                    </TableCell>
-                )}
-
-            </TableRow>
-        )
-    };
-
+    let onlineBackground = "white"
+    props.filteredTimes.forEach((ts:TimeSlot)=>{
+        if(ts.day == "ONLINE"){
+            onlineBackground = "gray"
+        }
+    })
     return (
         <div id="filterCalender">
             <small>Filter Time Slots</small>
@@ -75,38 +68,25 @@ function FilterCalendar() {
                 <Table size="small">
 
                     <TableHead>
-                        <GenerateDays/>
+                        <GenerateHeader headerType={"filter"}/>
                     </TableHead>
-
                     <TableBody>
-                        {periods.map((row) => (
-                            <TableRow
-                                key={row.period}
-                                style={{ height: "3.5vh" }}>
-                                <TableCell
-                                    align="center"
-                                    style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
-                                    {row.period}
-                                </TableCell>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
-                                <TableCell onClick={handleCellClick} style={{ width: "12%", padding: 0 }}/>
-                               
-                            </TableRow>
-                        ))}
+                        {periodList.map((row) => {                            
+                            return(
+                                <FilterRow filteredTimes={props.filteredTimes} period={row.period} handleCellClick={handleCellClick}/>
+                            );
+                        })}
+
                         <TableRow style={{ height: "3.5vh" }}>
                             <TableCell
                                 align="center"
                                 style={{ padding: 0, background: "lightcyan", fontSize: 11 }}>
                                 Online
                             </TableCell>
-                            <TableCell onClick={handleCellClick} colSpan={6}/>
+                            <TableCell onClick={handleCellClick} colSpan={6} style={{background: onlineBackground}}/>
                         </TableRow>
-                    </TableBody>
 
+                    </TableBody>
                 </Table>
             </TableContainer>
         </div>

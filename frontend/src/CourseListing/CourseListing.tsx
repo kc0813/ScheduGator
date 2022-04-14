@@ -4,6 +4,7 @@ import SearchOptions from "./SearchOptions/SearchOptions";
 import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
 import logo from '../Images/ScheduGator.png';
+import {PeriodSlot, TimeSlot} from "../UF"
 
 let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "DarkSlateBlue", "HotPink"]
 //Same ID, but different classes (Think quest or special topics)
@@ -14,15 +15,15 @@ function CourseListing(
             courseList: Course[],
             colorMap: Map<string, string>,
             setColorMap: (colorMap: Map<string, string>) => void,
+            filteredTimes: TimeSlot[]
+            setFilteredTimes: (filteredTimes: TimeSlot[]) => void,
         }
     ){
-    let i = props.courseList.length
 
     const DeleteCourse = (courseID: string) => {
         let index = -1
         colors.push(props.colorMap.get(courseID)!)
         props.colorMap.delete(courseID)
-        console.log(colors)
         props.setColorMap(props.colorMap)
 
 
@@ -61,7 +62,6 @@ function CourseListing(
 
         props.colorMap.set(courseID, colors[0])
         colors.splice(0, 1)
-        console.log(colors)
         props.setColorMap(props.colorMap)
 
         if (!hasRepeats(course)) {
@@ -97,7 +97,7 @@ function CourseListing(
                     setColorMap={props.setColorMap}
                 />
 
-                <SearchOptions AddCourse={AddCourse}/>
+                <SearchOptions AddCourse={AddCourse} filteredTimes={props.filteredTimes} setFilteredTimes={props.setFilteredTimes}/>
 
                 <div className="center">
                     <img id="logo" src={logo}/>

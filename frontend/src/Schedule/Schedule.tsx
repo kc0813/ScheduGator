@@ -1,6 +1,7 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
 import { Course, Schedule } from "../Course";
+import {TimeSlot} from "../UF"
 import { MouseEventHandler, useState } from "react";
 
 
@@ -33,6 +34,7 @@ function ScheduleListing(
         courseList:Course[], 
         colorMap: Map<string, string>, 
         setColorMap: (colorMap: Map<string, string>) => void, 
+        filteredTimes: TimeSlot[]
         sampleSchedules: Schedule[]
     }
 ) {
