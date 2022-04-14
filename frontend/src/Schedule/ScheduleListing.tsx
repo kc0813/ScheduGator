@@ -41,6 +41,20 @@ function ScheduleListing(
     const [sampleSchedule, setSampleSchedule] = useState<Schedule>();
     const [i, setI] = useState<number>(0);
 
+
+    const onChangeSample = (isNext: boolean) =>{
+        if(isNext){
+            setI(i+1)
+        }
+        else if(i-1 < 0){
+            setI(props.sampleSchedules.length - 1)
+        } 
+        else{
+            setI(i-1)
+        }
+        
+        setSampleSchedule(props.sampleSchedules[i % props.sampleSchedules.length])
+    }
 	return(
     <div className="Schedule">
         <header className="Schedule-header">
@@ -68,14 +82,10 @@ function ScheduleListing(
                     schedule={props.sampleSchedules[i % props.sampleSchedules.length]} 
                     colorMap={props.colorMap}/>
                 <div className = "nextPrev">
-                    <button onClick={e => {
-                        setI(i-1)
-                        setSampleSchedule(props.sampleSchedules[i % props.sampleSchedules.length])}}>
+                    <button onClick={e => {onChangeSample(false)}}>
                         Prev Schedule
                     </button>
-                    <button onClick={e => {
-                        setI(i+1)
-                        setSampleSchedule(props.sampleSchedules[i % props.sampleSchedules.length])}}>
+                    <button onClick={e => {onChangeSample(true)}}>
                         Next Schedule
                     </button>
                 </div>
