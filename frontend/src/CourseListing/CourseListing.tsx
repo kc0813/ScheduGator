@@ -5,9 +5,8 @@ import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
 import logo from '../Images/ScheduGator.png';
 
-let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "Gold", "MediumSpringGreen"]
-let size = colors.length
-
+let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "DarkSlateBlue", "HotPink"]
+//Same ID, but different classes (Think quest or special topics)
 function CourseListing(
     props: {
             setRenderWin: (state: string) => void, 
@@ -21,9 +20,11 @@ function CourseListing(
 
     const DeleteCourse = (courseID: string) => {
         let index = -1
+        colors.push(props.colorMap.get(courseID)!)
         props.colorMap.delete(courseID)
+        console.log(colors)
         props.setColorMap(props.colorMap)
-        i--
+
 
         //find course in list
         for (let i = 0; i < props.courseList.length; i++) {
@@ -58,9 +59,11 @@ function CourseListing(
             return repeated;
         };
 
-        props.colorMap.set(courseID, colors[i%size])
+        props.colorMap.set(courseID, colors[0])
+        colors.splice(0, 1)
+        console.log(colors)
         props.setColorMap(props.colorMap)
-        i++
+
         if (!hasRepeats(course)) {
             //make copy of list
             let tempList = props.courseList.slice()
