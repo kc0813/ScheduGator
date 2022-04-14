@@ -4,6 +4,7 @@ import ScheduleListing from './Schedule/Schedule';
 import CourseListing from './CourseListing/CourseListing';
 import { Course } from "./Course";
 import {TimeSlot} from "./UF";
+import { samples } from "./Schedule/Schedule";
 
 function App() {
 	const [renderWin, setRenderWin] = useState("Courses");
@@ -32,6 +33,7 @@ function App() {
 				colorMap={colorMap} 
 				setColorMap={setColorMap}
 				filteredTimes={filteredTimes}
+				sampleSchedules={samples}
 			/>
 		);
 	}

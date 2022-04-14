@@ -9,9 +9,9 @@ export function GenerateOnline(
         let color: string | undefined = props.colorMap.get(props.courseID)
             
         return(
-            <TableRow style={{height: "5vh"}}>
+            <TableRow style={{height: "4vh"}}>
                 <TableCell
-                    style={{width: "12%", fontSize: 12}}>
+                    style={{width: "12%", fontSize: "1.75vh"}}>
                     <b>Online</b>
                 </TableCell>
 

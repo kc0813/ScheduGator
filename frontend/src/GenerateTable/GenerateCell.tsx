@@ -16,7 +16,7 @@ export function GenerateCell(
           align="center"
           padding="none"
           scope="row" 
-          style={{width: "12%", fontSize: 12, background: color}}>
+          style={{width: "12%", height: "1vh", fontSize: 12, background: color}}>
           <Typography style={{ color: "white" }}>
               {props.courseID}
           </Typography>
