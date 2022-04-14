@@ -2,7 +2,7 @@ import {Table, TableBody, TableRow, TableCell} from "@material-ui/core";
 import {TableContainer, TableHead} from "@material-ui/core";
 import {Typography, Paper} from "@material-ui/core";
 import { Schedule } from "../Course";
-import {days, periods} from "../UF";
+import {days, periods, TimeSlot} from "../UF";
 
 // Make sample schedule for testing rn - delete later
 let sample = new Map<string, string[]>();
@@ -37,23 +37,23 @@ function Calendar(
     };
 
     //Generate each row of the schedule
-    const GenerateRow = (row: any) => {
+    const GenerateRow = (props: {timeSlot: TimeSlot}) => {
         let calendar = sample;
         let cellArr: JSX.Element[] = []
-
+        
         //First column displays period number and time range.
         cellArr.push(        
             <TableCell 
                 scope="row" 
                 style={{width: "12%", fontSize: 12}}>
-                {row.period}
-                {row.time}
+                {props.timeSlot.period}
+                {props.timeSlot.time}
             </TableCell>
         )
 
         calendar.forEach((value: string[], key: string) => {
             if (key != "ONLINE") {
-                cellArr.push(<GenerateTableCell day={key} period={row.period}/>)
+                cellArr.push(<GenerateTableCell day={key} period={props.timeSlot.period}/>)
             }
         });
         
@@ -83,7 +83,7 @@ function Calendar(
 
             <TableBody>
                 {periods.map((row) => (
-                    <GenerateRow row={row}></GenerateRow>
+                    <GenerateRow timeSlot={row}></GenerateRow>
                 ))}
 
                 <TableRow style={{height: "5vh"}}>

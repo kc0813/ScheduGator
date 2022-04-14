@@ -1,7 +1,12 @@
 const days: string[] = ["M", "T", "W", "R", "F", "S"];
 export {days};
 
-const periods: {period: string; time: string;}[] = [
+export interface TimeSlot{
+    period: string,
+    time: string
+}
+
+const periods: TimeSlot[] = [
     {
         period: "1",
         time: " 7:25 - 8:15"
