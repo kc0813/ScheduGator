@@ -5,18 +5,26 @@ import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
 import logo from '../Images/ScheduGator.png';
 
+let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "Gold", "MediumSpringGreen"]
+let size = colors.length
 
 function CourseListing(
     props: {
             setRenderWin: (state: string) => void, 
             setCourseList:(courseList: Course[]) => void, 
-            courseList: Course[]
+            courseList: Course[],
+            colorMap: Map<string, string>,
+            setColorMap: (colorMap: Map<string, string>) => void,
         }
     ){
+    let i = props.courseList.length
 
     const DeleteCourse = (courseID: string) => {
         let index = -1
-        
+        props.colorMap.delete(courseID)
+        props.setColorMap(props.colorMap)
+        i--
+
         //find course in list
         for (let i = 0; i < props.courseList.length; i++) {
             if (props.courseList[i].code == courseID) {
@@ -50,6 +58,9 @@ function CourseListing(
             return repeated;
         };
 
+        props.colorMap.set(courseID, colors[i%size])
+        props.setColorMap(props.colorMap)
+        i++
         if (!hasRepeats(course)) {
             //make copy of list
             let tempList = props.courseList.slice()
@@ -62,6 +73,7 @@ function CourseListing(
             console.log("ALREADY IN")
             alert("'" + courseID + "' has already been added!");
         }
+
     }
 
     return (
@@ -78,6 +90,8 @@ function CourseListing(
                     courseList={props.courseList}
                     deletable={true}
                     DeleteCourse={DeleteCourse}
+                    colorMap={props.colorMap}
+                    setColorMap={props.setColorMap}
                 />
 
                 <SearchOptions AddCourse={AddCourse}/>

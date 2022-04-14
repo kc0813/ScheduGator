@@ -1,8 +1,20 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
-import { Course } from "../Course";
+import { Course, Schedule } from "../Course";
 
-function Schedule(props: {setRenderWin: (state: string) => void, courseList:Course[]})
+
+let sample = new Map<string, string[]>();
+sample.set("M", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
+sample.set("T", ["", "", "", "", "", "", "", "COP4600", "COP4600", "", "", "", "", ""]);
+sample.set("W", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "COP4600", "", ""]);
+sample.set("R", ["", "", "", "", "", "", "", "", "COP4600", "", "", "", "", ""]);
+sample.set("F", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
+sample.set("S", ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+sample.set("ONLINE", ["EEL3872", "CAP3027"])
+
+let sampleSchedule = {template: sample};
+
+function ScheduleListing(props: {setRenderWin: (state: string) => void, courseList:Course[], colorMap: Map<string, string>, setColorMap: (colorMap: Map<string, string>) => void })
 {
 	return(
     <div className="Schedule">
@@ -18,6 +30,8 @@ function Schedule(props: {setRenderWin: (state: string) => void, courseList:Cour
                 courseList={props.courseList}
                 deletable={false}
                 DeleteCourse={()=>{}}
+                colorMap={props.colorMap}
+                setColorMap={props.setColorMap}
             />
 
             <div className="searchOptions">
@@ -25,7 +39,7 @@ function Schedule(props: {setRenderWin: (state: string) => void, courseList:Cour
             </div>
 
             <div className="courses">
-                <Calendar/>
+                <Calendar schedule={sampleSchedule} colorMap={props.colorMap}/>
                 <button>Prev Schedule</button>
                 <button>Next Schedule</button>
             </div>
@@ -35,4 +49,4 @@ function Schedule(props: {setRenderWin: (state: string) => void, courseList:Cour
 	);
 }
 
-export default Schedule
+export default ScheduleListing
