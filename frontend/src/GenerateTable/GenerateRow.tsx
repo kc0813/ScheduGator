@@ -8,10 +8,12 @@ export function GenerateRow(
     props: {
         periodSlot: PeriodSlot, 
         schedule: Map<string, string[]>, 
-        colorMap: Map<string, string>
+        colorMap: Map<string, string>,
+        height: number
     }
 ) {
     let cellArr: JSX.Element[] = []
+    let relHeight: string = props.height.toString() + "vh"
         
     //First column displays period number and time range.
     cellArr.push(        
@@ -37,7 +39,7 @@ export function GenerateRow(
         }  
     });
         
-    return <TableRow style={{height: "4vh"}}>{cellArr}</TableRow>;
+    return <TableRow style={{height: relHeight}}>{cellArr}</TableRow>;
 };
 
 export function FilterRow(

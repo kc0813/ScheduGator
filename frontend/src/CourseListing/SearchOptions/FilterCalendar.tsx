@@ -68,7 +68,7 @@ function FilterCalendar(
                 <Table size="small">
 
                     <TableHead>
-                        <GenerateHeader headerType={"filter"}/>
+                        <GenerateHeader headerType={"filter"} height = {0}/>
                     </TableHead>
                     <TableBody>
                         {periodList.map((row) => {                            

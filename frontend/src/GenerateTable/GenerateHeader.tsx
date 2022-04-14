@@ -2,7 +2,14 @@ import {TableRow, TableCell} from "@material-ui/core";
 import {days} from "../UF";
   
 //Generate the top row displaying the days
-export function GenerateHeader(props: {headerType:string}){
+export function GenerateHeader(
+    props: {
+        headerType:string,
+        height: number
+    }
+    ){
+
+    let relHeight: string = props.height.toString() + "vh"
 
     if(props.headerType == "filter"){
         return (
@@ -27,7 +34,7 @@ export function GenerateHeader(props: {headerType:string}){
     }
     else if(props.headerType == "schedule"){
         return (
-            <TableRow style={{height:"5vh"}}>
+            <TableRow style={{height: relHeight}}>
                 <TableCell style={{padding:0}}></TableCell>
                     {days.map((day:string, key:number) =>
                         <TableCell key={key} style={{padding:0}} align="center" >{day}</TableCell>
@@ -38,7 +45,7 @@ export function GenerateHeader(props: {headerType:string}){
     else
     {
         return(
-            <TableRow style={{height:"5vh"}}>
+            <TableRow style={{height: relHeight}}>
                 INVALID HEADER TYPE
             </TableRow>
         )
