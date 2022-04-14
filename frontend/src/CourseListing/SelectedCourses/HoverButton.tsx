@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function HoverBtn(props : {courseID: string, top: number, deletable: boolean, delete: () => void}) {
+function HoverBtn(props : {courseID: string, top: string, deletable: boolean, delete: () => void}) {
     const [style, setStyle] = useState({display: 'none'});
     
     return (

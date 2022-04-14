@@ -77,8 +77,8 @@
 
 .hoverBtn {
   position: relative;
-  font-size: calc(2px + 2vmin);
-  border: 1.5px solid rgb(255, 136, 0);
+  font-size: calc(2.65vh);
+  border: .3vh solid rgb(255, 136, 0);
   height: 5vh;
   width: 9vw;
   display: flex;

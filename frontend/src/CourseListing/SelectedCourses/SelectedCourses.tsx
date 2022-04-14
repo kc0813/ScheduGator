@@ -4,13 +4,15 @@ import HoverBtn from "./HoverButton";
 export function SelectedCourses(props: {courseList: Course[], deletable: boolean, DeleteCourse: (courseID: string) => void}) {
 
     let courseBtns: JSX.Element[] = []
-    let top = 38; //MAKE THIS RELATIVE
+    let temp: number = 5.5;
+    let top: string = "5.5vh";
    
     props.courseList.forEach((course: Course) => {
             courseBtns.push(
             <HoverBtn courseID={course.code} top={top} deletable={props.deletable} delete={() => props.DeleteCourse(course.code)} />
         )
-        top += 38;
+        temp += 6.2;
+        top = temp.toString() + "vh";
     });
 
     return (
