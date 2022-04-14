@@ -24,7 +24,6 @@ function CourseListing(
         let index = -1
         colors.push(props.colorMap.get(courseID)!)
         props.colorMap.delete(courseID)
-        console.log(colors)
         props.setColorMap(props.colorMap)
 
 
@@ -63,7 +62,6 @@ function CourseListing(
 
         props.colorMap.set(courseID, colors[0])
         colors.splice(0, 1)
-        console.log(colors)
         props.setColorMap(props.colorMap)
 
         if (!hasRepeats(course)) {
