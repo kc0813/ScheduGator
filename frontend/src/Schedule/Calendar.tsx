@@ -11,13 +11,12 @@ import {GenerateOnline} from "./GenerateSample/GenerateOnline"
 function Calendar(
     // Reference for schedule calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/Calendar.js
-
     props: {
         schedule: Schedule, 
         colorMap: Map<string, string>
-    }) {
+    }
+) {
 
-    //TODO: Clean this up and move into seperate files per component
    
     //Return a single sample schedule
     return(
@@ -30,17 +29,23 @@ function Calendar(
 
             <TableBody>
                 {periods.map((row) => (
-                    <GenerateRow timeSlot={row} schedule={props.schedule.template} colorMap={props.colorMap}/>
+                    <GenerateRow 
+                        timeSlot={row} 
+                        schedule={props.schedule.template} 
+                        colorMap={props.colorMap}
+                    />
                 ))}
 
-                {
-                    (props.schedule.template.get("ONLINE")!).map((courseID =>(
-                        <GenerateOnline courseID={courseID} colorMap={props.colorMap}/>
-                    )))
+                {props.schedule.template.get("ONLINE")!.map((courseID =>(
+                        <GenerateOnline 
+                            courseID={courseID} 
+                            colorMap={props.colorMap}
+                        />
+                        ))
+                    )
                 }
                 
             </TableBody>
-
         </Table>
         </TableContainer>
     );

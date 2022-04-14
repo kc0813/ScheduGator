@@ -1,6 +1,11 @@
 import {TableCell, Typography} from "@material-ui/core";
 
-export function GenerateCell(props: {courseID: string, colorMap: Map<string, string>}) {
+export function GenerateCell(
+  props: {
+    courseID: string, 
+    colorMap: Map<string, string>
+  }
+) {
     let color: string | undefined = "white"
     if (props.courseID != ""){
         color = props.colorMap.get(props.courseID)

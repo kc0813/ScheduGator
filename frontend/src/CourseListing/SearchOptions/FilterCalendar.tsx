@@ -49,10 +49,21 @@ function FilterCalendar() {
     const GenerateDays = () => {
         return (
             <TableRow style={{ height: "3vh" }}>
-                <TableCell align="center" style={{ padding: 0, background: "lightcyan", width: "12%" }}></TableCell>
+                <TableCell 
+                    align="center" 
+                    style={{ padding: 0, background: "lightcyan", width: "12%" }}>
+                </TableCell>
+
                 {days.map((day, key) =>
-                    <TableCell key={key} style={{ padding: 0, color: "black", background: "lightcyan", fontSize: 11 }} align="center" >{day}</TableCell>
+                    <TableCell 
+                        key={key} 
+                        style={{ padding: 0, color: "black", background: "lightcyan", fontSize: 11 }} 
+                        align="center"
+                    >
+                        {day}
+                    </TableCell>
                 )}
+
             </TableRow>
         )
     };

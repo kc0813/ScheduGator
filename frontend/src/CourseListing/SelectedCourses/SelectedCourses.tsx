@@ -1,7 +1,15 @@
 import { Course } from "../../Course";
 import HoverBtn from "./HoverButton";
 
-export function SelectedCourses(props: {courseList: Course[], deletable: boolean, DeleteCourse: (courseID: string) => void, colorMap:Map<string, string>, setColorMap: (colorMap:Map<string, string>) => void}) {
+export function SelectedCourses(
+    props: {
+        courseList: Course[], 
+        deletable: boolean, 
+        DeleteCourse: (courseID: string) => void, 
+        colorMap:Map<string, string>, 
+        setColorMap: (colorMap:Map<string, string>) => void
+    }
+) {
 
     let courseBtns: JSX.Element[] = []
     let temp: number = 5.5;
@@ -14,7 +22,8 @@ export function SelectedCourses(props: {courseList: Course[], deletable: boolean
                 top={top} 
                 deletable={props.deletable} 
                 delete={() => props.DeleteCourse(course.code)} 
-                color={props.colorMap.get(course.code)!}/>
+                color={props.colorMap.get(course.code)!}
+            />
         )
         temp += 6.2;
         top = temp.toString() + "vh";

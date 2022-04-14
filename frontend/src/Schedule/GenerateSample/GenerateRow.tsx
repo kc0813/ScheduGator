@@ -4,7 +4,13 @@ import {GenerateCell} from "./GenerateCell";
 import {TableRow} from "@material-ui/core";
 
 //Generate each row of the schedule
-export function GenerateRow(props: {timeSlot: TimeSlot, schedule: Map<string, string[]>, colorMap: Map<string, string>}) {
+export function GenerateRow(
+    props: {
+        timeSlot: TimeSlot, 
+        schedule: Map<string, string[]>, 
+        colorMap: Map<string, string>
+    }
+) {
     let cellArr: JSX.Element[] = []
         
     //First column displays period number and time range.

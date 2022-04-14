@@ -1,6 +1,11 @@
 import {Typography, TableRow, TableCell} from "@material-ui/core";
 
-export function GenerateOnline(props: {courseID: string, colorMap: Map<string, string>}){
+export function GenerateOnline(
+    props: {
+        courseID: string, 
+        colorMap: Map<string, string>
+    }
+){
         let color: string | undefined = props.colorMap.get(props.courseID)
             
         return(

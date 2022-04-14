@@ -14,8 +14,14 @@ sample.set("ONLINE", ["EEL3872", "CAP3027"])
 
 let sampleSchedule = {template: sample};
 
-function ScheduleListing(props: {setRenderWin: (state: string) => void, courseList:Course[], colorMap: Map<string, string>, setColorMap: (colorMap: Map<string, string>) => void })
-{
+function ScheduleListing(
+    props: {
+        setRenderWin: (state: string) => void, 
+        courseList:Course[], 
+        colorMap: Map<string, string>, 
+        setColorMap: (colorMap: Map<string, string>) => void 
+    }
+) {
 	return(
     <div className="Schedule">
         <header className="Schedule-header">

@@ -10,7 +10,9 @@ interface CourseResponse {
 }
 
 
-function SearchBar(props: { AddCourse: (course: Course) => void }) {
+function SearchBar(
+    props: {AddCourse: (course: Course) => void }
+) {
 
     const getInputValue = (event: React.KeyboardEvent<HTMLInputElement> | undefined) => {
 
