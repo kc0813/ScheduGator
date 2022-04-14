@@ -3,13 +3,15 @@ import {Typography, TableRow, TableCell} from "@material-ui/core";
 export function GenerateOnline(
     props: {
         courseID: string, 
-        colorMap: Map<string, string>
+        colorMap: Map<string, string>,
+        height: number
     }
 ){
         let color: string | undefined = props.colorMap.get(props.courseID)
+        let relHeight: string = props.height.toString() + "vh"
             
         return(
-            <TableRow style={{height: "4vh"}}>
+            <TableRow style={{height: relHeight}}>
                 <TableCell
                     style={{width: "12%", fontSize: "1.75vh"}}>
                     <b>Online</b>

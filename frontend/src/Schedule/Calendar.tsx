@@ -17,14 +17,15 @@ function Calendar(
     }
 ) {
 
-   
+   let rowNum: number = props.schedule.template.get("ONLINE")!.length + 15;
+   let rowHeight: number = 84.5 / rowNum;
     //Return a single sample schedule
     return(
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{maxHeight: "84.5vh", minHeight: "84.5vh"}}>
         <Table size="small">
 
             <TableHead>
-                <GenerateDays/>
+                <GenerateDays height = {rowHeight}/>
             </TableHead>
 
             <TableBody>
@@ -33,6 +34,7 @@ function Calendar(
                         timeSlot={row} 
                         schedule={props.schedule.template} 
                         colorMap={props.colorMap}
+                        height = {rowHeight}
                     />
                 ))}
 
@@ -40,6 +42,7 @@ function Calendar(
                         <GenerateOnline 
                             courseID={courseID} 
                             colorMap={props.colorMap}
+                            height = {rowHeight}
                         />
                         ))
                     )
