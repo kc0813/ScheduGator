@@ -108,3 +108,10 @@
   height: 35vw;
   width: 35vw;
 }
+
+.nextPrev {
+  position: absolute;
+  bottom: 2vh;
+  width: inherit;
+  margin: auto;
+}

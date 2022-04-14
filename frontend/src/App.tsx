@@ -3,6 +3,7 @@ import './App.css';
 import ScheduleListing from './Schedule/Schedule';
 import CourseListing from './CourseListing/CourseListing';
 import { Course } from "./Course";
+import { samples } from "./Schedule/Schedule";
 
 function App() {
 	const [renderWin, setRenderWin] = useState("Courses");
@@ -18,7 +19,12 @@ function App() {
 			setColorMap={setColorMap}/>;
 	}
 	else{
-		return <ScheduleListing setRenderWin={setRenderWin} courseList={courseList} colorMap={colorMap} setColorMap={setColorMap}/>;
+		return <ScheduleListing 
+					setRenderWin={setRenderWin} 
+					courseList={courseList} 
+					colorMap={colorMap} 
+					setColorMap={setColorMap}
+					sampleSchedules={samples}/>;
 	}
 
 }
