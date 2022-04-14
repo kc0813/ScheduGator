@@ -17,7 +17,7 @@ export function GenerateRow(
     cellArr.push(        
         <TableCell 
             scope="row" 
-            style={{width: "12%", fontSize: 12}}>
+            style={{width: "12%", fontSize: "1.75vh"}}>
             <b>{props.timeSlot.period + ": "}</b>
                 
             {props.timeSlot.time}
@@ -37,7 +37,7 @@ export function GenerateRow(
         }  
     });
         
-    return <TableRow>{cellArr}</TableRow>;
+    return <TableRow style={{height: "4vh"}}>{cellArr}</TableRow>;
 };
 
 export default GenerateRow;

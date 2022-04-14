@@ -3,16 +3,26 @@ import Calendar from "./Calendar";
 import { Course, Schedule } from "../Course";
 
 
-let sample = new Map<string, string[]>();
-sample.set("M", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
-sample.set("T", ["", "", "", "", "", "", "", "COP4600", "COP4600", "", "", "", "", ""]);
-sample.set("W", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "COP4600", "", ""]);
-sample.set("R", ["", "", "", "", "", "", "", "", "COP4600", "", "", "", "", ""]);
-sample.set("F", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
-sample.set("S", ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
-sample.set("ONLINE", ["EEL3872", "CAP3027"])
+let sample1 = new Map<string, string[]>();
+sample1.set("M", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
+sample1.set("T", ["", "", "", "", "", "", "", "COP4600", "COP4600", "", "", "", "", ""]);
+sample1.set("W", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "COP4600", "", ""]);
+sample1.set("R", ["", "", "", "", "", "", "", "", "COP4600", "", "", "", "", ""]);
+sample1.set("F", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
+sample1.set("S", ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+sample1.set("ONLINE", ["EEL3872", "CAP3027"])
 
-let sampleSchedule = {template: sample};
+let sample2 = new Map<string, string[]>();
+sample2.set("M", ["", "", "MAA4402", "", "", "COP4020", "", "CEN3031", "", "", "", "", "", ""]);
+sample2.set("T", ["", "", "EGS4034", "CEN3031", "", "", "", "", "", "", "", "", "", ""]);
+sample2.set("W", ["", "", "MAA4402", "", "", "COP4020", "", "CEN3031", "", "", "", "", "", ""]);
+sample2.set("R", ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+sample2.set("F", ["", "", "MAA4402", "", "", "COP4020", "", "CEN3031", "", "", "", "", "", ""]);
+sample2.set("S", ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+sample2.set("ONLINE", [])
+
+let sampleSchedule = {template: sample1};
+let samples = [sample1, sample2];
 
 function ScheduleListing(
     props: {

@@ -9,16 +9,16 @@ function HoverBtn(
         color:string
     }
 ) {
-    const [style, setStyle] = useState({display: 'none'});
+    const [style, setStyle] = useState({display: 'none', fontSize: "2.5vh"});
     
     return (
         <div className = "hoverBtn" style={{position: "absolute", top: props.top, background: props.color}}
             onMouseEnter={e => {
                 if(props.deletable)
-                    setStyle({display: 'inline'});
+                    setStyle({display: 'inline', fontSize: "2.5vh"});
             }}
             onMouseLeave={e => {
-                setStyle({display: 'none'})
+                setStyle({display: 'none', fontSize: "2.5vh"})
             }}
         >
         <button className = 'inLine' style={style} onClick = {props.delete}>x</button>

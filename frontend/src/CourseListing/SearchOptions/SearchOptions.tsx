@@ -1,4 +1,4 @@
-import WordCount from "./WordCount"
+import Semester from "./Semester"
 import SearchBar from "./SearchBar"
 import FilterCalendar from "./FilterCalendar"
 import { Course } from "../../Course"
@@ -9,7 +9,7 @@ function SearchOptions(
     return <div id='searchOptions' className="searchOptions">
         Search Options
         <SearchBar AddCourse={props.AddCourse} />
-        <WordCount/>
+        <Semester/>
         <FilterCalendar/>
     </div>
 
