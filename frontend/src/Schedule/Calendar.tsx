@@ -2,12 +2,12 @@ import {Table, TableBody} from "@material-ui/core";
 import {TableContainer, TableHead} from "@material-ui/core";
 import {Paper} from "@material-ui/core";
 import {Schedule} from "../Course";
-import {periods} from "../UF";
-import {GenerateDays} from "./GenerateSample/GenerateDays"
-import {GenerateRow} from "./GenerateSample/GenerateRow"
-import {GenerateOnline} from "./GenerateSample/GenerateOnline"
+import {periodList} from "../UF";
+import {GenerateHeader} from "../GenerateTable/GenerateHeader"
+import {GenerateRow} from "../GenerateTable/GenerateRow"
+import {GenerateOnline} from "../GenerateTable/GenerateOnline"
 
-// Make sample schedule for testing rn - delete later
+//TODO: Resize rows depending on number of online classes
 function Calendar(
     // Reference for schedule calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/Calendar.js
@@ -24,13 +24,13 @@ function Calendar(
         <Table size="small">
 
             <TableHead>
-                <GenerateDays/>
+                <GenerateHeader headerType={"schedule"}/>
             </TableHead>
 
             <TableBody>
-                {periods.map((row) => (
+                {periodList.map((row) => (
                     <GenerateRow 
-                        timeSlot={row} 
+                        periodSlot={row} 
                         schedule={props.schedule.template} 
                         colorMap={props.colorMap}
                     />

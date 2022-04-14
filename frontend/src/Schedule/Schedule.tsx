@@ -1,6 +1,7 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
 import { Course, Schedule } from "../Course";
+import {TimeSlot} from "../UF"
 
 
 let sample = new Map<string, string[]>();
@@ -19,7 +20,8 @@ function ScheduleListing(
         setRenderWin: (state: string) => void, 
         courseList:Course[], 
         colorMap: Map<string, string>, 
-        setColorMap: (colorMap: Map<string, string>) => void 
+        setColorMap: (colorMap: Map<string, string>) => void, 
+        filteredTimes: TimeSlot[]
     }
 ) {
 	return(
