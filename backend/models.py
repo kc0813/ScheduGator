@@ -43,3 +43,11 @@ class CourseData(BaseModel):
 
 class Message(BaseModel):
     message: str
+
+
+class ScheduleList(BaseModel):
+    schedules: list
+
+
+class CourseList(BaseModel):
+    courses: list
