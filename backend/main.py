@@ -69,7 +69,7 @@ async def buildSchedule(
     return {"schedules": dsbuilder(template, query.courses)}
 
 
-@app.put("/class/")  # , response_model=CourseData, responses={404: {"model": Message}}
+@app.put("/class/", responses={404: {"model": Message}})
 async def queryClass(
     query: ClassQuery = Body(
         ...,
@@ -149,6 +149,4 @@ async def queryClass(
         genEd = "gen-{}".format(query.genEd)
         params[genEd] = True
 
-    r = requests.get(url=url, params=params)
-    return r.json()
-    # return requests.get(url=url, params=params).json()
+    return requests.get(url=url, params=params).json()
