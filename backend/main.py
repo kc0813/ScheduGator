@@ -1,7 +1,16 @@
+from enum import IntEnum
 from fastapi import Body, FastAPI
+from fastapi.responses import JSONResponse
 import requests
-from models import ClassQuery
+from models import (
+    BuilderQuery,
+    ClassQuery,
+    CourseData,
+    Message,
+    ScheduleList,
+)
 from fastapi.middleware.cors import CORSMiddleware
+from algorithm import dynamicScheduleBuilder as dsbuilder
 
 app = FastAPI()
 
@@ -16,6 +25,16 @@ app.add_middleware(
 )
 
 
+class PERIOD(IntEnum):
+    """
+    Enum for periods
+    """
+
+    E1 = 12
+    E2 = 13
+    E3 = 14
+
+
 @app.get("/")
 async def root():
     """
@@ -25,12 +44,36 @@ async def root():
     return {"message": "Hello world, I'm working!!!"}
 
 
-@app.put("/class/")
+@app.post(
+    "/buildSchedule/", response_model=ScheduleList, responses={400: {"model": Message}}
+)
+async def buildSchedule(
+    query: BuilderQuery = Body(
+        ..., examples={"1": {"schedules": ["list of schedules here"]}}
+    )
+):
+    """
+    Endpoint for building a schedule
+    """
+    rows = 14
+    template = {
+        "M": ["" for i in range(rows)],
+        "T": ["" for i in range(rows)],
+        "W": ["" for i in range(rows)],
+        "R": ["" for i in range(rows)],
+        "F": ["" for i in range(rows)],
+        "S": ["" for i in range(rows)],
+        "Online": [],
+    }
+    return {"schedules": dsbuilder(template, query.courses)}
+
+
+@app.put("/class/", response_model=CourseData, responses={404: {"model": Message}})
 async def queryClass(
     query: ClassQuery = Body(
         ...,
         examples={
-            "invalid": {
+            "1": {
                 "summary": "Query description",
                 "description": "Description of the parameters, **DO NOT** query this.",
                 "value": {
@@ -42,16 +85,22 @@ async def queryClass(
                     "meeting": "The meeting days you want to see M, T, W, R, F",
                 },
             },
-            "normal": {
-                "summary": "Example query",
+            "2": {
+                "summary": "Example valid query",
                 "description": "Example that you can **actually** query",
                 "value": {
                     "category": "CWSP",
                     "term": 2221,
+                    "courseCode": "CDA3101",
+                },
+            },
+            "3": {
+                "summary": "Example invalid query",
+                "description": "Example that you can **actually** query but returns no classes",
+                "value": {
+                    "category": "CWSP",
+                    "term": 2221,
                     "courseCode": "CAP3027",
-                    "isQuest": False,
-                    "writing": 2000,
-                    "meeting": "r",
                 },
             },
         },
@@ -99,5 +148,30 @@ async def queryClass(
         genEd = "gen-{}".format(query.genEd)
         params[genEd] = True
 
-    r = requests.get(url=url, params=params)
-    return r.json()
+    r = requests.get(url=url, params=params).json()[0]
+    if r["TOTALROWS"] == 0:
+        return JSONResponse(status_code=404, content={"message": "No class found"})
+
+    course = r["COURSES"][0]
+    code = course["code"]
+    rawSections = course["sections"]
+    sections = []
+    for section in rawSections:
+        meetTimes = []
+        for meeting in section["meetTimes"]:
+            meetStart = meeting["meetPeriodBegin"]
+            if meetStart[0] == "E":
+                meetStart = int(PERIOD(meetStart))
+            else:
+                meetStart = int(meetStart)
+            meetEnd = meeting["meetPeriodEnd"]
+            if meetEnd[0] == "E":
+                meetEnd = int(PERIOD(meetEnd))
+            else:
+                meetEnd = int(meetEnd)
+            periods = [i for i in range(meetStart, meetEnd + 1)]
+            for meetDay in meeting["meetDays"]:
+                for period in periods:
+                    meetTimes.append([meetDay, period])
+        sections.append({section["classNumber"]: meetTimes})
+    return {"code": code, "sections": sections}

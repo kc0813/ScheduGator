@@ -57,11 +57,12 @@ function ScheduleListing(
                 times: props.filteredTimes,
             },
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
             } as AxiosRequestConfig['headers']
         }
-        const response = (await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)).data
-        console.log(response.Schedules);
+        const response = await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)
+        console.log(response.data.Schedules);
     }
 
     const onChangeSample = (isNext: boolean) => {
