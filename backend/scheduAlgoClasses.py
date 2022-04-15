@@ -202,7 +202,7 @@ rows = 14  # number of periods in the schedule
 class Schedule:
     def __init__(
         self,
-        template: Dict[str, list[str]] = {
+        template: Dict[str, List[str]] = {
             "M": ["" for i in range(rows)],
             "T": ["" for i in range(rows)],
             "W": ["" for i in range(rows)],

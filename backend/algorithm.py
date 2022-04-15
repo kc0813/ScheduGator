@@ -10,7 +10,7 @@ import copy as c
 """
 
 
-def buildSchedules(courses: List[Course], reservedTimes: list) -> list[Schedule]:
+def buildSchedules(courses: List[Course], reservedTimes: list) -> List[Schedule]:
     """
     Builds a static schedule of times the user has reserved and
     class times that cannot be changed between sample schedules.

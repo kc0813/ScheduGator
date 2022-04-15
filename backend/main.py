@@ -1,11 +1,9 @@
 from enum import IntEnum
 from fastapi import Body, FastAPI
-from fastapi.responses import JSONResponse
 import requests
 from models import (
     BuilderQuery,
     ClassQuery,
-    CourseData,
     Message,
     ScheduleList,
 )
@@ -55,7 +53,7 @@ async def buildSchedule(
     """
     Endpoint for building a schedule
     """
-    
+
     return {"schedules": schBuilder(query.courses, query.times)}
 
 
