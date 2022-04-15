@@ -38,7 +38,7 @@ function FilterCalendar(
         // Format period correctly to send to backend
         var period: number = event.target.parentElement.rowIndex - 1;
 
-        let timeSlot = {
+        let timeSlot: TimeSlot = {
             day: day,
             period: period,
         }
