@@ -49,5 +49,6 @@ class ScheduleList(BaseModel):
     schedules: list
 
 
-class CourseList(BaseModel):
+class BuilderQuery(BaseModel):
     courses: list
+    times: list
