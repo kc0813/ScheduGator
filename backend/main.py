@@ -1,17 +1,16 @@
 from enum import IntEnum
 from fastapi import Body, FastAPI
-
-# from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse
 import requests
 from models import (
     BuilderQuery,
     ClassQuery,
-    # CourseData,
+    CourseData,
     Message,
     ScheduleList,
 )
 from fastapi.middleware.cors import CORSMiddleware
-from algorithm import dynamicScheduleBuilder as dsbuilder
+from algorithm import buildSchedules as schBuilder
 
 app = FastAPI()
 
@@ -56,17 +55,8 @@ async def buildSchedule(
     """
     Endpoint for building a schedule
     """
-    rows = 14
-    template = {
-        "M": ["" for i in range(rows)],
-        "T": ["" for i in range(rows)],
-        "W": ["" for i in range(rows)],
-        "R": ["" for i in range(rows)],
-        "F": ["" for i in range(rows)],
-        "S": ["" for i in range(rows)],
-        "Online": [],
-    }
-    return {"schedules": dsbuilder(template, query.courses)}
+    
+    return {"schedules": schBuilder(query.courses, query.times)}
 
 
 @app.put("/class/", responses={404: {"model": Message}})
