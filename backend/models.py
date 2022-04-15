@@ -1,5 +1,3 @@
-from scheduAlgoClasses import Course
-from typing import List
 from pydantic import BaseModel
 
 
@@ -43,8 +41,5 @@ class ScheduleList(BaseModel):
 
 
 class BuilderQuery(BaseModel):
-    courses: List[Course]
+    courses: list
     times: list
-
-    class Config:
-        arbitrary_types_allowed = True

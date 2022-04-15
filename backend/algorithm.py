@@ -10,7 +10,34 @@ import copy as c
 """
 
 
-def buildSchedules(courses: List[Course], reservedTimes: list) -> List[Schedule]:
+def wrapCourses(func) -> List[Course]:
+    """
+    Wraps the function
+    and converts courses to a list of course objects
+    """
+
+    def wrapper(*args, **kwargs):
+        # wraps courses in Course objects
+        wrappedCourses = []
+        for course in args[0]:
+            try:
+                wrappedCourses.append(
+                    Course(
+                        code=course["code"],
+                        name=course["name"],
+                        sections=course["sections"],
+                    )
+                )
+            except KeyError:
+                # throw an error if the course is missing a key
+                raise KeyError("list of courses is formatted incorrectly")
+        return func(wrappedCourses, *args[1:], **kwargs)
+
+    return wrapper
+
+
+@wrapCourses
+def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     """
     Builds a static schedule of times the user has reserved and
     class times that cannot be changed between sample schedules.
@@ -20,6 +47,7 @@ def buildSchedules(courses: List[Course], reservedTimes: list) -> List[Schedule]
 
     Recursively brute force to find all valid combinations of sections for a sample schedule.
     """
+
     template = Schedule()
 
     # 1) build static schedule
