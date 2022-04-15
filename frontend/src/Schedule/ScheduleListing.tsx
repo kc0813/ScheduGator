@@ -1,14 +1,12 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
 import { Course, Schedule } from "../Course";
-import {TimeSlot} from "../UF"
+import { TimeSlot } from "../UF"
 import { MouseEventHandler, useState } from "react";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 interface ScheduleResponse {
     Schedules: Schedule[]
-    LASTCONTROLNUMBER: number
-    RETRIEVEDROWS: number
-    TOTALROWS: number
 }
 
 let sample1 = new Map<string, string[]>();
@@ -29,17 +27,17 @@ sample2.set("F", ["", "", "MAA4402", "", "", "COP4020", "", "CEN3031", "", "", "
 sample2.set("S", ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
 sample2.set("ONLINE", ["MAS3114"])
 
-let sampleSchedule1 = {template: sample1};
-let sampleSchedule2 = {template: sample2};
+let sampleSchedule1 = { template: sample1 };
+let sampleSchedule2 = { template: sample2 };
 let samples = [sampleSchedule1, sampleSchedule2];
-export {samples};
+export { samples };
 
 function ScheduleListing(
     props: {
-        setRenderWin: (state: string) => void, 
-        courseList:Course[], 
-        colorMap: Map<string, string>, 
-        setColorMap: (colorMap: Map<string, string>) => void, 
+        setRenderWin: (state: string) => void,
+        courseList: Course[],
+        colorMap: Map<string, string>,
+        setColorMap: (colorMap: Map<string, string>) => void,
         filteredTimes: TimeSlot[]
     }
 ) {
@@ -48,63 +46,74 @@ function ScheduleListing(
     //let samplesList: Schedule[] = getSampleSchedules()
 
     //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
-    const getSampleSchedules = () => {
+    const getSampleSchedules = async () => {
         //props.courseList is the list of courses. (from Course.ts)
         //props.filteredTimes is the list of timeslots (from UF.ts)
         //store in a variable of type ScheduleResponse
-
+        const options = {
+            url: "http://localhost:8080/buildschedule",
+            data: {
+                courses: props.courseList,
+                times: props.filteredTimes,
+            },
+            headers: {
+                "Content-Type": "application/json"
+            } as AxiosRequestConfig['headers']
+        }
+        const response = (await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)).data
+        console.log(response.Schedules);
     }
 
-    const onChangeSample = (isNext: boolean) =>{
-        if(isNext){
-            setI(i+1)
+    const onChangeSample = (isNext: boolean) => {
+        if (isNext) {
+            setI(i + 1)
         }
-        else if(i-1 < 0){
+        else if (i - 1 < 0) {
             setI(samplesList.length - 1)
-        } 
-        else{
-            setI(i-1)
+        }
+        else {
+            setI(i - 1)
         }
     }
-	return(
-    <div className="Schedule">
-        <header className="Schedule-header">
+    return (
+        <div className="Schedule">
+            <header className="Schedule-header">
 
-            <div className="ToggleCourses">
-                <button onClick = {() => props.setRenderWin("Courses")}>
-                    See Courses
-                </button> 
-            </div>
-
-            <SelectedCourses
-                courseList={props.courseList}
-                deletable={false}
-                DeleteCourse={()=>{}}
-                colorMap={props.colorMap}
-                setColorMap={props.setColorMap}
-            />
-
-            <div className="searchOptions">
-                Course Info
-            </div>
-
-            <div className="courses">
-                <Calendar 
-                    schedule={samplesList[i % samplesList.length]} 
-                    colorMap={props.colorMap}/>
-                <div className = "nextPrev">
-                    <button onClick={e => {onChangeSample(false)}}>
-                        Prev Schedule
-                    </button>
-                    <button onClick={e => {onChangeSample(true)}}>
-                        Next Schedule
+                <div className="ToggleCourses">
+                    <button onClick={() => props.setRenderWin("Courses")}>
+                        See Courses
                     </button>
                 </div>
-            </div>
 
-        </header>
-    </div>
-	);
+                <SelectedCourses
+                    courseList={props.courseList}
+                    deletable={false}
+                    DeleteCourse={() => { }}
+                    colorMap={props.colorMap}
+                    setColorMap={props.setColorMap}
+                />
+
+                <div className="searchOptions">
+                    Course Info
+                </div>
+
+                <div className="courses">
+                    <Calendar
+                        schedule={samplesList[i % samplesList.length]}
+                        colorMap={props.colorMap} />
+                    <div className="nextPrev">
+                        <button onClick={e => { onChangeSample(false) }}>
+                            Prev Schedule
+                        </button>
+                        <button onClick={e => { onChangeSample(true) }}>
+                            Next Schedule
+                        </button>
+                    </div>
+                </div>
+
+            </header>
+        </div>
+    );
 }
 
 export default ScheduleListing
