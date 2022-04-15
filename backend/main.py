@@ -148,30 +148,4 @@ async def queryClass(
         genEd = "gen-{}".format(query.genEd)
         params[genEd] = True
 
-    r = requests.get(url=url, params=params).json()[0]
-    if r["TOTALROWS"] == 0:
-        return JSONResponse(status_code=404, content={"message": "No class found"})
-
-    course = r["COURSES"][0]
-    code = course["code"]
-    rawSections = course["sections"]
-    sections = []
-    for section in rawSections:
-        meetTimes = []
-        for meeting in section["meetTimes"]:
-            meetStart = meeting["meetPeriodBegin"]
-            if meetStart[0] == "E":
-                meetStart = int(PERIOD(meetStart))
-            else:
-                meetStart = int(meetStart)
-            meetEnd = meeting["meetPeriodEnd"]
-            if meetEnd[0] == "E":
-                meetEnd = int(PERIOD(meetEnd))
-            else:
-                meetEnd = int(meetEnd)
-            periods = [i for i in range(meetStart, meetEnd + 1)]
-            for meetDay in meeting["meetDays"]:
-                for period in periods:
-                    meetTimes.append([meetDay, period])
-        sections.append({section["classNumber"]: meetTimes})
-    return {"code": code, "sections": sections}
+    return requests.get(url=url, params=params).json()
