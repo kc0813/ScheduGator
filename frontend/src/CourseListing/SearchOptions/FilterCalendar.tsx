@@ -20,16 +20,7 @@ function FilterCalendar(
     // Reference for filtered time slots calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/CalendarFilter.js
 
-    //TODO DELETE FILTER ON UNTOGGLE
     const handleCellClick = (event: any) => {
-        if (event.target.style.background.charAt(0) == "g")
-            event.target.style.background = "white";
-
-        else
-            event.target.style.background = "gray";
-
-        console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
-
         // Format day correctly to send to backend
         var day: string;
         switch(event.target.cellIndex) {
@@ -43,14 +34,27 @@ function FilterCalendar(
         if (event.target.parentElement.rowIndex == 15) {
             day = "ONLINE";
         }
-
+        
         // Format period correctly to send to backend
         var period: number = event.target.parentElement.rowIndex - 1;
+
         let timeSlot = {
             day: day,
             period: period,
         }
-        props.filteredTimes.push(timeSlot);
+
+        if (event.target.style.background.charAt(0) == "g") {
+            event.target.style.background = "white";
+            props.filteredTimes.splice(props.filteredTimes.indexOf(timeSlot), 1);
+            console.log(props.filteredTimes.length);
+        }
+        else {
+            event.target.style.background = "gray";
+            props.filteredTimes.push(timeSlot);
+            console.log(props.filteredTimes.length);
+        }
+
+        //console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
         props.setFilteredTimes(props.filteredTimes)
 
     }
