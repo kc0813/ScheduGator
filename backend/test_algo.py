@@ -4,8 +4,6 @@ import copy as c
 import algorithm as algo
 
 
-
-
 def test_basicDynamicBuild():
 
     BDBTemp = Schedule()
@@ -68,16 +66,24 @@ def test_delStaticConflict():
     assert len(courses[1].sections) == 1
     assert len(courses[2].sections) == 2
 
+
 def test_HenryFallSchedule():
-    cap3027 = Course("CAP3027", "Intro to Dig. Arts and Sciences", [Section("11413", [])])
-    eel3872 = Course("EEL3872", "Artificial Intelligence Fundamentals", [Section("23981", [])])
-    cis4301 = Course("CIS4301", "Information and Databases Systems 1", [Section(11173, [("M", 4), ("W", 4), ("F", 4)])])
+    cap3027 = Course(
+        "CAP3027", "Intro to Dig. Arts and Sciences", [Section("11413", [])]
+    )
+    eel3872 = Course(
+        "EEL3872", "Artificial Intelligence Fundamentals", [Section("23981", [])]
+    )
+    cis4301 = Course(
+        "CIS4301",
+        "Information and Databases Systems 1",
+        [Section(11173, [("M", 4), ("W", 4), ("F", 4)])],
+    )
     template = Schedule()
 
     template.addSection(cis4301.staticMeetSection, cis4301.code)
     template.addSection(cap3027.sections[0], cap3027.code)
     template.addSection(eel3872.sections[0], eel3872.code)
-
 
     s1 = Section("27362", [("T", 8), ("T", 9), ("R", 9), ("W", 11)])
     s2 = Section("12345", [("T", 8), ("T", 9), ("R", 9), ("W", 10)])
@@ -97,11 +103,12 @@ def test_HenryFallSchedule():
             schedulesList.append(temp)
         except Exception as e:
             print(e)
-        
+
     cop4600 = Course("COP4600", "Operating Systems", sections)
     sampleList = algo.buildSchedules([cap3027, eel3872, cis4301, cop4600], [])
 
     assert sampleList[0] == schedulesList[0]
+
 
 # Use only for debugging
 def printSchedules(schedules: List[Schedule]):

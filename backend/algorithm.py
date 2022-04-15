@@ -67,7 +67,7 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
     If it does, then add it to the static schedule
     If there's ever a conflict, it's impossible to make a schedule, so return an empty default
     """
-    #tentative
+    # tentative
     courseIndex = []
     index = 0
     for course in courses:
@@ -81,7 +81,7 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
         # but hasOnlyOne covers a course that has only an online section
         if hasStaticSection or hasOnlyOne:
             toAdd = course.sections[0] if hasOnlyOne else course.staticMeetSection
-            
+
             try:
                 template.addSection(toAdd, course.code)
             except RuntimeError as err:
@@ -113,7 +113,7 @@ def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
                 try:
                     course.sections.remove(section)
                 except Exception:
-                    #Exception handling functionality
+                    # Exception handling functionality
                     pass
 
     return courses
@@ -137,7 +137,7 @@ def dynamicScheduleBuilder(
     Recursively build a schedule by "jumping into" the courses and adding a section from each course
     Makes a copy of the template and then tries to add a section to the copy
 
-    If there are more courses to consider, call this function again, 
+    If there are more courses to consider, call this function again,
     but with the new section added to the schedule
     After making a schedule, jump back a up level and then consider another section from that course
     """

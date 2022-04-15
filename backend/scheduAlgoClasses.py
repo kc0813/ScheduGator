@@ -40,9 +40,9 @@ class Section:
         try:
             self.meetings.remove(timeSlot)
         except Exception:
-            #Exception handling functionality
+            # Exception handling functionality
             pass
-        
+
         return self.meetings
 
     def isOnline(self) -> bool:
@@ -97,9 +97,7 @@ class Course:
         self.hasOnlineSection = False
         self.sections = self.trimOnlineSections(sections)
         self.meetTimes: Dict[List[int]] = (
-            {} 
-            if self.hasOnlineSection 
-            else self.genMeetTimes()
+            {} if self.hasOnlineSection else self.genMeetTimes()
         )
         self.staticMeetSection: Section = (
             Section("static", [])
@@ -271,7 +269,7 @@ class Schedule:
                 print("Time conflict at: " + day + ", " + str(period))
                 return True
         return False
-    
+
     def __eq__(self, __o: object) -> bool:
         """
         Returns true if section has the same meeting day and period
