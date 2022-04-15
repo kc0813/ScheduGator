@@ -2,7 +2,13 @@ from enum import IntEnum
 from fastapi import Body, FastAPI
 from fastapi.responses import JSONResponse
 import requests
-from models import ClassQuery, CourseData, Message, ScheduleList, CourseList
+from models import (
+    BuilderQuery,
+    ClassQuery,
+    CourseData,
+    Message,
+    ScheduleList,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from algorithm import dynamicScheduleBuilder as dsbuilder
 
@@ -42,7 +48,7 @@ async def root():
     "/buildSchedule/", response_model=ScheduleList, responses={400: {"model": Message}}
 )
 async def buildSchedule(
-    query: CourseList = Body(
+    query: BuilderQuery = Body(
         ..., examples={"1": {"schedules": ["list of schedules here"]}}
     )
 ):
@@ -168,5 +174,4 @@ async def queryClass(
                 for period in periods:
                     meetTimes.append([meetDay, period])
         sections.append({section["classNumber"]: meetTimes})
-
     return {"code": code, "sections": sections}
