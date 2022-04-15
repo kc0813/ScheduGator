@@ -8,6 +8,17 @@ import CourseListing from '../CourseListing/CourseListing'
 
 let container: any = null
 
+const mockfn = jest.fn()
+const courseListing = 
+    <CourseListing 
+        setRenderWin={mockfn} 
+        setCourseList={mockfn} 
+        courseList={[]} 
+        colorMap={new Map<string, string>()} 
+        setColorMap={mockfn} 
+        filteredTimes={[]}
+        setFilteredTimes={mockfn}
+    />
 
 beforeEach(() => {
     // setup a DOM element as a render target
@@ -25,9 +36,9 @@ afterEach(() => {
 
 describe(CourseListing, () => {
     it('loads defaults', () => {
-        const mockfn = jest.fn()
+        
         act(() => {
-            render(<CourseListing setRenderWin={mockfn} />, container)
+            render(courseListing, container)
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
         //check that the only child is the course list
@@ -40,10 +51,9 @@ describe(CourseListing, () => {
     })
 
     it('input takes input and clears', () => {
-        const mockfn = jest.fn()
         //mount component on DOM
         act(() => {
-            render(<CourseListing setRenderWin={mockfn} />, container)
+            render(courseListing, container)
         })
         //find input element
         const input: Element | null = document.getElementById('searchClasses')
@@ -72,9 +82,8 @@ describe(CourseListing, () => {
     })
 
     it('adds button to list', () => {
-        const mockfn = jest.fn()
         act(() => {
-            render(<CourseListing setRenderWin={mockfn} />, container)
+            render(courseListing, container)
         })
 
         //find input element
@@ -100,9 +109,8 @@ describe(CourseListing, () => {
     })
 
     it('adds and removes button from list', () => {
-        const mockfn = jest.fn()
         act(() => {
-            render(<CourseListing setRenderWin={mockfn} />, container)
+            render(courseListing, container)
         })
         const selCourse: Element | null = document.getElementById('SelCourses')
 
