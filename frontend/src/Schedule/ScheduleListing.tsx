@@ -51,7 +51,7 @@ function ScheduleListing(
         //props.filteredTimes is the list of timeslots (from UF.ts)
         //store in a variable of type ScheduleResponse
         const options = {
-            url: "http://localhost:8080/buildschedule",
+            url: "http://localhost:8000/buildschedule/",
             data: {
                 courses: props.courseList,
                 times: props.filteredTimes,
