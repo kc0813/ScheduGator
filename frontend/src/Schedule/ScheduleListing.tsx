@@ -42,8 +42,8 @@ function ScheduleListing(
     }
 ) {
     const [i, setI] = useState<number>(0);
-    let samplesList: Schedule[] = samples
-    //let samplesList: Schedule[] = getSampleSchedules()
+    //let samplesList: Schedule[] = samples
+    let samplesList: Schedule[] = []
 
     //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
     const getSampleSchedules = async () => {
@@ -63,8 +63,10 @@ function ScheduleListing(
         }
         const response = await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)
         console.log(response.data.Schedules);
+        samplesList = response.data.Schedules;
     }
-
+    getSampleSchedules();
+    
     const onChangeSample = (isNext: boolean) => {
         if (isNext) {
             setI(i + 1)
