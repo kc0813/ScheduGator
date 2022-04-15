@@ -90,7 +90,7 @@ function ScheduleListing(
 
             <div className="courses">
                 <Calendar 
-                    schedule={samplesList[i]} 
+                    schedule={samplesList[i % samplesList.length]} 
                     colorMap={props.colorMap}/>
                 <div className = "nextPrev">
                     <button onClick={e => {onChangeSample(false)}}>
