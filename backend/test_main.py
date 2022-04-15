@@ -25,7 +25,15 @@ def test_class_category_invalid():
             "courseCode": "CAP3027",
         },
     )
-    assert response.status_code == 404
+    assert response.status_code == 200
+    assert response.json() == [
+        {
+            "COURSES": [],
+            "LASTCONTROLNUMBER": 0,
+            "RETRIEVEDROWS": 0,
+            "TOTALROWS": 0,
+        }
+    ]
 
 
 def test_class_category_valid():

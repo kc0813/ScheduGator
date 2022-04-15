@@ -1,11 +1,12 @@
 from enum import IntEnum
 from fastapi import Body, FastAPI
-from fastapi.responses import JSONResponse
+
+# from fastapi.responses import JSONResponse
 import requests
 from models import (
     BuilderQuery,
     ClassQuery,
-    CourseData,
+    # CourseData,
     Message,
     ScheduleList,
 )
@@ -68,7 +69,7 @@ async def buildSchedule(
     return {"schedules": dsbuilder(template, query.courses)}
 
 
-@app.put("/class/", response_model=CourseData, responses={404: {"model": Message}})
+@app.put("/class/")  # , response_model=CourseData, responses={404: {"model": Message}}
 async def queryClass(
     query: ClassQuery = Body(
         ...,
@@ -148,4 +149,6 @@ async def queryClass(
         genEd = "gen-{}".format(query.genEd)
         params[genEd] = True
 
-    return requests.get(url=url, params=params).json()
+    r = requests.get(url=url, params=params)
+    return r.json()
+    # return requests.get(url=url, params=params).json()
