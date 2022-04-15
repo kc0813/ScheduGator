@@ -4,6 +4,12 @@ import { Course, Schedule } from "../Course";
 import {TimeSlot} from "../UF"
 import { MouseEventHandler, useState } from "react";
 
+interface ScheduleResponse {
+    Schedules: Schedule[]
+    LASTCONTROLNUMBER: number
+    RETRIEVEDROWS: number
+    TOTALROWS: number
+}
 
 let sample1 = new Map<string, string[]>();
 sample1.set("M", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
@@ -35,25 +41,30 @@ function ScheduleListing(
         colorMap: Map<string, string>, 
         setColorMap: (colorMap: Map<string, string>) => void, 
         filteredTimes: TimeSlot[]
-        sampleSchedules: Schedule[]
     }
 ) {
-    const [sampleSchedule, setSampleSchedule] = useState<Schedule>();
     const [i, setI] = useState<number>(0);
+    let samplesList: Schedule[] = samples
+    //let samplesList: Schedule[] = getSampleSchedules()
 
+    //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
+    const getSampleSchedules = () => {
+        //props.courseList is the list of courses. (from Course.ts)
+        //props.filteredTimes is the list of timeslots (from UF.ts)
+        //store in a variable of type ScheduleResponse
+
+    }
 
     const onChangeSample = (isNext: boolean) =>{
         if(isNext){
             setI(i+1)
         }
         else if(i-1 < 0){
-            setI(props.sampleSchedules.length - 1)
+            setI(samplesList.length - 1)
         } 
         else{
             setI(i-1)
         }
-        
-        setSampleSchedule(props.sampleSchedules[i % props.sampleSchedules.length])
     }
 	return(
     <div className="Schedule">
@@ -79,7 +90,7 @@ function ScheduleListing(
 
             <div className="courses">
                 <Calendar 
-                    schedule={props.sampleSchedules[i % props.sampleSchedules.length]} 
+                    schedule={samplesList[i]} 
                     colorMap={props.colorMap}/>
                 <div className = "nextPrev">
                     <button onClick={e => {onChangeSample(false)}}>

@@ -33,7 +33,6 @@ function App() {
 				colorMap={colorMap} 
 				setColorMap={setColorMap}
 				filteredTimes={filteredTimes}
-				sampleSchedules={samples}
 			/>
 		);
 	}

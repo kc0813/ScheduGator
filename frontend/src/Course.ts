@@ -46,7 +46,7 @@ export interface Section {
 export interface MeetTime {
     meetBldgCode: string
     meetBuilding: string
-    meetDays: string[]
+    meetDays: string[]  
     meetNo: number
     meetPeriodBegin: string
     meetPeriodEnd: string
