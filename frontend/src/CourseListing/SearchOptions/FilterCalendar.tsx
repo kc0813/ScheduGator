@@ -46,12 +46,10 @@ function FilterCalendar(
         if (event.target.style.background.charAt(0) == "g") {
             event.target.style.background = "white";
             props.filteredTimes.splice(props.filteredTimes.indexOf(timeSlot), 1);
-            console.log(props.filteredTimes.length);
         }
         else {
             event.target.style.background = "gray";
             props.filteredTimes.push(timeSlot);
-            console.log(props.filteredTimes.length);
         }
 
         //console.log("Period filtered: day-" + event.target.cellIndex + ",period-" + event.target.parentElement.rowIndex);
