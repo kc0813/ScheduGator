@@ -42,9 +42,10 @@ function ScheduleListing(
     }
 ) {
     const [i, setI] = useState<number>(0);
-    let samplesList: Schedule[] = samples
-    //let samplesList: Schedule[] = []
-
+    //let samplesList: Schedule[] = samples
+    let samplesList: Schedule[] = []
+    console.log(props.courseList)
+    console.log(props.filteredTimes)
     //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
     const getSampleSchedules = async () => {
         //props.courseList is the list of courses. (from Course.ts)
@@ -63,9 +64,10 @@ function ScheduleListing(
         }
         const response = await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)
         console.log(response.data.Schedules);
-        //samplesList = response.data.Schedules
+        samplesList = response.data.Schedules
+        console.log(samplesList)
     }
-    //getSampleSchedules()
+    getSampleSchedules()
     const onChangeSample = (isNext: boolean) => {
         if (isNext) {
             setI(i + 1)
