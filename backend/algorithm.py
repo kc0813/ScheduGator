@@ -1,6 +1,7 @@
 from typing import List
 from scheduAlgoClasses import Schedule, Section, Course
 import copy as c
+from enum import IntEnum
 
 # TODO add try catches for all possible places an error could be thrown
 """
@@ -15,15 +16,40 @@ def wrapCourses(func) -> List[Course]:
     Wraps the function
     and converts courses to a list of course objects
     """
+    class PERIOD(IntEnum):
+        """
+        Enum for periods
+        """
+
+        E1 = 12
+        E2 = 13
+        E3 = 14
 
     def wrapper(*args, **kwargs):
         # wraps courses and sections in Course objects
         wrappedCourses = []
         for course in args[0]:
-            for sectionKey, sectionVal in course.sections:
-                wrappedSections = []
+            sections = []
+            code = course["code"]
+            for sectDict in course["sections"]:
+                meetTimes = []
+                for meeting in sectDict["meetTimes"]:
+                    meetStart = meeting["meetPeriodBegin"]
+                    if meetStart[0] == "E":
+                        meetStart = int(PERIOD[meetStart])
+                    else:
+                        meetStart = int(meetStart)
+                    meetEnd = meeting["meetPeriodEnd"]
+                    if meetEnd[0] == "E":
+                        meetEnd = int(PERIOD[meetStart])
+                    else:
+                        meetEnd = int(meetEnd)
+                    periods = [i for i in range(meetStart, meetEnd + 1)]
+                    for meetDay in meeting["meetDays"]:
+                        for period in periods:
+                            meetTimes.append((meetDay, period))
                 try:
-                    wrappedSections.append(Section(ID=sectionKey, meetings=sectionVal))
+                    sections.append(Section(sectDict["classNumber"], meetTimes))
                 except KeyError:
                     # throw an error if the section is missing a key
                     raise KeyError(
@@ -34,7 +60,7 @@ def wrapCourses(func) -> List[Course]:
                     Course(
                         code=course["code"],
                         name=course["name"],
-                        sections=wrappedSections,
+                        sections=sections,
                     )
                 )
             except KeyError:

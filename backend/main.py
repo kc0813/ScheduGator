@@ -1,4 +1,3 @@
-from enum import IntEnum
 from fastapi import Body, FastAPI
 import requests
 from models import (
@@ -21,17 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-class PERIOD(IntEnum):
-    """
-    Enum for periods
-    """
-
-    E1 = 12
-    E2 = 13
-    E3 = 14
-
 
 @app.get("/")
 async def root():
