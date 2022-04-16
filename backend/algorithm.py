@@ -36,12 +36,12 @@ def wrapCourses(func) -> List[Course]:
                 for meeting in sectDict["meetTimes"]:
                     meetStart = meeting["meetPeriodBegin"]
                     if meetStart[0] == "E":
-                        meetStart = int(PERIOD[meetStart])
+                        meetStart = PERIOD[meetStart]
                     else:
                         meetStart = int(meetStart)
                     meetEnd = meeting["meetPeriodEnd"]
                     if meetEnd[0] == "E":
-                        meetEnd = int(PERIOD[meetStart])
+                        meetEnd = PERIOD[meetEnd]
                     else:
                         meetEnd = int(meetEnd)
                     periods = [i for i in range(meetStart, meetEnd + 1)]
