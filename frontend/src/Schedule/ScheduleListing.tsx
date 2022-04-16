@@ -44,8 +44,7 @@ function ScheduleListing(
     const [i, setI] = useState<number>(0);
     //let samplesList: Schedule[] = samples
     let samplesList: Schedule[] = []
-    console.log(props.courseList)
-    console.log(props.filteredTimes)
+
     //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
     const getSampleSchedules = async () => {
         //props.courseList is the list of courses. (from Course.ts)

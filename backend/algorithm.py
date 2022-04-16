@@ -30,7 +30,6 @@ def wrapCourses(func) -> List[Course]:
         wrappedCourses = []
         for course in args[0]:
             sections = []
-            code = course["code"]
             for sectDict in course["sections"]:
                 meetTimes = []
                 for meeting in sectDict["meetTimes"]:
@@ -82,7 +81,9 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
 
     Recursively brute force to find all valid combinations of sections for a sample schedule.
     """
-
+    if len(courses) == 0:
+        return []
+        
     template = Schedule()
 
     # 1) build static schedule
