@@ -17,15 +17,24 @@ def wrapCourses(func) -> List[Course]:
     """
 
     def wrapper(*args, **kwargs):
-        # wraps courses in Course objects
+        # wraps courses and sections in Course objects
         wrappedCourses = []
         for course in args[0]:
+            for sectionKey, sectionVal in course.sections:
+                wrappedSections = []
+                try:
+                    wrappedSections.append(Section(ID=sectionKey, meetings=sectionVal))
+                except KeyError:
+                    # throw an error if the section is missing a key
+                    raise KeyError(
+                        "list of sections in courses is formatted incorrectly"
+                    )
             try:
                 wrappedCourses.append(
                     Course(
                         code=course["code"],
                         name=course["name"],
-                        sections=course["sections"],
+                        sections=wrappedSections,
                     )
                 )
             except KeyError:
