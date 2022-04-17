@@ -236,8 +236,8 @@ class Schedule:
             for (day, period) in section.meetings:
                 if day == "ONLINE":
                     self.template["ONLINE"].append(courseID)
-                elif temporary[day][period-1] == "":
-                    temporary[day][period-1] = courseID
+                elif temporary[day][period - 1] == "":
+                    temporary[day][period - 1] = courseID
                 else:
                     # conflict detected
                     raise RuntimeError(
@@ -248,7 +248,7 @@ class Schedule:
                         ", ",
                         str(period),
                         "), | Already scheduled: ",
-                        self.template[day][period-1],
+                        self.template[day][period - 1],
                     )
 
             self.template = temporary
@@ -265,11 +265,11 @@ class Schedule:
         """
         # Check for conflicts
         for (day, period) in section.meetings:
-            if self.template[day][period] == "":
+            if self.template[day][period - 1] == "":
                 pass
             else:
                 # conflict detected
-                print("Time conflict at: " + day + ", " + str(period))
+                print("Time conflict at: " + day + ", " + str(period - 1))
                 return True
         return False
 

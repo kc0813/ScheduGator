@@ -73,7 +73,7 @@ def wrapCourses(func) -> List[Course]:
         timeSlots = []
         if len(args[1]) > 0:
             for slot in args[1]:
-                timeSlots.append((slot["day"], slot["period"]+1))
+                timeSlots.append((slot["day"], slot["period"] + 1))
         return func(wrappedCourses, timeSlots, *args[2:], **kwargs)
 
     return wrapper
@@ -114,7 +114,6 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
         # May need a more proper response to handle this error
         print(err)
         return []
-
 
     # Find sections that conflict with the static schedule and remove them
     delStaticConflict(template, courses)

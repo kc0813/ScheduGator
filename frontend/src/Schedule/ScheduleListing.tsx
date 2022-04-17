@@ -83,7 +83,7 @@ function ScheduleListing(
                 schedList.push(sched)
             }
             //console.log("SETTING")
-            console.log(schedList)
+            //console.log(schedList)
             if(schedList.length == 0){
                 const sched: Schedule = {
                     template: {
