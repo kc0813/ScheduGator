@@ -166,7 +166,6 @@ class Course:
             # if num sections at key == num total sections
             if len(self.meetTimes[key]) == len(self.sections):
                 staticTimes.append(key)  # add it to the staticTimes
-
                 # Remove time slot from all sections
                 offset = 0
                 for index in self.meetTimes[key]:
@@ -236,8 +235,8 @@ class Schedule:
 
             # Check for conflicts
             for (day, period) in section.meetings:
-                if temporary[day][period] == "":
-                    temporary[day][period] = courseID
+                if temporary[day][period-1] == "":
+                    temporary[day][period-1] = courseID
                 else:
                     # conflict detected
                     raise RuntimeError(
@@ -248,7 +247,7 @@ class Schedule:
                         ", ",
                         str(period),
                         "), | Already scheduled: ",
-                        self.template[day][period],
+                        self.template[day][period-1],
                     )
 
             self.template = temporary
