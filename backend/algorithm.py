@@ -73,7 +73,6 @@ def wrapCourses(func) -> List[Course]:
         timeSlots = []
         if len(args[1]) > 0:
             for slot in args[1]:
-                print(slot["period"])
                 timeSlots.append((slot["day"], slot["period"]+1))
         return func(wrappedCourses, timeSlots, *args[2:], **kwargs)
 

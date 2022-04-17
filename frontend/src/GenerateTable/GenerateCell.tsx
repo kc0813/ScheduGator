@@ -1,4 +1,5 @@
 import {TableCell, Typography} from "@material-ui/core";
+import { isPropertySignature } from "typescript";
 
 export function GenerateCell(
   props: {
@@ -7,8 +8,12 @@ export function GenerateCell(
   }
 ) {
     let color: string | undefined = "white"
-    if (props.courseID != ""){
-        color = props.colorMap.get(props.courseID)
+    let id: string = props.courseID
+    if(props.courseID == "reserved"){
+      id = "";
+    }
+    else if (props.courseID != ""){
+      color = props.colorMap.get(props.courseID)
     }   
 
     return (
@@ -18,7 +23,7 @@ export function GenerateCell(
           scope="row" 
           style={{width: "12%", height: "1vh", fontSize: 12, background: color}}>
           <Typography style={{ color: "white" }}>
-              {props.courseID}
+              {id}
           </Typography>
         </TableCell>
       )

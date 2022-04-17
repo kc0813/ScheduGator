@@ -234,7 +234,9 @@ class Schedule:
             temporary = c.deepcopy(self.template)
             # Check for conflicts
             for (day, period) in section.meetings:
-                if temporary[day][period-1] == "":
+                if day == "ONLINE":
+                    self.template["ONLINE"].append(courseID)
+                elif temporary[day][period-1] == "":
                     temporary[day][period-1] = courseID
                 else:
                     # conflict detected
