@@ -104,7 +104,7 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
             # conflict with static times means impossible schedule
             # May need a more proper response to handle this error
             print(err)
-            return None
+            return []
 
     # Add static meeting times of courses
     try:
@@ -113,7 +113,8 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
         # conflict with static times means impossible schedule
         # May need a more proper response to handle this error
         print(err)
-        return None
+        return []
+
 
     # Find sections that conflict with the static schedule and remove them
     delStaticConflict(template, courses)
@@ -162,7 +163,7 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
             except RuntimeError as err:
                 # conflict with static times means impossible schedule
                 print(err)
-                return Schedule()
+                raise err
 
         index += 1
 
@@ -190,7 +191,7 @@ def delStaticConflict(staticSchedule: Schedule, courses: List[Course]):
                 try:
                     course.sections.remove(section)
                 except Exception:
-                    # Exception handling functionality
+                    # here just in case, shouldn't ever get to the point where it throws one
                     pass
 
     return courses
