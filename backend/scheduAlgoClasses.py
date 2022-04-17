@@ -168,6 +168,7 @@ class Course:
                 staticTimes.append(key)  # add it to the staticTimes
 
                 # Remove time slot from all sections
+                offset = 0
                 for index in self.meetTimes[key]:
                     try:
                         self.sections[index].deleteTimeSlot(key)
@@ -176,9 +177,10 @@ class Course:
                         pass
 
                     # check if the section is empty, if so, remove it from the list.
-                    if len(self.sections[index].meetings) == 0:
-                        self.sections.pop(index)
+                    if len(self.sections[index - offset].meetings) == 0:
+                        self.sections.pop(index - offset)
                         # pass
+                    offset += 1
 
         staticMeetSection = Section("static", staticTimes)
         return staticMeetSection

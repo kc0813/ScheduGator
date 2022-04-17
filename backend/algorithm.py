@@ -28,8 +28,10 @@ def wrapCourses(func) -> List[Course]:
 
     def wrapper(*args, **kwargs):
         # wraps courses and sections in Course objects
+        if len(args[0]) > 0 and type(args[0][0]) is Course:
+            return func(args[0], *args[1:], **kwargs)
+
         wrappedCourses = []
-        print(args[0])
         for course in args[0]:
             sections = []
             for sectDict in course["sections"]:
@@ -72,6 +74,7 @@ def wrapCourses(func) -> List[Course]:
     return wrapper
 
 
+@wrapCourses
 def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     """
     Builds a static schedule of times the user has reserved and
@@ -111,7 +114,10 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     delStaticConflict(template, courses)
 
     # 2) build dynamic schedule
-    samples = dynamicScheduleBuilder(template, courses, 0)
+    samples: List[Schedule] = []
+    if len(courses) != 0:
+        samples = dynamicScheduleBuilder(template, courses, 0)
+
     return samples
 
 
@@ -210,7 +216,7 @@ def dynamicScheduleBuilder(
     samples = []
     nextSchedule = Schedule()
 
-    if len(courses[index].sections) == 0:
+    if len(courses[index].sections) == 0 and index < len(courses) - 1:
         samples += dynamicScheduleBuilder(c.deepcopy(schedule), courses, index + 1)
     else:
         # for all sections in this course

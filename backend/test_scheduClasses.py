@@ -1,5 +1,6 @@
 from scheduAlgoClasses import Course, Section
 import copy as c
+from typing import List
 
 
 def test_sections():
@@ -49,7 +50,8 @@ def test_findStaticMeetTime():
 
     # Only one section
     section1 = Section("1234", [("M", 2), ("M", 3), ("W", 2), ("T", 5)])
-    c1 = Course("abc1234", "baba", [c.deepcopy(section1)])
+    test: List[Course] = [c.deepcopy(section1)]
+    c1 = Course("abc1234", "baba", test)
     assert c1.staticMeetSection.meetings == section1.meetings
     assert c1.sections == []
 
