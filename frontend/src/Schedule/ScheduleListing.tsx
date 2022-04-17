@@ -102,6 +102,7 @@ function ScheduleListing(
                       "\n\nPlease change your courses or reserved times and try again")
                 props.setRenderWin("Courses")
             }
+            console.log(schedList)
             setSampleSchedules(schedList)
         }
         //console.log("inside getter: ", sampleSchedules) 
@@ -167,7 +168,8 @@ function ScheduleListing(
                     <div className="courses">
                         <Calendar
                             schedule={sampleSchedules[i % sampleSchedules.length]}
-                            colorMap={props.colorMap} />
+                            colorMap={props.colorMap}
+                            scheduleNum={(i % sampleSchedules.length) + 1}/>
                         <div className="nextPrev">
                             <button onClick={e => { onChangeSample(false) }}>
                                 Prev Schedule

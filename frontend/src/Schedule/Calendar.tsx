@@ -13,7 +13,8 @@ function Calendar(
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/Calendar.js
     props: {
         schedule: Schedule, 
-        colorMap: Map<string, string>
+        colorMap: Map<string, string>,
+        scheduleNum: number
     }
 ) {
     //console.log(props.schedule)
@@ -25,7 +26,7 @@ function Calendar(
         <Table size="small">
 
             <TableHead>
-                <GenerateHeader headerType={"schedule"} height = {rowHeight}/>
+                <GenerateHeader headerType={"schedule"} height = {rowHeight} num = {props.scheduleNum}/>
             </TableHead>
 
             <TableBody>

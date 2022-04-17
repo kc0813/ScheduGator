@@ -4,7 +4,7 @@ import SearchOptions from "./SearchOptions/SearchOptions";
 import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
 import logo from '../Images/ScheduGator.png';
-import {PeriodSlot, TimeSlot} from "../UF"
+import {PeriodSlot, TimeSlot} from "../UF";
 
 let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "DarkSlateBlue", "HotPink"]
 //Same ID, but different classes (Think quest or special topics)
@@ -73,7 +73,7 @@ function CourseListing(
             console.log(tempList.length + " courses in List")
         }
         else {
-            console.log("ALREADY IN")
+            console.log(courseID + " ALREADY IN")
             alert("'" + courseID + "' has already been added!");
         }
 

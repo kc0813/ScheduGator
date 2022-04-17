@@ -5,7 +5,8 @@ import {days} from "../UF";
 export function GenerateHeader(
     props: {
         headerType:string,
-        height: number
+        height: number,
+        num: number
     }
     ){
 
@@ -35,7 +36,7 @@ export function GenerateHeader(
     else if(props.headerType == "schedule"){
         return (
             <TableRow style={{height: relHeight}}>
-                <TableCell style={{padding:0}}></TableCell>
+                <TableCell style={{padding:0}} align="center">{"#" + props.num}</TableCell>
                     {days.map((day:string, key:number) =>
                         <TableCell key={key} style={{padding:0}} align="center" >{day}</TableCell>
                     )}
