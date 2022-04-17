@@ -18,7 +18,7 @@ function Calendar(
 ) {
     //console.log(props.schedule)
    let rowNum: number = props.schedule.template.ONLINE.length + 15;
-   let rowHeight: number = 84.5 / rowNum;
+   let rowHeight: number = 84.47 / rowNum;
     //Return a single sample schedule
     return(
         <TableContainer component={Paper} style={{maxHeight: "84.5vh", minHeight: "84.5vh"}}>
