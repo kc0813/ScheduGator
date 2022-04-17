@@ -4,7 +4,7 @@ import SearchOptions from "./SearchOptions/SearchOptions";
 import {isCourseEqual} from "../Course";
 import { Course } from "../Course";
 import logo from '../Images/ScheduGator.png';
-import {PeriodSlot, TimeSlot} from "../UF"
+import {PeriodSlot, TimeSlot} from "../UF";
 
 let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "DarkSlateBlue", "HotPink"]
 //Same ID, but different classes (Think quest or special topics)
@@ -15,8 +15,8 @@ function CourseListing(
             courseList: Course[],
             colorMap: Map<string, string>,
             setColorMap: (colorMap: Map<string, string>) => void,
-            filteredTimes: TimeSlot[]
-            setFilteredTimes: (filteredTimes: TimeSlot[]) => void,
+            filteredTimes: TimeSlot[],
+            setFilteredTimes: (filteredTimes: TimeSlot[]) => void
         }
     ){
 
@@ -79,12 +79,21 @@ function CourseListing(
 
     }
 
+    const handleClick = () => {
+         if (props.courseList.length != 0) {
+            props.setRenderWin("SampleSchedule");
+         }
+         else{
+            alert("Please add some courses")
+         }
+    }
+
     return (
         <div className="CourseListing">
             <header className="Schedule-header">
 
                 <div className="ToggleSchedule">
-                    <button onClick={() => props.setRenderWin("SampleSchedule")}>
+                    <button onClick={handleClick}>
                         See Sample Schedules
                     </button>
                 </div>

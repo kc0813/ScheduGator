@@ -166,8 +166,8 @@ class Course:
             # if num sections at key == num total sections
             if len(self.meetTimes[key]) == len(self.sections):
                 staticTimes.append(key)  # add it to the staticTimes
-
                 # Remove time slot from all sections
+                offset = 0
                 for index in self.meetTimes[key]:
                     try:
                         self.sections[index].deleteTimeSlot(key)
@@ -176,8 +176,10 @@ class Course:
                         pass
 
                     # check if the section is empty, if so, remove it from the list.
-                    if len(self.sections[index].meetings) == 0:
-                        self.sections.pop(index)
+                    if len(self.sections[index - offset].meetings) == 0:
+                        self.sections.pop(index - offset)
+                        # pass
+                    offset += 1
 
         staticMeetSection = Section("static", staticTimes)
         return staticMeetSection
@@ -202,7 +204,7 @@ rows = 14  # number of periods in the schedule
 class Schedule:
     def __init__(
         self,
-        template: Dict[str, list[str]] = {
+        template: Dict[str, List[str]] = {
             "M": ["" for i in range(rows)],
             "T": ["" for i in range(rows)],
             "W": ["" for i in range(rows)],
@@ -230,10 +232,11 @@ class Schedule:
             self.template["ONLINE"].append(courseID)
         else:
             temporary = c.deepcopy(self.template)
-
             # Check for conflicts
             for (day, period) in section.meetings:
-                if temporary[day][period - 1] == "":
+                if day == "ONLINE":
+                    self.template["ONLINE"].append(courseID)
+                elif temporary[day][period - 1] == "":
                     temporary[day][period - 1] = courseID
                 else:
                     # conflict detected
