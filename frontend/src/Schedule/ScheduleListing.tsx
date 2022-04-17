@@ -4,6 +4,7 @@ import { Course, Schedule, Template } from "../Course";
 import { TimeSlot } from "../UF"
 import { MouseEventHandler, useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import loading from '../Images/loading.gif';
 
 interface ScheduleResponse {
     schedules: Schedule[]
@@ -118,7 +119,9 @@ function ScheduleListing(
     */
     if(sampleSchedules.length == 0){
         getSampleSchedules()
-        return <div>HI</div>
+        return (
+            <div className="Schedule-header"><img id="loading" src={loading}/></div>
+        )
     }
     else{
         return (
