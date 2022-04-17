@@ -56,5 +56,15 @@ export interface MeetTime {
 }
 
 export interface Schedule {
-    template: Map<string, string[]>
+    template: Template
+}
+
+export interface Template {
+    M: string[],
+    T: string[],
+    W: string[],
+    R: string[],
+    F: string[],
+    S: string[],
+    ONLINE: string[],
 }

@@ -16,9 +16,9 @@ function Calendar(
         colorMap: Map<string, string>
     }
 ) {
-
-   let rowNum: number = props.schedule.template.get("ONLINE")!.length + 15;
-   let rowHeight: number = 84.5 / rowNum;
+    //console.log(props.schedule)
+   let rowNum: number = props.schedule.template.ONLINE.length + 15;
+   let rowHeight: number = 84.45 / rowNum;
     //Return a single sample schedule
     return(
         <TableContainer component={Paper} style={{maxHeight: "84.5vh", minHeight: "84.5vh"}}>
@@ -32,13 +32,13 @@ function Calendar(
                 {periodList.map((row) => (
                     <GenerateRow 
                         periodSlot={row} 
-                        schedule={props.schedule.template} 
+                        schedule={props.schedule} 
                         colorMap={props.colorMap}
                         height = {rowHeight}
                     />
                 ))}
 
-                {props.schedule.template.get("ONLINE")!.map((courseID =>(
+                {props.schedule.template.ONLINE.map((courseID =>(
                         <GenerateOnline 
                             courseID={courseID} 
                             colorMap={props.colorMap}

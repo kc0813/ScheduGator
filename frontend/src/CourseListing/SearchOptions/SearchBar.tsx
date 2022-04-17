@@ -9,7 +9,7 @@ interface CourseResponse {
     TOTALROWS: number
 }
 
-
+//IMPLEMENT ERROR HANDLING FOR ASYNC METHODS
 function SearchBar(
     props: {AddCourse: (course: Course) => void }
 ) {

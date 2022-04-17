@@ -42,7 +42,7 @@ function FilterCalendar(
             day: day,
             period: period,
         }
-
+        //console.log(timeSlot)
         if (event.target.style.background.charAt(0) == "g") {
             event.target.style.background = "white";
             props.filteredTimes.splice(props.filteredTimes.indexOf(timeSlot), 1);

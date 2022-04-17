@@ -1,14 +1,16 @@
 import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
-import { Course, Schedule } from "../Course";
+import { Course, Schedule, Template } from "../Course";
 import { TimeSlot } from "../UF"
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import loading from '../Images/loading.gif';
 
 interface ScheduleResponse {
-    Schedules: Schedule[]
+    schedules: Schedule[]
 }
 
+/*
 let sample1 = new Map<string, string[]>();
 sample1.set("M", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
 sample1.set("T", ["", "", "", "", "", "", "", "COP4600", "COP4600", "", "", "", "", ""]);
@@ -30,8 +32,7 @@ sample2.set("ONLINE", ["MAS3114"])
 let sampleSchedule1 = { template: sample1 };
 let sampleSchedule2 = { template: sample2 };
 let samples = [sampleSchedule1, sampleSchedule2];
-export { samples };
-
+*/
 function ScheduleListing(
     props: {
         setRenderWin: (state: string) => void,
@@ -42,8 +43,9 @@ function ScheduleListing(
     }
 ) {
     const [i, setI] = useState<number>(0);
-    let samplesList: Schedule[] = samples
-    //let samplesList: Schedule[] = getSampleSchedules()
+    const [sampleSchedules, setSampleSchedules] = useState<Schedule[]>([])
+    //let samplesList: Schedule[] = samples
+    //let samplesList: Schedule[] = []
 
     //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
     const getSampleSchedules = async () => {
@@ -51,7 +53,7 @@ function ScheduleListing(
         //props.filteredTimes is the list of timeslots (from UF.ts)
         //store in a variable of type ScheduleResponse
         const options = {
-            url: "http://localhost:8080/buildschedule",
+            url: "http://localhost:8000/buildSchedule/",
             data: {
                 courses: props.courseList,
                 times: props.filteredTimes,
@@ -62,59 +64,124 @@ function ScheduleListing(
             } as AxiosRequestConfig['headers']
         }
         const response = await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)
-        console.log(response.data.Schedules);
+        let schedList: Schedule[] = []
+        if(sampleSchedules.length == 0){
+        //console.log("Response: ", response.data.schedules);
+            for (const key in response.data.schedules) { 
+                const temp: Template = {//
+                    M: response.data.schedules[key].template.M,
+                    T: response.data.schedules[key].template.T,
+                    W: response.data.schedules[key].template.W,
+                    R: response.data.schedules[key].template.R,
+                    F: response.data.schedules[key].template.F,
+                    S: response.data.schedules[key].template.S,
+                    ONLINE: response.data.schedules[key].template.ONLINE
+                }
+                const sched: Schedule = {
+                    template: temp
+                }
+                schedList.push(sched)
+            }
+            //console.log("SETTING")
+            //console.log(schedList)
+            if(schedList.length == 0){
+                const sched: Schedule = {
+                    template: {
+                        M: [],
+                        T: [],
+                        W: [],
+                        R: [], 
+                        F: [],
+                        S: [],
+                        ONLINE: [],
+                    }
+                }
+                //For if we don't want to immediately send them back to CourseListing
+                //schedList.push(sched)
+                alert("Sorry, there are no viable schedules based on the given parameters."+
+                      "\n\nPlease change your courses or reserved times and try again")
+                props.setRenderWin("Courses")
+            }
+            setSampleSchedules(schedList)
+        }
+        //console.log("inside getter: ", sampleSchedules) 
+        //return response.data.schedules
     }
 
+    
     const onChangeSample = (isNext: boolean) => {
         if (isNext) {
             setI(i + 1)
         }
         else if (i - 1 < 0) {
-            setI(samplesList.length - 1)
+            setI(sampleSchedules.length - 1)
         }
         else {
             setI(i - 1)
         }
     }
-    return (
-        <div className="Schedule">
-            <header className="Schedule-header">
 
-                <div className="ToggleCourses">
-                    <button onClick={() => props.setRenderWin("Courses")}>
-                        See Courses
-                    </button>
-                </div>
+    /*https://www.w3schools.com/js/js_promise.asp
+    let myPromise = new Promise(function(myResolve, myReject) {
+        // "Producing Code" (May take some time)
 
-                <SelectedCourses
-                    courseList={props.courseList}
-                    deletable={false}
-                    DeleteCourse={() => { }}
-                    colorMap={props.colorMap}
-                    setColorMap={props.setColorMap}
-                />
+        myResolve(); // when successful
+        myReject();  // when error
+    });
 
-                <div className="searchOptions">
-                    Course Info
-                </div>
-
-                <div className="courses">
-                    <Calendar
-                        schedule={samplesList[i % samplesList.length]}
-                        colorMap={props.colorMap} />
-                    <div className="nextPrev">
-                        <button onClick={e => { onChangeSample(false) }}>
-                            Prev Schedule
-                        </button>
-                        <button onClick={e => { onChangeSample(true) }}>
-                            Next Schedule
+    // "Consuming Code" (Must wait for a fulfilled Promise)
+    myPromise.then(
+        function(value) { /* code if successful  },
+        function(error) { /* code if some error }
+    );
+    */
+    if(sampleSchedules.length == 0){
+        getSampleSchedules()
+        return (
+            <div className="Schedule-header"><img id="loading" src={loading} width="100vh" height="100vh"/></div>
+        )
+    }
+    else{
+        return (
+            <div className="Schedule">
+                <header className="Schedule-header">
+    
+                    <div className="ToggleCourses">
+                        <button onClick={() => props.setRenderWin("Courses")}>
+                            See Courses
                         </button>
                     </div>
-                </div>
-
-            </header>
-        </div>
-    );
+    
+                    <SelectedCourses
+                        courseList={props.courseList}
+                        deletable={false}
+                        DeleteCourse={() => { }}
+                        colorMap={props.colorMap}
+                        setColorMap={props.setColorMap}
+                    />
+    
+                    <div className="searchOptions">
+                        Course Info
+                    </div>
+    
+                    <div className="courses">
+                        <Calendar
+                            schedule={sampleSchedules[i % sampleSchedules.length]}
+                            colorMap={props.colorMap} />
+                        <div className="nextPrev">
+                            <button onClick={e => { onChangeSample(false) }}>
+                                Prev Schedule
+                            </button>
+                            <button onClick={e => { onChangeSample(true) }}>
+                                Next Schedule
+                            </button>
+                        </div>
+                    </div>
+    
+                </header>
+            </div>
+        );
+    }
 }
 
 export default ScheduleListing

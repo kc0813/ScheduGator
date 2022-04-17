@@ -4,7 +4,7 @@ import ScheduleListing from './Schedule/ScheduleListing';
 import CourseListing from './CourseListing/CourseListing';
 import { Course } from "./Course";
 import {TimeSlot} from "./UF";
-import { samples } from "./Schedule/ScheduleListing";
+//import { samples } from "./Schedule/ScheduleListing";
 
 function App() {
 	const [renderWin, setRenderWin] = useState("Courses");
