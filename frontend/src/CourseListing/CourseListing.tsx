@@ -73,7 +73,7 @@ function CourseListing(
             console.log(tempList.length + " courses in List")
         }
         else {
-            console.log("ALREADY IN")
+            console.log(courseID + " ALREADY IN")
             alert("'" + courseID + "' has already been added!");
         }
 

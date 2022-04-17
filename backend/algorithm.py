@@ -103,7 +103,7 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
         except RuntimeError as err:
             # conflict with static times means impossible schedule
             # May need a more proper response to handle this error
-            print(err)
+            #print(err)
             return []
 
     # Add static meeting times of courses
@@ -112,7 +112,7 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     except RuntimeError as err:
         # conflict with static times means impossible schedule
         # May need a more proper response to handle this error
-        print(err)
+        #print(err)
         return []
 
     # Find sections that conflict with the static schedule and remove them
@@ -161,7 +161,7 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
                 template.addSection(toAdd, course.code)
             except RuntimeError as err:
                 # conflict with static times means impossible schedule
-                print(err)
+                #print(err)
                 raise err
 
         index += 1
@@ -234,7 +234,7 @@ def dynamicScheduleBuilder(
             except RuntimeError as re:
                 # if we run into a conflict, skip this section and move on
                 # (conflict could be temporary, ie. with a section that's not static)
-                print(re)
+                #print(re)
                 continue
 
             # If it's not the last course to be added, go down a level
