@@ -69,7 +69,13 @@ def wrapCourses(func) -> List[Course]:
             except KeyError:
                 # throw an error if the course is missing a key
                 raise KeyError("list of courses is formatted incorrectly")
-        return func(wrappedCourses, *args[1:], **kwargs)
+
+        timeSlots = []
+        if len(args[1]) > 0:
+            for slot in args[1]:
+                print(slot["period"])
+                timeSlots.append((slot["day"], slot["period"]+1))
+        return func(wrappedCourses, timeSlots, *args[2:], **kwargs)
 
     return wrapper
 

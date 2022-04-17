@@ -98,8 +98,8 @@ function ScheduleListing(
                 }
                 //For if we don't want to immediately send them back to CourseListing
                 //schedList.push(sched)
-                alert("Sorry, there are no viable schedules based on the chosen classes."+
-                      "\nPlease change your selections and try again")
+                alert("Sorry, there are no viable schedules based on the given parameters."+
+                      "\n\nPlease change your courses or reserved times and try again")
                 props.setRenderWin("Courses")
             }
             setSampleSchedules(schedList)
