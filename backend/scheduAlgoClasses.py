@@ -55,7 +55,7 @@ class Section:
         """
         Returns true if section has the same meeting day and period
         """
-        return self.meetings == __o.meetings #and self.sectionID == __o.sectionID
+        return self.meetings == __o.meetings  # and self.sectionID == __o.sectionID
 
     def __str__(self) -> str:
         """
@@ -269,7 +269,7 @@ class Schedule:
                 pass
             else:
                 # conflict detected
-                #print("Time conflict at: " + day + ", " + str(period - 1))
+                # print("Time conflict at: " + day + ", " + str(period - 1))
                 return True
         return False
 
