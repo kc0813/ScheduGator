@@ -120,7 +120,7 @@ function ScheduleListing(
     if(sampleSchedules.length == 0){
         getSampleSchedules()
         return (
-            <div className="Schedule-header"><img id="loading" src={loading}/></div>
+            <div className="Schedule-header"><img id="loading" src={loading} width="100vh" height="100vh"/></div>
         )
     }
     else{
