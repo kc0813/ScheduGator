@@ -84,6 +84,24 @@ function ScheduleListing(
             }
             //console.log("SETTING")
             console.log(schedList)
+            if(schedList.length == 0){
+                const sched: Schedule = {
+                    template: {
+                        M: [],
+                        T: [],
+                        W: [],
+                        R: [], 
+                        F: [],
+                        S: [],
+                        ONLINE: [],
+                    }
+                }
+                //For if we don't want to immediately send them back to CourseListing
+                //schedList.push(sched)
+                alert("Sorry, there are no viable schedules based on the chosen classes."+
+                      "\nPlease change your selections and try again")
+                props.setRenderWin("Courses")
+            }
             setSampleSchedules(schedList)
         }
         //console.log("inside getter: ", sampleSchedules) 

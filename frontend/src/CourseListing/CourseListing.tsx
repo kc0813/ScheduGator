@@ -83,6 +83,9 @@ function CourseListing(
          if (props.courseList.length != 0) {
             props.setRenderWin("SampleSchedule");
          }
+         else{
+            alert("Please add some courses")
+         }
     }
 
     return (
