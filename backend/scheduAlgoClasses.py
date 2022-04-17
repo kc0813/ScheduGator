@@ -170,15 +170,15 @@ class Course:
                 # Remove time slot from all sections
                 for index in self.meetTimes[key]:
                     try:
-                        self.sections[index-1].deleteTimeSlot(key)
+                        self.sections[index].deleteTimeSlot(key)
                     except Exception:
                         # this is here to avoid trying to delete something that's not there
                         pass
 
                     # check if the section is empty, if so, remove it from the list.
-                    if len(self.sections[index-1].meetings) == 0:
-                        #self.sections.pop(index-1)
-                        pass
+                    if len(self.sections[index].meetings) == 0:
+                        self.sections.pop(index)
+                        # pass
 
         staticMeetSection = Section("static", staticTimes)
         return staticMeetSection
@@ -234,8 +234,8 @@ class Schedule:
 
             # Check for conflicts
             for (day, period) in section.meetings:
-                if temporary[day][period - 1] == "":
-                    temporary[day][period - 1] = courseID
+                if temporary[day][period] == "":
+                    temporary[day][period] = courseID
                 else:
                     # conflict detected
                     raise RuntimeError(
@@ -246,7 +246,7 @@ class Schedule:
                         ", ",
                         str(period),
                         "), | Already scheduled: ",
-                        self.template[day][period - 1],
+                        self.template[day][period],
                     )
 
             self.template = temporary
@@ -263,11 +263,11 @@ class Schedule:
         """
         # Check for conflicts
         for (day, period) in section.meetings:
-            if self.template[day][period - 1] == "":
+            if self.template[day][period] == "":
                 pass
             else:
                 # conflict detected
-                print("Time conflict at: " + day + ", " + str(period - 1))
+                print("Time conflict at: " + day + ", " + str(period))
                 return True
         return False
 

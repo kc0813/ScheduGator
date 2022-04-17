@@ -16,6 +16,7 @@ def wrapCourses(func) -> List[Course]:
     Wraps the function
     and converts courses to a list of course objects
     """
+
     class PERIOD(IntEnum):
         """
         Enum for periods
@@ -28,6 +29,7 @@ def wrapCourses(func) -> List[Course]:
     def wrapper(*args, **kwargs):
         # wraps courses and sections in Course objects
         wrappedCourses = []
+        print(args[0])
         for course in args[0]:
             sections = []
             for sectDict in course["sections"]:
@@ -70,7 +72,6 @@ def wrapCourses(func) -> List[Course]:
     return wrapper
 
 
-@wrapCourses
 def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     """
     Builds a static schedule of times the user has reserved and
@@ -83,9 +84,8 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     """
     if len(courses) == 0:
         return []
-        
-    template = Schedule()
 
+    template = Schedule()
     # 1) build static schedule
 
     # Add reserved timeslots
@@ -155,8 +155,10 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
 
         index += 1
 
+    offset = 0
     for index in courseIndex:
-        courses.remove(courses[index])
+        courses.remove(courses[index - offset])
+        offset += 1
     return template
 
 
@@ -207,28 +209,31 @@ def dynamicScheduleBuilder(
     """
     samples = []
     nextSchedule = Schedule()
-    
-    # for all sections in this course
-    for section in courses[index].sections:
 
-        nextSchedule = c.deepcopy(schedule)
-        # try to add a section
-        try:
-            nextSchedule.addSection(section, courses[index].code)
-        except RuntimeError as re:
-            # if we run into a conflict, skip this section and move on
-            # (conflict could be temporary, ie. with a section that's not static)
-            print(re)
-            continue
+    if len(courses[index].sections) == 0:
+        samples += dynamicScheduleBuilder(c.deepcopy(schedule), courses, index + 1)
+    else:
+        # for all sections in this course
+        for section in courses[index].sections:
 
-        # If it's not the last course to be added, go down a level
-        # (last level is at index = len(courses) - 1)
-        # Else, it's a complete schedule, add it to samples[]
-        if index < len(courses) - 1:
-            samples += dynamicScheduleBuilder(
-                c.deepcopy(nextSchedule), courses, index + 1
-            )
-        else:
-            samples.append(c.deepcopy(nextSchedule))
+            nextSchedule = c.deepcopy(schedule)
+            # try to add a section
+            try:
+                nextSchedule.addSection(section, courses[index].code)
+            except RuntimeError as re:
+                # if we run into a conflict, skip this section and move on
+                # (conflict could be temporary, ie. with a section that's not static)
+                print(re)
+                continue
+
+            # If it's not the last course to be added, go down a level
+            # (last level is at index = len(courses) - 1)
+            # Else, it's a complete schedule, add it to samples[]
+            if index < len(courses) - 1:
+                samples += dynamicScheduleBuilder(
+                    c.deepcopy(nextSchedule), courses, index + 1
+                )
+            else:
+                samples.append(c.deepcopy(nextSchedule))
 
     return samples
