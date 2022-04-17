@@ -2,19 +2,19 @@ import {PeriodSlot, days, periodList, TimeSlot} from "../UF";
 import {TableCell} from "@material-ui/core";
 import {GenerateCell} from "./GenerateCell";
 import {TableRow} from "@material-ui/core";
+import {Schedule} from '../Course';
 
 //Generate each row of the schedule
 export function GenerateRow(
     props: {
         periodSlot: PeriodSlot, 
-        schedule: Map<string, string[]>, 
+        schedule: Schedule, 
         colorMap: Map<string, string>,
-        height: number
+        height: number;
     }
 ) {
     let cellArr: JSX.Element[] = []
     let relHeight: string = props.height.toString() + "vh"
-        
     //First column displays period number and time range.
     cellArr.push(        
         <TableCell 
@@ -25,8 +25,11 @@ export function GenerateRow(
             {props.periodSlot.time}
         </TableCell>
     )
-        
-    props.schedule.forEach((value: string[], key: string) => { 
+    
+    let key: string = ''
+    //console.log("PRE FOX")
+    for (key in props.schedule.template) { 
+        //console.log("INSIDE FOR ", key)
         if(key != "ONLINE") {
             let index: number
             if(props.periodSlot.period[0] == "E"){
@@ -35,9 +38,9 @@ export function GenerateRow(
             else{
                 index = parseInt(props.periodSlot.period)-1 //indicies[0-10] for sections [1-11]
             }
-            cellArr.push(<GenerateCell courseID={value[index]} colorMap={props.colorMap}/>)
+            cellArr.push(<GenerateCell courseID={(props.schedule.template as any)[key][index]} colorMap={props.colorMap}/>)
         }  
-    });
+    };
         
     return <TableRow style={{height: relHeight}}>{cellArr}</TableRow>;
 };
