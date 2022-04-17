@@ -33,7 +33,6 @@ let sampleSchedule1 = { template: sample1 };
 let sampleSchedule2 = { template: sample2 };
 let samples = [sampleSchedule1, sampleSchedule2];
 */
-var awaitingAPI = true
 function ScheduleListing(
     props: {
         setRenderWin: (state: string) => void,
@@ -119,17 +118,10 @@ function ScheduleListing(
     );
     */
     if(sampleSchedules.length == 0){
-        if(awaitingAPI){
-            getSampleSchedules()
-            awaitingAPI = false
-            console.log("AT RETURN: " + awaitingAPI)
-            return (
-                <div className="Schedule-header"><img id="loading" src={loading} width="100vh" height="100vh"/></div>
-            )
-        }
-        else{
-            return <div>fuck</div>
-        }
+        getSampleSchedules()
+        return (
+            <div className="Schedule-header"><img id="loading" src={loading} width="100vh" height="100vh"/></div>
+        )
     }
     else{
         return (

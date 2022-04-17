@@ -15,8 +15,8 @@ function CourseListing(
             courseList: Course[],
             colorMap: Map<string, string>,
             setColorMap: (colorMap: Map<string, string>) => void,
-            filteredTimes: TimeSlot[]
-            setFilteredTimes: (filteredTimes: TimeSlot[]) => void,
+            filteredTimes: TimeSlot[],
+            setFilteredTimes: (filteredTimes: TimeSlot[]) => void
         }
     ){
 
@@ -79,12 +79,18 @@ function CourseListing(
 
     }
 
+    const handleClick = () => {
+         if (props.courseList.length != 0) {
+            props.setRenderWin("SampleSchedule");
+         }
+    }
+
     return (
         <div className="CourseListing">
             <header className="Schedule-header">
 
                 <div className="ToggleSchedule">
-                    <button onClick={() => props.setRenderWin("SampleSchedule")}>
+                    <button onClick={handleClick}>
                         See Sample Schedules
                     </button>
                 </div>
