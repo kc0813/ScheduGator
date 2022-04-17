@@ -114,7 +114,7 @@ def buildSchedules(courses: list, reservedTimes: list) -> List[Schedule]:
     delStaticConflict(template, courses)
 
     # 2) build dynamic schedule
-    samples: List[Schedule] = []
+    samples: List[Schedule] = [template]
     if len(courses) != 0:
         samples = dynamicScheduleBuilder(template, courses, 0)
 
@@ -150,7 +150,7 @@ def buildStaticSchedule(template: Schedule, courses: List[Course]) -> Schedule:
         # overlap in coverage with hasStaticSection,
         # but hasOnlyOne covers a course that has only an online section
         if hasStaticSection or hasOnlyOne:
-            toAdd = course.sections[0] if hasOnlyOne else course.staticMeetSection
+            toAdd = course.staticMeetSection
 
             try:
                 template.addSection(toAdd, course.code)
