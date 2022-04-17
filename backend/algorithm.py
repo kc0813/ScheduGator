@@ -207,7 +207,7 @@ def dynamicScheduleBuilder(
     """
     samples = []
     nextSchedule = Schedule()
-
+    
     # for all sections in this course
     for section in courses[index].sections:
 

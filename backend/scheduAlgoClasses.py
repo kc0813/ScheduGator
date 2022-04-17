@@ -170,14 +170,15 @@ class Course:
                 # Remove time slot from all sections
                 for index in self.meetTimes[key]:
                     try:
-                        self.sections[index].deleteTimeSlot(key)
+                        self.sections[index-1].deleteTimeSlot(key)
                     except Exception:
                         # this is here to avoid trying to delete something that's not there
                         pass
 
                     # check if the section is empty, if so, remove it from the list.
-                    if len(self.sections[index].meetings) == 0:
-                        self.sections.pop(index)
+                    if len(self.sections[index-1].meetings) == 0:
+                        #self.sections.pop(index-1)
+                        pass
 
         staticMeetSection = Section("static", staticTimes)
         return staticMeetSection
