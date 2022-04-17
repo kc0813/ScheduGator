@@ -2,7 +2,7 @@ import SelectedCourses from "../CourseListing/SelectedCourses/SelectedCourses";
 import Calendar from "./Calendar";
 import { Course, Schedule, Template } from "../Course";
 import { TimeSlot } from "../UF"
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import loading from '../Images/loading.gif';
 
@@ -33,7 +33,7 @@ let sampleSchedule1 = { template: sample1 };
 let sampleSchedule2 = { template: sample2 };
 let samples = [sampleSchedule1, sampleSchedule2];
 */
-
+var awaitingAPI = true
 function ScheduleListing(
     props: {
         setRenderWin: (state: string) => void,
@@ -84,6 +84,7 @@ function ScheduleListing(
                 schedList.push(sched)
             }
             //console.log("SETTING")
+            console.log(schedList)
             setSampleSchedules(schedList)
         }
         //console.log("inside getter: ", sampleSchedules) 
@@ -118,10 +119,17 @@ function ScheduleListing(
     );
     */
     if(sampleSchedules.length == 0){
-        getSampleSchedules()
-        return (
-            <div className="Schedule-header"><img id="loading" src={loading} width="100vh" height="100vh"/></div>
-        )
+        if(awaitingAPI){
+            getSampleSchedules()
+            awaitingAPI = false
+            console.log("AT RETURN: " + awaitingAPI)
+            return (
+                <div className="Schedule-header"><img id="loading" src={loading} width="100vh" height="100vh"/></div>
+            )
+        }
+        else{
+            return <div>fuck</div>
+        }
     }
     else{
         return (
