@@ -9,7 +9,7 @@ Welcome to the backend! we are using the Fastapi library and the Python language
 
 ## Running locally for the first time
 
-1. See the [README.md](docker/README.MD) file.
+1. See the docker [README.md](docker/README.MD) file.
 ## Contributing
 
 ### Prerequisites
