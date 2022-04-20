@@ -19,14 +19,17 @@ services:
       - FASTPI_TITLE=FastAPI
       - FASTPI_VERSION=3.9
       - USER=${CURRENT_UID}
-    restart: always
-  # react:
-  #   build:
-  #     context: .
-  #     dockerfile: react.Dockerfile
-  #   image: react
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./frontend/:/app
-  #   restart: "no"
+    restart: "no"
+
+  react:
+    build:
+      context: .
+      dockerfile: react.Dockerfile
+    image: react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/:/usr/src/app/
+    restart: "no"
+    depends_on:
+      - fastapi
