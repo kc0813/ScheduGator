@@ -7,7 +7,8 @@ import logo from '../Images/ScheduGator.png';
 import {PeriodSlot, TimeSlot} from "../UF";
 
 let colors = ["Blue", "Chocolate", "Crimson", "DarkGreen", "SteelBlue", "MediumVioletRed", "DarkSlateBlue", "HotPink"]
-//Same ID, but different classes (Think quest or special topics)
+
+//Displays the CourseListing page 
 function CourseListing(
     props: {
             setRenderWin: (state: string) => void, 

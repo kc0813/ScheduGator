@@ -1,5 +1,6 @@
 import {Typography, TableRow, TableCell} from "@material-ui/core";
 
+//Generate a row on a table for any online sections
 export function GenerateOnline(
     props: {
         courseID: string, 

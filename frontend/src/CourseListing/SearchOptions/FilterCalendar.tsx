@@ -19,7 +19,10 @@ function FilterCalendar(
 
     // Reference for filtered time slots calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/CalendarFilter.js
-
+    
+    /*Purpose: Determine which cell was clicked and toggle it
+               Update that time slot in filteredTimes and change its color
+    */
     const handleCellClick = (event: any) => {
         // Format day correctly to send to backend
         var day: string;

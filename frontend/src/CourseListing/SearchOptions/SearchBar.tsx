@@ -9,11 +9,14 @@ interface CourseResponse {
     TOTALROWS: number
 }
 
-//IMPLEMENT ERROR HANDLING FOR ASYNC METHODS
 function SearchBar(
     props: {AddCourse: (course: Course) => void }
 ) {
 
+    /*Purpose: When the user hits enter, perform input validation and make an API call for valid inputs
+               For valid courses, call the AddCourse function that was passed in.
+
+    */
     const getInputValue = (event: React.KeyboardEvent<HTMLInputElement> | undefined) => {
 
         //guard clauses
@@ -35,6 +38,7 @@ function SearchBar(
         event.preventDefault();  // Stop page from refreshing after pressing enter
     };
 
+    //Purpose: make an API call to find the user-specified course in the schedule of courses 
     async function getClasses(courseCode: string): Promise<any> {
         let options = {
             body: { "courseCode": courseCode },
@@ -57,7 +61,7 @@ function SearchBar(
 
     }
 
-
+    //Purpose: Check if the input was a valid courseID 
     const validateInput = (input: string): boolean => {
         //Reference for valid inputs:
         //https://archive.registrar.ufl.edu/catalog/catalogarchive/99-00-catalog/course-numbering.html

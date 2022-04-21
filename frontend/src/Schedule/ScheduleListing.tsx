@@ -10,7 +10,7 @@ interface ScheduleResponse {
     schedules: Schedule[]
 }
 
-/*
+/*Example schedules used to visually verify output before frontend could make API calls to the backend 
 let sample1 = new Map<string, string[]>();
 sample1.set("M", ["", "", "", "CIS4301", "", "", "", "", "", "", "", "", "", ""]);
 sample1.set("T", ["", "", "", "", "", "", "", "COP4600", "COP4600", "", "", "", "", ""]);
@@ -33,6 +33,7 @@ let sampleSchedule1 = { template: sample1 };
 let sampleSchedule2 = { template: sample2 };
 let samples = [sampleSchedule1, sampleSchedule2];
 */
+
 function ScheduleListing(
     props: {
         setRenderWin: (state: string) => void,
@@ -44,14 +45,9 @@ function ScheduleListing(
 ) {
     const [i, setI] = useState<number>(0);
     const [sampleSchedules, setSampleSchedules] = useState<Schedule[]>([])
-    //let samplesList: Schedule[] = samples
-    //let samplesList: Schedule[] = []
 
-    //See frontend/CourseListing/SearchOptions/SearchBar for previous call as a template
+    //Make API call to run the schedule builder algo. and return a list of sample schedules
     const getSampleSchedules = async () => {
-        //props.courseList is the list of courses. (from Course.ts)
-        //props.filteredTimes is the list of timeslots (from UF.ts)
-        //store in a variable of type ScheduleResponse
         const options = {
             url: "http://localhost:8000/buildSchedule/",
             data: {
@@ -65,10 +61,11 @@ function ScheduleListing(
         }
         const response = await axios.post<any, AxiosResponse<ScheduleResponse>>(options.url, options.data, options.headers)
         let schedList: Schedule[] = []
+        
+        //check if sampleSchedules has already been populated, if so don't run this again.
         if(sampleSchedules.length == 0){
-        //console.log("Response: ", response.data.schedules);
             for (const key in response.data.schedules) { 
-                const temp: Template = {//
+                const temp: Template = {
                     M: response.data.schedules[key].template.M,
                     T: response.data.schedules[key].template.T,
                     W: response.data.schedules[key].template.W,
@@ -82,8 +79,7 @@ function ScheduleListing(
                 }
                 schedList.push(sched)
             }
-            //console.log("SETTING")
-            //console.log(schedList)
+            //If an empty list (or no list) was returned, 
             if(schedList.length == 0){
                 const sched: Schedule = {
                     template: {
@@ -105,11 +101,15 @@ function ScheduleListing(
             console.log(schedList)
             setSampleSchedules(schedList)
         }
-        //console.log("inside getter: ", sampleSchedules) 
-        //return response.data.schedules
     }
 
     
+    /*Purpose: Called when a user clicks Prev or Next schedule button
+               Changes the index used to call a schedule from sampleSchedule
+
+      Parameters: 
+        isNext - tracks if the user clicked to move to the next schedule or not
+    */
     const onChangeSample = (isNext: boolean) => {
         if (isNext) {
             setI(i + 1)
@@ -122,20 +122,8 @@ function ScheduleListing(
         }
     }
 
-    /*https://www.w3schools.com/js/js_promise.asp
-    let myPromise = new Promise(function(myResolve, myReject) {
-        // "Producing Code" (May take some time)
-
-        myResolve(); // when successful
-        myReject();  // when error
-    });
-
-    // "Consuming Code" (Must wait for a fulfilled Promise)
-    myPromise.then(
-        function(value) { /* code if successful  },
-        function(error) { /* code if some error }
-    );
-    */
+    //If we haven't recieved something from the API yet, show a loading screen
+    //Else, display the ScheduleListing page
     if(sampleSchedules.length == 0){
         getSampleSchedules()
         return (

@@ -4,7 +4,6 @@ import ScheduleListing from './Schedule/ScheduleListing';
 import CourseListing from './CourseListing/CourseListing';
 import { Course } from "./Course";
 import {TimeSlot} from "./UF";
-//import { samples } from "./Schedule/ScheduleListing";
 
 function App() {
 	const [renderWin, setRenderWin] = useState("Courses");
@@ -12,6 +11,7 @@ function App() {
 	const [colorMap, setColorMap] = useState<Map<string, string>>(new Map<string, string>())
 	const [filteredTimes, setFilteredTimes] = useState<TimeSlot[]>([])
 
+	//Determine if we're supposed to load CourseListing or ScheduleListing
 	if(renderWin == "Courses"){
 		return (
 			<CourseListing 

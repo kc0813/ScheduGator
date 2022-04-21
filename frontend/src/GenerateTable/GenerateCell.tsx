@@ -1,6 +1,6 @@
 import {TableCell, Typography} from "@material-ui/core";
-import { isPropertySignature } from "typescript";
 
+//Create a cell for the schedule display
 export function GenerateCell(
   props: {
     courseID: string, 

@@ -27,9 +27,7 @@ export function GenerateRow(
     )
     
     let key: string = ''
-    //console.log("PRE FOX")
     for (key in props.schedule.template) { 
-        //console.log("INSIDE FOR ", key)
         if(key != "ONLINE") {
             let index: number
             if(props.periodSlot.period[0] == "E"){
