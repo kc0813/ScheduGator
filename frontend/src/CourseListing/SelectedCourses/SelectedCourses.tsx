@@ -1,6 +1,7 @@
 import { Course } from "../../Course";
 import HoverBtn from "./HoverButton";
 
+//Displays all of the courses selected by the user.
 export function SelectedCourses(
     props: {
         courseList: Course[], 

@@ -7,7 +7,6 @@ import {GenerateHeader} from "../GenerateTable/GenerateHeader"
 import {GenerateRow} from "../GenerateTable/GenerateRow"
 import {GenerateOnline} from "../GenerateTable/GenerateOnline"
 
-//TODO: Resize rows depending on number of online classes
 function Calendar(
     // Reference for schedule calendar:
     // https://github.com/Luc-Olsthoorn/Registr/blob/master/server/src/client/Calendar.js
@@ -17,7 +16,7 @@ function Calendar(
         scheduleNum: number
     }
 ) {
-    //console.log(props.schedule)
+    
    let rowNum: number = props.schedule.template.ONLINE.length + 15;
    let rowHeight: number = 84.45 / rowNum;
     //Return a single sample schedule

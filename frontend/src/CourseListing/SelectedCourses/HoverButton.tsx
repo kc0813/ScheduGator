@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+//Creates a button that appears when a defined region is hovered
 function HoverBtn(
     props : {
         courseID: string, 
