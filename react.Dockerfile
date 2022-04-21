@@ -1,21 +1,15 @@
 # pull official base image
 FROM node:alpine
 
-# set working directory
-WORKDIR /app
+# Only copy the package.json file to work directory
+WORKDIR /usr/src/app
+COPY ./frontend/package.json .
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install app dependencies
-COPY ./frontend/package.json ./
-COPY ./frontend/package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
-RUN npm install typescript -g --silent
-
-# add app
-COPY ./frontend ./
-
-# start app
-CMD ["npm", "start"]
+# Install all Packages
+RUN npm install
+RUN npm install -g typescript
+# Copy all other source code to work directory
+ADD ./frontend/tsconfig.json /usr/src/app/tsconfig.json
+ADD ./frontend/src /usr/src/app/src
+ADD ./frontend/public /usr/src/app/public
+CMD [ "npm", "start" ]
