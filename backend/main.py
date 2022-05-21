@@ -1,17 +1,32 @@
+from enum import IntEnum
 import requests
 from fastapi import Body, FastAPI
 from fastapi.responses import JSONResponse
 from models import (
-    BuilderQuery,
+    # BuilderQuery,
     ClassQuery,
     Message,
-    ScheduleList,
+    # ScheduleList,
 )
 from fastapi.middleware.cors import CORSMiddleware
-from algorithm import buildSchedules as schBuilder
 
+# change depending on date
 SEMESTER = "fall"
 YEAR = "2022"
+
+
+def determineTerm(year: str, semester: str) -> str:
+    # mapping to determine the semester part of the term
+    semesters = {
+        "fall": "8",
+        "spring": "1",
+        "summera": "5A",
+        "summerb": "5B",
+        "summerc": "5C",
+    }
+    # omit the 2nd digit of the year
+    year = year[:1][2:]
+    return f"{year}{semesters[semester]}"
 
 
 class PERIOD(IntEnum):
@@ -46,6 +61,7 @@ async def root():
     return {"message": "Hello world, I'm working!!!"}
 
 
+'''
 @app.post(
     "/buildSchedule/", response_model=ScheduleList, responses={400: {"model": Message}}
 )
@@ -59,6 +75,7 @@ async def buildSchedule(
     """
 
     return {"schedules": schBuilder(query.courses, query.times)}
+'''
 
 
 @app.put("/class/", responses={404: {"model": Message}})
@@ -106,8 +123,8 @@ async def queryClass(
     url = "https://one.uf.edu/apix/soc/schedule"
 
     params = {
-        "category": query.category,
-        "term": query.term,
+        "category": query.category or "CWSP",
+        "term": query.term or determineTerm(YEAR, SEMESTER),
         "course-code": query.courseCode or "",
         "days": {
             "day-m": True
@@ -130,15 +147,6 @@ async def queryClass(
             else False,
         },
     }
-
-    # writing requirement
-    if query.writing is not None:
-        wr = "wr-{}".format(query.writing)
-        params[wr] = True
-
-    if query.genEd is not None:
-        genEd = "gen-{}".format(query.genEd)
-        params[genEd] = True
 
     r = requests.get(url=url, params=params).json()[0]
     if r["TOTALROWS"] == 0:
