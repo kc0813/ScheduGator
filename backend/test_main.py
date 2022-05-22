@@ -10,7 +10,6 @@ def test_read_main():
     """
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hello world, I'm working!!!"}
 
 
 def test_class_category_invalid():
@@ -25,15 +24,7 @@ def test_class_category_invalid():
             "courseCode": "CAP3027",
         },
     )
-    assert response.status_code == 200
-    assert response.json() == [
-        {
-            "COURSES": [],
-            "LASTCONTROLNUMBER": 0,
-            "RETRIEVEDROWS": 0,
-            "TOTALROWS": 0,
-        }
-    ]
+    assert response.status_code == 404
 
 
 def test_class_category_valid():

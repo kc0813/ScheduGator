@@ -19,6 +19,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
+      # python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -27,8 +28,20 @@ jobs:
       - name: Install Python dependencies
         run: pip install black flake8
 
+      # typescript
+      - name: Set up TypeScript
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+          yarn: true
+      
+      - name: Install TypeScript dependencies
+        run: npm ci
+
       - name: Run linters
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
           black: true
           flake8: true
+          eslint: true
+          prettier: true

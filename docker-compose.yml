@@ -21,10 +21,10 @@ services:
       - USER=${CURRENT_UID}
     restart: "no"
 
-  react:
+  vue:
     build:
       context: .
-      dockerfile: react.Dockerfile
+      dockerfile: vue.Dockerfile
     image: react
     ports:
       - "3000:3000"
